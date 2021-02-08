@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">EasyTable</string>
+    <string name="welcome_string">Bienvenido!</string>
+    <string name="user_text">Usuario: </string>
+    <string name="password_text">Contraseña</string>
+    <string name="login_text">Ingresar</string>
+    <string name="register_text">Registrarse</string>
+</resources>

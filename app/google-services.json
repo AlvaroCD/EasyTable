@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "242848400473",
+    "project_id": "easy-table-7901",
+    "storage_bucket": "easy-table-7901.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242848400473:android:c25e981eb7504bbc8f5d48",
+        "android_client_info": {
+          "package_name": "com.example.easytable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242848400473-lnsdnb7p01k845vmeqnlisrkp6m7ihse.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.easytable",
+            "certificate_hash": "a288e575c535d863321680ffa1da23cb8f69cf64"
+          }
+        },
+        {
+          "client_id": "242848400473-n9hc8q99kkf4j2udad6mr1pvbau8h3eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCACqAL7pwrfvT4Qf9F_HimRYWWQh9xFfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242848400473-n9hc8q99kkf4j2udad6mr1pvbau8h3eh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
