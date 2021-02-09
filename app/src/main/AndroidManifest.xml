@@ -10,9 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EasyTable">
-        <activity android:name=".RegistrarUsuario_UC"></activity>
-        <activity android:name=".Login">
+        android:theme="@style/Theme.EasyTable"
+        android:fullBackupContent="true">
+
+        <activity android:name=".Login" />
+        <activity android:name=".RegistrarUsuario_UC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

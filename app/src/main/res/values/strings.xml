@@ -2,9 +2,13 @@
     <string name="app_name">EasyTable</string>
     <string name="welcome_string">Bienvenido!</string>
     <string name="user_text">Usuario: </string>
-    <string name="password_text">Contraseña</string>
+    <string name="password_text">Contraseña: </string>
     <string name="login_text">Ingresar</string>
     <string name="register_text">Registrarse</string>
     <string name="registrarUsuario_string">Ingresa los siguientes datos:</string>
     <string name="registrarme_strings">Registrarme</string>
+    <string name="name_string">Nombre(s):</string>
+    <string name="apellidos_strings">Apellido(s):</string>
+    <string name="telefono_strings">"Telefono: </string>
+    <string name="correo_string">Correo:</string>
 </resources>

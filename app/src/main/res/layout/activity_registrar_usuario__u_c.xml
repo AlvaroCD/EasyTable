@@ -13,47 +13,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/registrarUsuario_string"
-        android:textSize="40dp"
-        android:layout_marginTop="30dp">
+        android:textSize="40sp"
+        android:layout_marginTop="15dp">
     </TextView>
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre(s):"
+        android:hint="@string/name_string"
         android:layout_marginTop="25dp">
     </EditText>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Apellido(s):"
-        android:layout_marginTop="15dp">
-    </EditText>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Telefono:"
+        android:hint="@string/apellidos_strings"
         android:layout_marginTop="15dp">
     </EditText>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correo:"
-        android:layout_marginTop="15dp">
+        android:hint="@string/telefono_strings"
+        android:layout_marginTop="15dp"
+        android:inputType="textPhonetic">
     </EditText>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Usuario:"
+        android:hint="@string/correo_string"
         android:layout_marginTop="15dp">
     </EditText>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Contraseña:"
+        android:hint="@string/user_text"
         android:layout_marginTop="15dp">
+    </EditText>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_text"
+        android:layout_marginTop="15dp"
+        android:inputType="textPassword">
     </EditText>
 
     <Spinner
@@ -68,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/registrarme_strings"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"
         >
     </Button>
