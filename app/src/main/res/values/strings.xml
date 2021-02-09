@@ -5,4 +5,6 @@
     <string name="password_text">Contraseña</string>
     <string name="login_text">Ingresar</string>
     <string name="register_text">Registrarse</string>
+    <string name="registrarUsuario_string">Ingresa los siguientes datos:</string>
+    <string name="registrarme_strings">Registrarme</string>
 </resources>
