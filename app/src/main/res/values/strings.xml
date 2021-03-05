@@ -11,4 +11,9 @@
     <string name="apellidos_strings">Apellido(s):</string>
     <string name="telefono_strings">"Telefono: </string>
     <string name="correo_string">Correo:</string>
+    <string name="buscar_string">Buscar</string>
+    <string-array name="tipo_de_cliente_strings">
+        <item>Cliente</item>
+        <item>Dueño del Local</item>
+    </string-array>
 </resources>

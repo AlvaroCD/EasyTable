@@ -14,11 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/welcome_string"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textAlignment="center"
         />
 
     <EditText
+        android:id="@+id/nombreUsuarioLoginTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/user_text"
@@ -28,6 +29,7 @@
         />
 
     <EditText
+        android:id="@+id/contraseñaLoginTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password_text"
@@ -37,6 +39,7 @@
         />
 
     <Button
+        android:id="@+id/ingresarLoginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -46,6 +49,7 @@
         />
 
     <Button
+        android:id="@+id/registrarseLoginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="125dp"

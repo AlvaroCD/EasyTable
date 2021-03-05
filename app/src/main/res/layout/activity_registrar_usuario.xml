@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/telefono_strings"
         android:layout_marginTop="15dp"
-        android:inputType="textPhonetic">
+        android:inputType="phone">
     </EditText>
 
 
@@ -72,7 +72,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:entries="@array/tipo_de_cliente_strings">
     </Spinner>
 
     <Button
