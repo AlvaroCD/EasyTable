@@ -81,7 +81,6 @@ public class Login extends AppCompatActivity {
         });
     }
 
-
     //Con este metodo y esta condicional se busca hacer que el usuario mantenga su sesion iniciada aún cuando la app ya se haya cerrado
     @Override
     protected void onStart() {

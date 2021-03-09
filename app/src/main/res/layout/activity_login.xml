@@ -25,7 +25,8 @@
         android:layout_marginTop="150dp"
         android:layout_marginLeft="75dp"
         android:layout_marginRight="75dp"
-        android:inputType="text" />
+        android:inputType="text"
+        />
 
     <EditText
         android:id="@+id/contraseñaLoginTxt"
@@ -35,7 +36,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="75dp"
         android:layout_marginRight="75dp"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        />
 
     <Button
         android:id="@+id/ingresarLoginButton"

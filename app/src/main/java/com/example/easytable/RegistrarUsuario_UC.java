@@ -96,7 +96,6 @@ public class RegistrarUsuario_UC extends AppCompatActivity {
                 user.put(KEY_USERTYPE, tipoUsuario);
                 user.put(KEY_ID, id);
 
-
                 //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
                 db.collection("usuario").document(id).set(user)
 
