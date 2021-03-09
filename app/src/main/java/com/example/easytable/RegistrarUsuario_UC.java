@@ -114,11 +114,6 @@ public class RegistrarUsuario_UC extends AppCompatActivity {
                                 Log.d(TAG, e.toString());
                             }
                         });
-
-                //Una vez agregado el usuario se retorna a la vista Login
-                startActivity(new Intent(RegistrarUsuario_UC.this, Login.class));
-                //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
-                finish();
             }
             else{
                     Toast.makeText(RegistrarUsuario_UC.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
@@ -139,6 +134,10 @@ public class RegistrarUsuario_UC extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(RegistrarUsuario_UC.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
+                    //Una vez agregado el usuario se retorna a la vista Login
+                    startActivity(new Intent(RegistrarUsuario_UC.this, Login.class));
+                    //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
+                    finish();
                 }
                 else {
                     Toast.makeText(RegistrarUsuario_UC.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
