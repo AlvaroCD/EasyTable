@@ -19,22 +19,27 @@
 
 
     <EditText
+        android:id="@+id/nombreRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name_string"
+        android:inputType="text"
         android:layout_marginTop="25dp">
     </EditText>
 
 
     <EditText
+        android:id="@+id/apellidoRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/apellidos_strings"
+        android:inputType="text"
         android:layout_marginTop="15dp">
     </EditText>
 
 
     <EditText
+        android:id="@+id/telefonoRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/telefono_strings"
@@ -44,22 +49,27 @@
 
 
     <EditText
+        android:id="@+id/correoRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/correo_string"
+        android:inputType="text"
         android:layout_marginTop="15dp">
     </EditText>
 
 
     <EditText
+        android:id="@+id/usernameRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/user_text"
+        android:inputType="text"
         android:layout_marginTop="15dp">
     </EditText>
 
 
     <EditText
+        android:id="@+id/passwordRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password_text"
@@ -68,7 +78,7 @@
     </EditText>
 
     <Spinner
-        android:id="@+id/tipoDeUsuario_Registro"
+        android:id="@+id/tipoDeUsuarioRegistrarUsuarioSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -77,6 +87,7 @@
     </Spinner>
 
     <Button
+        android:id="@+id/registrarseRegistrarUsuarioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/registrarme_strings"
