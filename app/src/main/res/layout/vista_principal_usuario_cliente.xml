@@ -83,6 +83,6 @@
         android:layout_alignTop="@id/imagen3"
         android:layout_toRightOf="@+id/imagen3"
         android:padding="10dp"
-        android:text="Comenterio aleatorio "/>
+        android:text="Comenterio aleatorio"/>
 
 </RelativeLayout>
