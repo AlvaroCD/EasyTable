@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imagenLocal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="80dp"/>
+
+    <TextView
+        android:id="@+id/restaurante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imagenLocal"
+        android:layout_alignTop="@+id/reservar"
+        android:layout_toLeftOf="@+id/reservar"
+        android:layout_marginRight="30dp"
+        android:text="Descripcion del local"/>
+
+    <Button
+        android:id="@+id/reservar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagenLocal"
+        android:layout_marginTop="50dp"
+        android:layout_alignRight="@+id/imagenLocal"
+        android:text="RSERVAR"/>
+
+    <ImageView
+        android:id="@+id/calificacionLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reservar"
+        android:layout_alignLeft="@id/reservar"
+        app:srcCompat="@drawable/__00estrellas"
+        android:layout_marginLeft="-12dp"/>
+
+    <ImageView
+        android:id="@+id/cliente1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/restaurante"
+        android:layout_alignLeft="@+id/imagenLocal"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/ic_launcher_background" />
+
+    <ImageView
+        android:id="@+id/cliente2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/cliente1"
+        android:layout_alignLeft="@+id/imagenLocal"/>
+
+    <ImageView
+        android:id="@+id/cliente3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_below="@+id/cliente2"
+        android:layout_marginTop="60dp"
+        android:layout_alignLeft="@+id/imagenLocal" />
+
+    <TextView
+        android:id="@+id/restaurante1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cliente1"
+        android:layout_toRightOf="@+id/cliente1"
+        android:padding="5dp"
+        android:layout_alignRight="@id/reservar"
+        android:text="Comenterio aleatorio "/>
+
+    <TextView
+        android:id="@+id/restaurante2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cliente2"
+        android:layout_toRightOf="@+id/cliente2"
+        android:padding="5dp"
+        android:layout_alignRight="@id/reservar"
+        android:text="Comenterio aleatorio "/>
+
+    <TextView
+        android:id="@+id/restaurante3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cliente3"
+        android:layout_toRightOf="@+id/cliente3"
+        android:padding="5dp"
+        android:layout_alignRight="@id/reservar"
+        android:text="Comenterio aleatorio "/>
+
+</RelativeLayout>
