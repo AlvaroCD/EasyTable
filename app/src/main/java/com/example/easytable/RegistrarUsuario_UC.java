@@ -54,7 +54,7 @@ public class RegistrarUsuario_UC extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);           //Se utiliza para quitar el nombre de la aplicacion de la pantalla inicial en el celular
-        setContentView(R.layout.activity_registrar_usuario);
+        setContentView(R.layout.vista_registrar_usuario);
 
         //Instanciación de Firebase Authentication
         mAuth = FirebaseAuth.getInstance();

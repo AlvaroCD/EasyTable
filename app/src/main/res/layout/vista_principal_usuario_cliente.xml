@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/codigoQR"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="4dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <android.inputmethodservice.ExtractEditText
+        android:id="@+id/barra_busqueda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/buscar_string"
+        android:layout_toLeftOf="@+id/codigoQR"
+        android:layout_toRightOf="@id/icono_busqueda"
+        android:layout_alignTop="@+id/codigoQR"
+        />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/icono_busqueda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/codigoQR"
+        android:layout_marginLeft="15dp"/>
+
+    <ImageView
+        android:id="@+id/imagen1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_below="@+id/icono_busqueda"
+        android:layout_marginTop="60dp"
+        android:layout_alignLeft="@+id/icono_busqueda"/>
+
+    <ImageView
+        android:id="@+id/imagen2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/imagen1"
+        android:layout_alignLeft="@+id/icono_busqueda"/>
+
+    <ImageView
+        android:id="@+id/imagen3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_below="@+id/imagen2"
+        android:layout_marginTop="100dp"
+        android:layout_alignLeft="@+id/icono_busqueda" />
+
+    <TextView
+        android:id="@+id/restaurante1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imagen1"
+        android:layout_toRightOf="@+id/imagen1"
+        android:padding="10dp"
+        android:text="Comenterio aleatorio "/>
+
+    <TextView
+        android:id="@+id/restaurante2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imagen2"
+        android:layout_toRightOf="@+id/imagen2"
+        android:padding="10dp"
+        android:text="Comenterio aleatorio " />
+
+    <TextView
+        android:id="@+id/restaurante3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imagen3"
+        android:layout_toRightOf="@+id/imagen3"
+        android:padding="10dp"
+        android:text="Comenterio aleatorio "/>
+
+</RelativeLayout>
