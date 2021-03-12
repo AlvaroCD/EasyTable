@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.vista_principal_usuario_cliente);
+        setContentView(R.layout.activity_main);
 
         mLogOut = (Button) findViewById(R.id.LogOutButton);
 

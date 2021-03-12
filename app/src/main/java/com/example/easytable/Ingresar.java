@@ -17,7 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
-public class Login extends AppCompatActivity {
+public class Ingresar extends AppCompatActivity {
 
     private static final String TAG = "Login";
 
@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);           //Se utiliza para quitar el nombre de la aplicacion de la pantalla inicial en el celular
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.vista_ingresar);
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mLoginButton = (Button) findViewById(R.id.ingresarLoginButton);
@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
                     loginUser();
                 }
                 else {
-                    Toast.makeText(Login.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Ingresar.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login.this, RegistrarUsuario_UC.class));
+                startActivity(new Intent(Ingresar.this, RegistrarUsuario.class));
             }
         });
     }
@@ -71,11 +71,11 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    startActivity(new Intent(Login.this, MainActivity.class));
+                    startActivity(new Intent(Ingresar.this, MainActivity.class));
                     finish();
                 }
                 else {
-                    Toast.makeText(Login.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Ingresar.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -86,7 +86,7 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()!= null){
-            startActivity(new Intent(Login.this, MainActivity.class));
+            startActivity(new Intent(Ingresar.this, MainActivity.class));
             finish();
         }
     }
