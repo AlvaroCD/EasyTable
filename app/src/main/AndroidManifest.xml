@@ -13,8 +13,10 @@
         android:theme="@style/Theme.EasyTable"
         android:fullBackupContent="true">
 
-        <activity android:name=".RegistrarUsuario_UC" />
-        <activity android:name=".Login">
+        <activity android:name=".RegistrarUsuario"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Ingresar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

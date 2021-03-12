@@ -25,9 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class RegistrarUsuario_UC extends AppCompatActivity {
+public class RegistrarUsuario extends AppCompatActivity {
 
-    private static final String TAG = "RegistrarUsuario_UC";
+    private static final String TAG = "RegistrarUsuario";
     private FirebaseAuth mAuth;
 
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
@@ -110,13 +110,13 @@ public class RegistrarUsuario_UC extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(RegistrarUsuario_UC.this, "Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, e.toString());
                             }
                         });
             }
             else{
-                    Toast.makeText(RegistrarUsuario_UC.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrarUsuario.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
             }
             }
         });
@@ -133,14 +133,14 @@ public class RegistrarUsuario_UC extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(RegistrarUsuario_UC.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
-                    //Una vez agregado el usuario se retorna a la vista Login
-                    startActivity(new Intent(RegistrarUsuario_UC.this, Login.class));
+                    Toast.makeText(RegistrarUsuario.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
+                    //Una vez agregado el usuario se retorna a la vista Ingresar
+                    startActivity(new Intent(RegistrarUsuario.this, Ingresar.class));
                     //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
                     finish();
                 }
                 else {
-                    Toast.makeText(RegistrarUsuario_UC.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrarUsuario.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
                 }
             }
         });
