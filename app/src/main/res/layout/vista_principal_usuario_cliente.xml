@@ -17,7 +17,7 @@
         android:id="@+id/barra_busqueda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/buscar_string"
+        android:hint="@string/buscar_strings"
         android:layout_toLeftOf="@+id/codigoQR"
         android:layout_toRightOf="@id/icono_busqueda"
         android:layout_alignTop="@+id/codigoQR"

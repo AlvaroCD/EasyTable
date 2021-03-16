@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/registrarUsuario_string"
+        android:text="@string/registrarUsuario_strings"
         android:textSize="40sp"
         android:layout_marginTop="15dp">
     </TextView>
@@ -22,7 +22,7 @@
         android:id="@+id/nombreRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/name_string"
+        android:hint="@string/name_strings"
         android:inputType="text"
         android:layout_marginTop="25dp">
     </EditText>
@@ -52,7 +52,7 @@
         android:id="@+id/correoRegistrarUsuarioTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/correo_string"
+        android:hint="@string/correo_strings"
         android:inputType="text"
         android:layout_marginTop="15dp">
     </EditText>

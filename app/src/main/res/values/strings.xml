@@ -1,17 +1,33 @@
 <resources>
     <string name="app_name">EasyTable</string>
-    <string name="welcome_string">Bienvenido!</string>
+    <string name="welcome_strings">Bienvenido!</string>
     <string name="user_text">Usuario: </string>
     <string name="password_text">Contraseña: </string>
     <string name="login_text">Ingresar</string>
     <string name="register_text">Registrarse</string>
-    <string name="registrarUsuario_string">Ingresa los siguientes datos:</string>
+    <string name="registrarUsuario_strings">Ingresa los siguientes datos:</string>
     <string name="registrarme_strings">Registrarme</string>
-    <string name="name_string">Nombre(s):</string>
+    <string name="name_strings">Nombre(s):</string>
     <string name="apellidos_strings">Apellido(s):</string>
-    <string name="telefono_strings">"Telefono: </string>
-    <string name="correo_string">Correo:</string>
-    <string name="buscar_string">Buscar</string>
+    <string name="telefono_strings">Telefono: </string>
+    <string name="correo_strings">Correo:</string>
+    <string name="buscar_strings">Buscar</string>
+    <string name="registrarRestaurante_strings">Ingresa los siguientes datos de tu restaurante:</string>
+    <string name="nombreLocal_strings">Nombre del local:</string>
+    <string name="direccion_strings">Dirección:</string>
+    <string name="cp_strings">Código Postal: </string>
+    <string name="comidarapida_strings">Comida Rapida</string>
+    <string name="categoria_strings">Categorias: </string>
+    <string name="registrarRestaurante2_strings">Selecciona la Categoría de tu Restaurante</string>
+    <string name="buffets_strings">Buffet</string>
+    <string name="tematico_strings">Temático</string>
+    <string name="paraLlevar_strings">Para Llevar</string>
+    <string name="deAuto_strings">De Auto</string>
+    <string name="altaCocina_strings">Alta Cocina</string>
+    <string name="fusion_strings">Fusión</string>
+    <string name="comidaMexicana_strings">Comida Mexicana</string>
+    <string name="comidaAsiatica_strings">Comida Asiatica</string>
+    <string name="comidaItaliana_strings">Comida Italiana</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrarRestaurante1"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registrarRestaurante_strings"
+        android:textSize="40sp"
+        android:layout_marginTop="15dp">
+    </TextView>
+
+
+    <EditText
+        android:id="@+id/nombreRegistrarLocalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nombreLocal_strings"
+        android:inputType="text"
+        android:layout_marginTop="25dp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/direccionRegistrarLocalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/direccion_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/codigoPostalRegistrarLocalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cp_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/telefonoRegistrarLocalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/telefono_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/primerSiguienteRegistrarLocalButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/flecha_derecha"
+        android:layout_gravity="center"
+        android:layout_marginTop="145dp"
+        android:layout_marginStart="145dp">
+    </ImageButton>
+
+
+
+</LinearLayout>

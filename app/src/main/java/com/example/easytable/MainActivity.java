@@ -1,3 +1,4 @@
+
 package com.example.easytable;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseAuth mAuth;
+    private Button mLogOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mAuth = FirebaseAuth.getInstance();
 
-        //Instance of the buttons
-        Button mLogOut;
 
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);

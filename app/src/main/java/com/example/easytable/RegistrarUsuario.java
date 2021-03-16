@@ -72,6 +72,7 @@ public class RegistrarUsuario extends AppCompatActivity {
         mRegistrarseButton.setOnClickListener(new View.OnClickListener() {          //Boton de acción para registrar un usuario
             @Override
             public void onClick(View v) {
+                //Variables que almacenaran el contenido de los EditText's y el Spinner de la parte grafica
                 String nombre = mNombre.getText().toString();
                 String apellidos = mApellidos.getText().toString();
                 String telefono = mTelefono.getText().toString();
@@ -114,6 +115,17 @@ public class RegistrarUsuario extends AppCompatActivity {
                                 Log.d(TAG, e.toString());
                             }
                         });
+                if (tipoUsuario.equals("Cliente")){
+                    //Una vez agregado el usuario cliente se retorna a la vista Ingresar
+                    startActivity(new Intent(RegistrarUsuario.this, Ingresar.class));
+                    //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
+                    finish();
+                }
+                else {
+                    //En caso contrario que sea Dueño de Local se pasa a la siguiente vista para registrar el restaurante del usuario
+                    startActivity(new Intent(RegistrarUsuario.this, RegistrarRestaurante1.class));
+                    finish();
+                }
             }
             else{
                     Toast.makeText(RegistrarUsuario.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
@@ -134,10 +146,6 @@ public class RegistrarUsuario extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(RegistrarUsuario.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
-                    //Una vez agregado el usuario se retorna a la vista Ingresar
-                    startActivity(new Intent(RegistrarUsuario.this, Ingresar.class));
-                    //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
-                    finish();
                 }
                 else {
                     Toast.makeText(RegistrarUsuario.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();

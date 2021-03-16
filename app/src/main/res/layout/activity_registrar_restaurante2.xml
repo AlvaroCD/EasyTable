@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrarRestaurante2"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registrarRestaurante2_strings"
+        android:textSize="30sp"
+        android:layout_marginTop="15dp">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/categoria_strings"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp">
+    </TextView>
+
+    <RadioGroup
+        android:id="@+id/categoriaRegistrarLocalRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp">
+
+        <RadioButton
+            android:id="@+id/comidaRapidaRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comidarapida_strings"
+            android:textSize="18sp"
+            android:checked="true">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/buffetRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buffets_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/tematicoRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tematico_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/paraLlevarRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paraLlevar_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/deAutoRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deAuto_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/altaCocinaRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/altaCocina_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/fusionRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fusion_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/comidaMexicanaRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comidaMexicana_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/comidaAsiaticaRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comidaAsiatica_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/comidaItalianaRegistrarLocalRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comidaItaliana_strings"
+            android:textSize="18sp">
+        </RadioButton>
+
+    </RadioGroup>
+
+    <ImageButton
+        android:id="@+id/segundoSiguienteRegistrarLocalButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/flecha_derecha"
+        android:layout_gravity="center"
+        android:layout_marginStart="145dp">
+    </ImageButton>
+
+
+
+</LinearLayout>
