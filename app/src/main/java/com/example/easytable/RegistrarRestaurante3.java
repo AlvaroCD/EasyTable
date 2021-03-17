@@ -3,6 +3,7 @@ package com.example.easytable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,8 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String KEY_DIRECCION = "Direccion";
     private static final String KEY_CP = "Codigo Postal";
     private static final String KEY_TELEFONOLOCAL= "Telefono Local";
-    private static final String KEY_ID= "ID";
+    private static final String KEY_ID_RESTAURANTE= "ID Restaurante";
+    private static final String KEY_ID_PROPIETARIO= "ID Propietario";
     private static final String KEY_DESCRIPCION = "Descripción";
 
     private EditText mDescripcion;
@@ -59,7 +61,8 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                 String codigoPostal = extra.getString("cp");
                 String telefonoLocal = extra.getString("telefonoLocal");
                 String categoria = extra.getString("categoria");
-                String IDLocal = extra.getString("idRestaurante");
+                String idRestaurante = extra.getString("idRestaurante");
+                String idPropietario = extra.getString("idPropietario");
                 
                 
                 //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
@@ -70,15 +73,18 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                 restaurante.put(KEY_DIRECCION, direccion);
                 restaurante.put(KEY_CP, codigoPostal);
                 restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
-                restaurante.put(KEY_ID, IDLocal);
+                restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
+                restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
                 restaurante.put(KEY_DESCRIPCION, descripcion);
 
                 //Aqui se indica con que nombre se creará la coleccion y el ID de cada restaurante en la BD
-                db.collection("restaurante").document(IDLocal).set(restaurante)
+                //(se usa el ID generado anteriormente para agregar la informacion al mismo restaurante)
+                db.collection("restaurante").document(idRestaurante).set(restaurante)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(RegistrarRestaurante3.this, "Restaurante Registrado", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RegistrarRestaurante3.this, MainActivity.class));
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -88,8 +94,6 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                                 Log.d(TAG, e.toString());
                             }
                         });
-
-                Toast.makeText(RegistrarRestaurante3.this, "Llegaste al final"+IDLocal, Toast.LENGTH_SHORT).show();
             }
         });
 

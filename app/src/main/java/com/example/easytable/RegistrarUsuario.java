@@ -69,10 +69,15 @@ public class RegistrarUsuario extends AppCompatActivity {
         mTipoUsuario = (Spinner) findViewById(R.id.tipoDeUsuarioRegistrarUsuarioSpinner);
         mRegistrarseButton = (Button) findViewById(R.id.registrarseRegistrarUsuarioButton);
 
+
+
+        //Variables que almacenaran el contenido de los EditText's y el Spinner de la parte grafica
+
+
         mRegistrarseButton.setOnClickListener(new View.OnClickListener() {          //Boton de acción para registrar un usuario
             @Override
             public void onClick(View v) {
-                //Variables que almacenaran el contenido de los EditText's y el Spinner de la parte grafica
+
                 String nombre = mNombre.getText().toString();
                 String apellidos = mApellidos.getText().toString();
                 String telefono = mTelefono.getText().toString();
@@ -83,7 +88,8 @@ public class RegistrarUsuario extends AppCompatActivity {
                 //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
                 String id = UUID.randomUUID().toString();
 
-                if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !correo.isEmpty() && !username.isEmpty() && !password.isEmpty()){
+                if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !correo.isEmpty() &&
+                        !username.isEmpty() && !password.isEmpty()){
 
                 //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
                 Map<String, Object> user = new HashMap<>();
@@ -104,7 +110,7 @@ public class RegistrarUsuario extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                registerUserOnFirebaseAuth();
+                                registerUserOnFirebaseAuth(id);
                             }
                         })
                         //Listener que indica si la creacion del usuario fue incorrecta
@@ -127,7 +133,9 @@ public class RegistrarUsuario extends AppCompatActivity {
 
     }
 
-    private void registerUserOnFirebaseAuth() {
+    //Se recibe el ID para posteriormente en la funcion "OnComplete" poder enviar dicho ID a la siguiente ventana (RegistrarRestaurante1)
+    //y de esa manera poder ligar el ID del usuario con el restaurante
+    private void registerUserOnFirebaseAuth(String id) {
         String correo = mCorreo.getText().toString();
         String password = mPassword.getText().toString();
         String tipoUsuario = mTipoUsuario.getSelectedItem().toString();
@@ -144,7 +152,9 @@ public class RegistrarUsuario extends AppCompatActivity {
                     }
                     else {
                         //En caso contrario que sea Dueño de Local se pasa a la siguiente vista para registrar el restaurante del usuario
-                        startActivity(new Intent(RegistrarUsuario.this, RegistrarRestaurante1.class));
+                        Intent i = new Intent(RegistrarUsuario.this, RegistrarRestaurante1.class);
+                        i.putExtra("idPropietario", id);
+                        startActivity(i);
                         finish();
                     }
                 }

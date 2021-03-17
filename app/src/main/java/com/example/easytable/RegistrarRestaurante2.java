@@ -38,7 +38,9 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
     private static final String KEY_DIRECCION = "Direccion";
     private static final String KEY_CP = "Codigo Postal";
     private static final String KEY_TELEFONOLOCAL= "Telefono Local";
-    private static final String KEY_ID= "ID";
+    private static final String KEY_ID_RESTAURANTE= "ID Restaurante";
+    private static final String KEY_ID_PROPIETARIO= "ID Propietario";
+
 
 
     @Override
@@ -55,13 +57,15 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 //Recepcion de la informacion obtenida en la vista anterior
                 Bundle extra = getIntent().getExtras();
                 String nombreLocal = extra.getString("nombreLocal");
                 String direccion = extra.getString("direccion");
                 String codigoPostal = extra.getString("cp");
                 String telefonoLocal = extra.getString("telefonoLocal");
-                String IDLocal = extra.getString("idRestaurante");
+                String idRestaurante = extra.getString("idRestaurante");
+                String idPropietario = extra.getString("idPropietario");
 
                 int idDeLaCategoriaSeleccionada = mCategoria.getCheckedRadioButtonId();
                 mRadioSeleccionado = findViewById(idDeLaCategoriaSeleccionada);
@@ -75,11 +79,12 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
                 restaurante.put(KEY_DIRECCION, direccion);
                 restaurante.put(KEY_CP, codigoPostal);
                 restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
-                restaurante.put(KEY_ID, IDLocal);
+                restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
+                restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
 
 
                 //Aqui se indica con que nombre se creará la coleccion y el ID de cada restaurante en la BD
-                db.collection("restaurante").document(IDLocal).set(restaurante)
+                db.collection("restaurante").document(idRestaurante).set(restaurante)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -92,7 +97,8 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
                                 i.putExtra("direccion", direccion);
                                 i.putExtra("cp", codigoPostal);
                                 i.putExtra("telefonoLocal", telefonoLocal);
-                                i.putExtra("idRestaurante", IDLocal);
+                                i.putExtra("idPropietario", idPropietario);
+                                i.putExtra("idRestaurante", idRestaurante);
                                 startActivity(i);
                             }
                         })
