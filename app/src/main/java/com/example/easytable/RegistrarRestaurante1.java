@@ -69,7 +69,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
                     //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
                     Map<String, Object> restaurante = new HashMap<>();
 
-                    //Se ingresan los datos en la estructura HashMap llamada "user"
+                    //Se ingresan los datos en la estructura HashMap llamada "restaurante"
                     restaurante.put(KEY_NOMBRELOCAL, nombreDelLocal);
                     restaurante.put(KEY_DIRECCION, direccion);
                     restaurante.put(KEY_CP, codigoPostal);
@@ -82,7 +82,13 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(RegistrarRestaurante1.this, "Primer paso completado", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegistrarRestaurante1.this, RegistrarRestaurante2.class));
+                                    Intent i = new Intent(RegistrarRestaurante1.this, RegistrarRestaurante2.class);
+                                    i.putExtra("nombreLocal",nombreDelLocal);
+                                    i.putExtra("direccion", direccion);
+                                    i.putExtra("cp", codigoPostal);
+                                    i.putExtra("telefonoLocal", telefonoLocal);
+                                    i.putExtra("idRestaurante", id);
+                                    startActivity(i);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
