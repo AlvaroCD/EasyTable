@@ -28,6 +28,8 @@
     <string name="comidaMexicana_strings">Comida Mexicana</string>
     <string name="comidaAsiatica_strings">Comida Asiatica</string>
     <string name="comidaItaliana_strings">Comida Italiana</string>
+    <string name="descripcionAgregarRestaurante_strings">Agrega una breve descripción de tu restaurante: </string>
+    <string name="descripcion_strings">Descripción:</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

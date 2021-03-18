@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/cp_strings"
-        android:inputType="text"
+        android:inputType="phone"
         android:layout_marginTop="15dp">
     </EditText>
 
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/telefono_strings"
-        android:inputType="text"
+        android:inputType="phone"
         android:layout_marginTop="15dp">
     </EditText>
 

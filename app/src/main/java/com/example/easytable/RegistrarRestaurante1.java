@@ -37,7 +37,8 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
     private static final String KEY_DIRECCION = "Direccion";
     private static final String KEY_CP = "Codigo Postal";
     private static final String KEY_TELEFONOLOCAL= "Telefono Local";
-    private static final String KEY_ID= "ID";
+    private static final String KEY_ID_RESTAURANTE= "ID Restaurante";
+    private static final String KEY_ID= "ID Propietario";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,33 +57,44 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Bundle extra = getIntent().getExtras();
+                String idPropietario = extra.getString("idPropietario");
+
                 //Variables que almacenaran el contenido de los EditText's de la parte grafica
                 String nombreDelLocal = mNombreDelLocal.getText().toString();
                 String direccion = mDireccion.getText().toString();
                 String codigoPostal = mCodigoPostal.getText().toString();
                 String telefonoLocal = mTelefonoLocal.getText().toString();
                 //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
-                String id = UUID.randomUUID().toString();
+                String idRestaurante = UUID.randomUUID().toString();
 
                 if (!nombreDelLocal.isEmpty() && !direccion.isEmpty() && !codigoPostal.isEmpty() && !telefonoLocal.isEmpty()) {
 
                     //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
                     Map<String, Object> restaurante = new HashMap<>();
 
-                    //Se ingresan los datos en la estructura HashMap llamada "user"
+                    //Se ingresan los datos en la estructura HashMap llamada "restaurante"
                     restaurante.put(KEY_NOMBRELOCAL, nombreDelLocal);
                     restaurante.put(KEY_DIRECCION, direccion);
                     restaurante.put(KEY_CP, codigoPostal);
                     restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
-                    restaurante.put(KEY_ID, id);
+                    restaurante.put(KEY_ID, idPropietario);
+                    restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
 
                     //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
-                    db.collection("restaurante").document(id).set(restaurante)
+                    db.collection("restaurante").document(idRestaurante).set(restaurante)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(RegistrarRestaurante1.this, "Primer paso completado", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegistrarRestaurante1.this, RegistrarRestaurante2.class));
+                                    Intent i = new Intent(RegistrarRestaurante1.this, RegistrarRestaurante2.class);
+                                    i.putExtra("nombreLocal",nombreDelLocal);
+                                    i.putExtra("direccion", direccion);
+                                    i.putExtra("cp", codigoPostal);
+                                    i.putExtra("telefonoLocal", telefonoLocal);
+                                    i.putExtra("idPropietario", idPropietario);
+                                    i.putExtra("idRestaurante", idRestaurante);
+                                    startActivity(i);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
