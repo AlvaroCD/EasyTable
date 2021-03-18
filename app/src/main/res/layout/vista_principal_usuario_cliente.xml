@@ -6,30 +6,31 @@
 
     <ImageButton
         android:id="@+id/codigoQR"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="6dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="4dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/qr"
+        android:contentDescription="TODO" />
 
     <android.inputmethodservice.ExtractEditText
         android:id="@+id/barra_busqueda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/buscar_strings"
-        android:layout_toLeftOf="@+id/codigoQR"
-        android:layout_toRightOf="@id/icono_busqueda"
+        android:hint="buscar"
+        android:layout_toStartOf="@+id/codigoQR"
+        android:layout_toEndOf="@id/icono_busqueda"
         android:layout_alignTop="@+id/codigoQR"
-        />
+        android:layout_marginEnd="10dp"/>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/icono_busqueda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/codigoQR"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginStart="15dp"/>
 
     <ImageView
         android:id="@+id/imagen1"
@@ -37,17 +38,17 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
         android:layout_below="@+id/icono_busqueda"
-        android:layout_marginTop="60dp"
-        android:layout_alignLeft="@+id/icono_busqueda"/>
+        android:layout_marginTop="50dp"
+        android:layout_alignStart="@+id/icono_busqueda"/>
 
     <ImageView
         android:id="@+id/imagen2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/imagen1"
-        android:layout_alignLeft="@+id/icono_busqueda"/>
+        android:layout_alignStart="@+id/icono_busqueda"/>
 
     <ImageView
         android:id="@+id/imagen3"
@@ -55,34 +56,93 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
         android:layout_below="@+id/imagen2"
-        android:layout_marginTop="100dp"
-        android:layout_alignLeft="@+id/icono_busqueda" />
+        android:layout_marginTop="50dp"
+        android:layout_alignStart="@+id/icono_busqueda" />
+
+    <ImageView
+        android:id="@+id/imagen4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_below="@+id/imagen3"
+        android:layout_marginTop="50dp"
+        android:layout_alignStart="@+id/icono_busqueda" />
 
     <TextView
-        android:id="@+id/restaurante1"
+        android:id="@+id/Nrestaurante1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/imagen1"
-        android:layout_toRightOf="@+id/imagen1"
+        android:layout_toEndOf="@+id/imagen1"
         android:padding="10dp"
         android:text="Comenterio aleatorio "/>
 
     <TextView
-        android:id="@+id/restaurante2"
+        android:id="@+id/Drestaurante1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Nrestaurante1"
+        android:layout_toEndOf="@+id/imagen1"
+        android:padding="10dp"
+        android:text="Descripcion local"/>
+
+    <TextView
+        android:id="@+id/Nrestaurante2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/imagen2"
-        android:layout_toRightOf="@+id/imagen2"
+        android:layout_toEndOf="@+id/imagen2"
         android:padding="10dp"
         android:text="Comenterio aleatorio " />
+    <TextView
+        android:id="@+id/Drestaurante2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Nrestaurante2"
+        android:layout_toEndOf="@+id/imagen2"
+        android:padding="10dp"
+        android:text="Descripcion local"/>
 
     <TextView
-        android:id="@+id/restaurante3"
+        android:id="@+id/Nrestaurante3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/imagen3"
-        android:layout_toRightOf="@+id/imagen3"
+        android:layout_toEndOf="@+id/imagen3"
         android:padding="10dp"
         android:text="Comenterio aleatorio"/>
 
+    <TextView
+        android:id="@+id/Drestaurante3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Nrestaurante3"
+        android:layout_toEndOf="@+id/imagen3"
+        android:padding="10dp"
+        android:text="Descripcion local"/>
+
+    <TextView
+        android:id="@+id/Nrestaurante4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imagen4"
+        android:layout_toEndOf="@+id/imagen4"
+        android:padding="10dp"
+        android:text="Comenterio aleatorio"/>
+
+    <TextView
+        android:id="@+id/Drestaurante4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Nrestaurante4"
+        android:layout_toEndOf="@+id/imagen4"
+        android:padding="10dp"
+        android:text="Descripcion local"/>
+    <Button
+        android:id="@+id/LogOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CERRAR "
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>

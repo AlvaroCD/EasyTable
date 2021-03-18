@@ -19,7 +19,7 @@ import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
 public class Ingresar extends AppCompatActivity {
 
-    private static final String TAG = "Login";
+   private static final String TAG = "Login";
 
     private EditText mUsername, mPassword;
     private Button mLoginButton, mRegisterButton;
@@ -71,7 +71,7 @@ public class Ingresar extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    startActivity(new Intent(Ingresar.this, MainActivity.class));
+                    startActivity(new Intent(Ingresar.this, PrincipalUC.class));
                     finish();
                 }
                 else {
@@ -86,7 +86,7 @@ public class Ingresar extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()!= null){
-            startActivity(new Intent(Ingresar.this, MainActivity.class));
+            startActivity(new Intent(Ingresar.this, PrincipalUC.class));
             finish();
         }
     }
