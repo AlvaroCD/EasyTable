@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/welcome_strings"
         android:textSize="50sp"
-        android:textAlignment="center"
-        />
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/correoUsuarioLoginTxt"

@@ -41,7 +41,7 @@
         android:layout_below="@+id/reservar"
         android:layout_alignLeft="@id/reservar"
         app:srcCompat="@drawable/__00estrellas"
-        android:layout_marginLeft="-12dp"/>
+        android:layout_marginLeft="-12dp" />
 
     <ImageView
         android:id="@+id/cliente1"

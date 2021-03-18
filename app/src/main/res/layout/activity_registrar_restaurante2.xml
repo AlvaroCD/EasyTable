@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/registrarRestaurante2_strings"
         android:textSize="30sp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp" >
     </TextView>
 
     <TextView
