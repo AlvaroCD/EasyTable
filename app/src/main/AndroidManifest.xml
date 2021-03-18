@@ -3,6 +3,7 @@
     package="com.example.easytable">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -12,10 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
+
         <activity android:name=".RegistrarRestaurante2" />
         <activity android:name=".RegistrarRestaurante1" />
+
         <activity
             android:name=".RegistrarUsuario"/>
+
         <activity android:name=".Ingresar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MainActivity" />
+
+        <activity android:name=".PrincipalUC" />
     </application>
 
 </manifest>

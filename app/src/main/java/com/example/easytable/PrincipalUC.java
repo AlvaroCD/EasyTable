@@ -48,6 +48,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_principal_usuario_cliente);
+
         //Inica la referencia en el nodo principal de fire base
         mRootReference = FirebaseDatabase.getInstance().getReference();
 
@@ -86,7 +87,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             }
         });
 
-        /*//Boton para salir de la app
+        //Boton para salir de la app
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,9 +95,9 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 startActivity(new Intent(PrincipalUC.this, Ingresar.class));
                 finish();
             }
-        });*/
+        });
 
-        ExtraccionFireBase();
+       // ExtraccionFireBase();
 
     }
 
