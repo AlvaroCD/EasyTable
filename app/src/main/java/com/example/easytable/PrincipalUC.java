@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,10 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.util.Util;
-
-import java.io.File;
-import java.net.URI;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -40,7 +33,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     private Button mLogOut;
     private ZXingScannerView mScannerView;
     private FirebaseAuth mAuth;
-    DatabaseReference mRootReference;
+   // DatabaseReference mRootReference;
 
 
     //Vinculacion de la actividad con el layout
@@ -50,7 +43,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         setContentView(R.layout.vista_principal_usuario_cliente);
 
         //Inica la referencia en el nodo principal de fire base
-        mRootReference = FirebaseDatabase.getInstance().getReference();
+        //mRootReference = FirebaseDatabase.getInstance().getReference();
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         _ImagenL1 =  findViewById(R.id.imagen1);
@@ -101,7 +94,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
     }
 
-    private void ExtraccionFireBase() {
+  /*  private void ExtraccionFireBase() {
         //Regresa los registros dentro de restaurante
         mRootReference.child("restaurante").addValueEventListener(new ValueEventListener() {
             @Override
@@ -135,7 +128,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             }
         });
     }
-
+*/
     //Metodo que realiza la busqueda
     private void doMySearch(String query) {
         _local1.setText(query);

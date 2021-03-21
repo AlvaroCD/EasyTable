@@ -86,7 +86,7 @@ public class Ingresar extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()!= null){
-            startActivity(new Intent(Ingresar.this, MainActivity.class));
+            startActivity(new Intent(Ingresar.this, PrincipalUC.class));
             finish();
         }
     }
