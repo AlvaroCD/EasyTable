@@ -15,12 +15,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
+
+import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -33,7 +42,9 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     private Button mLogOut;
     private ZXingScannerView mScannerView;
     private FirebaseAuth mAuth;
-   // DatabaseReference mRootReference;
+
+    //Adicion de la instancia de Firebase para el uso de Cloud Firestore
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     //Vinculacion de la actividad con el layout
@@ -42,8 +53,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_principal_usuario_cliente);
 
-        //Inica la referencia en el nodo principal de fire base
-        //mRootReference = FirebaseDatabase.getInstance().getReference();
+
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         _ImagenL1 =  findViewById(R.id.imagen1);
@@ -90,45 +100,36 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             }
         });
 
-       // ExtraccionFireBase();
+       ExtraccionFireBase();
+
+    }
+    private void ExtraccionFireBase() {
+        db.collection("restaurante")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for (QueryDocumentSnapshot document: task.getResult()) {
+                                _local1.setText(document.getString("nombreLocal"));
+                                _dlocal1.setText(document.getString("descripcionRestaurante"));
+                                _local2.setText(document.getString("nombreLocal"));
+                                _dlocal2.setText(document.getString("descripcionRestaurante"));
+                                _local3.setText(document.getString("nombreLocal"));
+                                _dlocal3.setText(document.getString("descripcionRestaurante"));
+                                _local4.setText(document.getString("nombreLocal"));
+                                _dlocal4.setText(document.getString("descripcionRestaurante"));
+
+                            }
+                        }else {
+
+                        }
+                    }
+                });
 
     }
 
-  /*  private void ExtraccionFireBase() {
-        //Regresa los registros dentro de restaurante
-        mRootReference.child("restaurante").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    //Regresa lops campos de cada restaurante
-                    mRootReference.child("restaurante").child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            RestaurantePojo restaurantePojo = snapshot.getValue(RestaurantePojo.class);
-                            String nombre = restaurantePojo.getNombreLocal();
-                            String descripcion = restaurantePojo.getDescripcionRestaurante();
-                            String direccion = restaurantePojo.getDireccion();
-                            String tipo = restaurantePojo.getTipoRestaurante();
-                            String rfc = restaurantePojo.getRfc();
-                            int mesas = restaurantePojo.getCantidadMesas();
-                            _local1.setText(nombre);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
-*/
     //Metodo que realiza la busqueda
     private void doMySearch(String query) {
         _local1.setText(query);
