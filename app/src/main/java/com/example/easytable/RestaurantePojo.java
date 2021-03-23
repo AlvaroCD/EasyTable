@@ -1,5 +1,7 @@
 package com.example.easytable;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class RestaurantePojo {
 
     private String descripcionRestaurante, direccion, nombreLocal, tipoRestaurante, rfc;
@@ -31,4 +33,5 @@ public class RestaurantePojo {
     public int getCantidadMesas() {
         return cantidadMesas;
     }
+
 }

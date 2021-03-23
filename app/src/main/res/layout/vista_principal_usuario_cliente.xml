@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -35,12 +36,15 @@
 
     <ImageView
         android:id="@+id/imagen1"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
         android:layout_below="@+id/icono_busqueda"
+        android:layout_alignStart="@+id/icono_busqueda"
         android:layout_marginTop="50dp"
-        android:layout_alignStart="@+id/icono_busqueda"/>
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_launcher_background"
+        app:srcCompat="@drawable/pizza" />
 
     <ImageView
         android:id="@+id/imagen2"
