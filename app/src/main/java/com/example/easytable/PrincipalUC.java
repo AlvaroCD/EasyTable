@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,23 +21,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.util.Util;
-
-import java.io.File;
-import java.net.URI;
+import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class PrincipalUC extends Activity implements ZXingScannerView.ResultHandler{
+public class PrincipalUC extends Activity implements ZXingScannerView.ResultHandler {
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private ImageButton _ImagenQR;
-    private ImageView  _ImagenL1, _ImagenL2, _ImagenL3, _ImagenL4;
+    private ImageView _ImagenL1, _ImagenL2, _ImagenL3, _ImagenL4;
     private TextView _local1, _local2, _local3, _local4, _dlocal1, _dlocal2, _dlocal3, _dlocal4;
     private Button mLogOut;
     private ZXingScannerView mScannerView;
     private FirebaseAuth mAuth;
     DatabaseReference mRootReference;
+
 
 
     //Vinculacion de la actividad con el layout
@@ -50,9 +45,10 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         setContentView(R.layout.vista_principal_usuario_cliente);
 
         //Inica la referencia en el nodo principal de fire base
-        mRootReference = FirebaseDatabase.getInstance().getReference();
+//        mRootReference = FirebaseDatabase.getInstance().getReference();
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
+
         _ImagenL1 =  findViewById(R.id.imagen1);
         _ImagenL2 =  findViewById(R.id.imagen2);
         _ImagenL3 =  findViewById(R.id.imagen3);
@@ -68,6 +64,8 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         _dlocal4 = findViewById(R.id.Drestaurante4);
         mLogOut = findViewById(R.id.LogOutButton);
 
+        mAuth = FirebaseAuth.getInstance();
+
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -77,6 +75,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         }
 
         //Boton de codigoQR
+
         _ImagenQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +95,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 finish();
             }
         });
+
 
        // ExtraccionFireBase();
 
@@ -153,8 +153,15 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
+        String cadenaCodigoQR = result.getText().toString();
+        Intent i = new Intent(PrincipalUC.this, MainActivity.class);
+        i.putExtra("cadenaCodigoQR", cadenaCodigoQR);
+        startActivity(i);
+        finish();
+
         //Permite seguir escaneando despues de la primera vez
-        mScannerView.resumeCameraPreview(this);
+        //mScannerView.resumeCameraPreview(this);
 
     }
-}
+
+    }

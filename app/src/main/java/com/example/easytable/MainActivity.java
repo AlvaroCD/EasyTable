@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle extra = getIntent().getExtras();
+                String qrRecibido = extra.getString("cadenaCodigoQR");
+                Toast.makeText(MainActivity.this, "Felicidades, el qr que mandaste decia: "+qrRecibido, Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 startActivity(new Intent(MainActivity.this, Ingresar.class));
                 finish();
