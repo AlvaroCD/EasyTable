@@ -1,153 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".PrincipalUC">
 
-    <ImageButton
-        android:id="@+id/codigoQR"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="6dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/qr"
-        android:contentDescription="TODO" />
-
-    <android.inputmethodservice.ExtractEditText
-        android:id="@+id/barra_busqueda"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="buscar"
-        android:layout_toStartOf="@+id/codigoQR"
-        android:layout_toEndOf="@id/icono_busqueda"
-        android:layout_alignTop="@+id/codigoQR"
-        android:layout_marginEnd="10dp"/>
+        android:orientation="horizontal">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/icono_busqueda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/codigoQR"
-        android:layout_marginStart="15dp"/>
 
-    <ImageView
-        android:id="@+id/imagen1"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/icono_busqueda"
-        android:layout_alignStart="@+id/icono_busqueda"
-        android:layout_marginTop="50dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher_background"
-        app:srcCompat="@drawable/pizza" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/lupa"
+            />
 
-    <ImageView
-        android:id="@+id/imagen2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/imagen1"
-        android:layout_alignStart="@+id/icono_busqueda"/>
 
-    <ImageView
-        android:id="@+id/imagen3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_below="@+id/imagen2"
-        android:layout_marginTop="50dp"
-        android:layout_alignStart="@+id/icono_busqueda" />
+        <EditText
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:hint="@string/buscar_strings"
+            />
 
-    <ImageView
-        android:id="@+id/imagen4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_below="@+id/imagen3"
-        android:layout_marginTop="50dp"
-        android:layout_alignStart="@+id/icono_busqueda" />
 
-    <TextView
-        android:id="@+id/Nrestaurante1"
+        <ImageButton
+            android:id="@+id/codigoQR"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/qr"
+            android:contentDescription="TODO" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/imagen1"
-        android:layout_toEndOf="@+id/imagen1"
-        android:padding="10dp"
-        android:text="Comenterio aleatorio "/>
+        android:layout_height="600dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/Drestaurante1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Nrestaurante1"
-        android:layout_toEndOf="@+id/imagen1"
-        android:padding="10dp"
-        android:text="Descripcion local"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewListadoRestaurantes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/Nrestaurante2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/imagen2"
-        android:layout_toEndOf="@+id/imagen2"
-        android:padding="10dp"
-        android:text="Comenterio aleatorio " />
-    <TextView
-        android:id="@+id/Drestaurante2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Nrestaurante2"
-        android:layout_toEndOf="@+id/imagen2"
-        android:padding="10dp"
-        android:text="Descripcion local"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/Nrestaurante3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/imagen3"
-        android:layout_toEndOf="@+id/imagen3"
-        android:padding="10dp"
-        android:text="Comenterio aleatorio"/>
+<Button
+    android:id="@+id/LogOutButton2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/cerrar_sesion_strings"
+    android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/Drestaurante3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Nrestaurante3"
-        android:layout_toEndOf="@+id/imagen3"
-        android:padding="10dp"
-        android:text="Descripcion local"/>
-
-    <TextView
-        android:id="@+id/Nrestaurante4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/imagen4"
-        android:layout_toEndOf="@+id/imagen4"
-        android:padding="10dp"
-        android:text="Comenterio aleatorio"/>
-
-    <TextView
-        android:id="@+id/Drestaurante4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Nrestaurante4"
-        android:layout_toEndOf="@+id/imagen4"
-        android:padding="10dp"
-        android:text="Descripcion local"/>
-    <Button
-        android:id="@+id/LogOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CERRAR "
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
-</RelativeLayout>
+</LinearLayout>

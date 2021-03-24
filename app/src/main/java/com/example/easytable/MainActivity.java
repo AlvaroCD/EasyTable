@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle extra = getIntent().getExtras();
-                String qrRecibido = extra.getString("cadenaCodigoQR");
-                Toast.makeText(MainActivity.this, "Felicidades, el qr que mandaste decia: "+qrRecibido, Toast.LENGTH_SHORT).show();
+               // String qrRecibido = extra.getString("cadenaCodigoQR");
+                //Toast.makeText(MainActivity.this, "Felicidades, el qr que mandaste decia: "+qrRecibido, Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 startActivity(new Intent(MainActivity.this, Ingresar.class));
                 finish();

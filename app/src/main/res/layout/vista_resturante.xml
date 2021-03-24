@@ -32,7 +32,7 @@
         android:layout_below="@+id/imagenLocal"
         android:layout_marginTop="50dp"
         android:layout_alignRight="@+id/imagenLocal"
-        android:text="RESERVAR"/>
+        android:text="@string/reservar_strings"/>
 
     <ImageView
         android:id="@+id/calificacionLocal"

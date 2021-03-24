@@ -30,6 +30,8 @@
     <string name="comidaItaliana_strings">Comida Italiana</string>
     <string name="descripcionAgregarRestaurante_strings">Agrega una breve descripción de tu restaurante: </string>
     <string name="descripcion_strings">Descripción:</string>
+    <string name="reservar_strings">RESERVAR</string>
+    <string name="cerrar_sesion_strings">Cerrar Sesión</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

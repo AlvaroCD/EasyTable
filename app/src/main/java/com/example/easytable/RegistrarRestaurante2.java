@@ -33,13 +33,13 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
-    private static final String KEY_CATEGORIA = "Categoria del Local";
-    private static final String KEY_NOMBRELOCAL = "Nombre del Local";
-    private static final String KEY_DIRECCION = "Direccion";
-    private static final String KEY_CP = "Codigo Postal";
-    private static final String KEY_TELEFONOLOCAL= "Telefono Local";
-    private static final String KEY_ID_RESTAURANTE= "ID Restaurante";
-    private static final String KEY_ID_PROPIETARIO= "ID Propietario";
+    private static final String KEY_CATEGORIA = "tipoRestaurante";
+    private static final String KEY_NOMBRELOCAL = "nombreLocal";
+    private static final String KEY_DIRECCION = "direccion";
+    private static final String KEY_CP = "cp";
+    private static final String KEY_TELEFONOLOCAL= "telefonoLocal";
+    private static final String KEY_ID_RESTAURANTE= "IdRestaurante";
+    private static final String KEY_ID_PROPIETARIO= "IdPropietario";
 
 
 
