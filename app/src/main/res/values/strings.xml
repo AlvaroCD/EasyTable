@@ -32,6 +32,8 @@
     <string name="descripcion_strings">Descripción:</string>
     <string name="reservar_strings">RESERVAR</string>
     <string name="cerrar_sesion_strings">Cerrar Sesión</string>
+    <string name="comentario">Comentario</string>
+    <string name="comenterio_aleatorio">Comenterio aleatorio</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

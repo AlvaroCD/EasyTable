@@ -40,7 +40,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#FCE4CA"
+        android:background="@color/teal_700"
        />
 
 </RelativeLayout>

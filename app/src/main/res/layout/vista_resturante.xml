@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/imagenLocal"
@@ -12,17 +13,17 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="80dp"/>
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="80dp"/>
 
     <TextView
         android:id="@+id/restaurante"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imagenLocal"
+        android:layout_alignStart="@+id/imagenLocal"
         android:layout_alignTop="@+id/reservar"
-        android:layout_toLeftOf="@+id/reservar"
-        android:layout_marginRight="30dp"
+        android:layout_toStartOf="@+id/reservar"
+        android:layout_marginEnd="30dp"
         android:text="Descripcion del local"/>
 
     <Button
@@ -30,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imagenLocal"
-        android:layout_marginTop="50dp"
-        android:layout_alignRight="@+id/imagenLocal"
+        android:layout_marginTop="60dp"
+        android:layout_alignEnd="@+id/imagenLocal"
         android:text="@string/reservar_strings"/>
 
     <ImageView
@@ -39,9 +40,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reservar"
-        android:layout_alignLeft="@id/reservar"
+        android:layout_alignStart="@id/reservar"
         app:srcCompat="@drawable/__00estrellas"
-        android:layout_marginLeft="-12dp" />
+        android:layout_marginStart="-12dp" />
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewListadoComentarios"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/calificacionLocal"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="5dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
 
     <ImageView
         android:id="@+id/cliente1"
@@ -59,7 +73,7 @@
         android:src="@drawable/ic_launcher_background"
         android:layout_marginTop="60dp"
         android:layout_below="@+id/cliente1"
-        android:layout_alignLeft="@+id/imagenLocal"/>
+        android:layout_alignStart="@+id/imagenLocal"/>
 
     <ImageView
         android:id="@+id/cliente3"
@@ -68,36 +82,36 @@
         android:src="@drawable/ic_launcher_background"
         android:layout_below="@+id/cliente2"
         android:layout_marginTop="60dp"
-        android:layout_alignLeft="@+id/imagenLocal" />
+        android:layout_alignStart="@+id/imagenLocal" />
 
     <TextView
         android:id="@+id/restaurante1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/cliente1"
-        android:layout_toRightOf="@+id/cliente1"
+        android:layout_toEndOf="@+id/cliente1"
         android:padding="5dp"
-        android:layout_alignRight="@id/reservar"
-        android:text="Comenterio aleatorio "/>
+        android:layout_alignEnd="@id/reservar"
+        android:text="@string/comenterio_aleatorio"/>
 
     <TextView
         android:id="@+id/restaurante2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/cliente2"
-        android:layout_toRightOf="@+id/cliente2"
+        android:layout_toEndOf="@+id/cliente2"
         android:padding="5dp"
-        android:layout_alignRight="@id/reservar"
-        android:text="Comenterio aleatorio "/>
+        android:layout_alignEnd="@id/reservar"
+        android:text="@string/comenterio_aleatorio"/>
 
     <TextView
         android:id="@+id/restaurante3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/cliente3"
-        android:layout_toRightOf="@+id/cliente3"
+        android:layout_toEndOf="@+id/cliente3"
         android:padding="5dp"
-        android:layout_alignRight="@id/reservar"
-        android:text="Comenterio aleatorio "/>
+        android:layout_alignEnd="@id/reservar"
+        android:text="@string/comenterio_aleatorio"/>
 
 </RelativeLayout>
