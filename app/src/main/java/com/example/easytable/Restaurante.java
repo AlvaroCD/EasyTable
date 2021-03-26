@@ -38,14 +38,14 @@ public class Restaurante extends Activity {
         setContentView(R.layout.vista_resturante);
 
         //Optencion del Id del local escaneado
-        IdRestaurante = getIntent().getStringExtra("Restaurante");
+        IdRestaurante = getIntent().getStringExtra("idRestaurante");
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mImagenLocal = findViewById(R.id.imagenLocal);
         mCalificacionLocal = findViewById(R.id.calificacionLocal);
         mReservar = findViewById(R.id.reservar);
-        mRestaurante = findViewById(R.id.restaurante);
-        mTipoRestaurante = findViewById(R.id.tipoRestaurante);
+        mRestaurante = findViewById(R.id.nombreRestauranteVistaRestaurante);
+        mTipoRestaurante = findViewById(R.id.tipoRestauranteVistaRestaurante);
 
         //Instanciacion del Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoComentarios);

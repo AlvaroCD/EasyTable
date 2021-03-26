@@ -18,21 +18,21 @@
         android:layout_marginEnd="80dp"/>
 
     <TextView
-        android:id="@+id/restaurante"
+        android:id="@+id/nombreRestauranteVistaRestaurante"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/imagenLocal"
         android:layout_alignTop="@+id/reservar"
         android:layout_toStartOf="@+id/reservar"
         android:layout_marginEnd="20dp"
-        android:text="@string/des"
+        android:text="@string/nombreLocal_strings"
         android:textStyle="bold"
         android:textSize="17sp"/>
     <TextView
-        android:id="@+id/tipoRestaurante"
+        android:id="@+id/tipoRestauranteVistaRestaurante"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/restaurante"
+        android:layout_below="@+id/nombreRestauranteVistaRestaurante"
         android:layout_alignStart="@+id/imagenLocal"
         android:layout_toStartOf="@+id/reservar"
         android:layout_marginEnd="20dp"

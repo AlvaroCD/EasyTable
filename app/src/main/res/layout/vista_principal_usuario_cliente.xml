@@ -22,9 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:hint="@string/buscar_strings"
-            android:layout_toRightOf="@+id/lupa"
-            android:layout_toLeftOf="@+id/codigoQR"
+            android:layout_toEndOf="@+id/lupa"
+            android:layout_toStartOf="@+id/codigoQR"
             />
+
 
         <ImageButton
             android:id="@+id/codigoQR"

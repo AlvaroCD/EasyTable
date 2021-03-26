@@ -8,12 +8,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.util.Util;
@@ -81,6 +84,18 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         mRecyclerView.setAdapter(mAdapter);
 
 
+        //Funcion que determina que accion se realiza cuando se hace click en algun restaurante
+        mAdapter.setOnItemClickListener(new RestaurantesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
+                RestaurantePojo restaurante = documentSnapshot.toObject(RestaurantePojo.class);
+                String id = documentSnapshot.getId();
+                Intent i = new Intent(PrincipalUC.this, Restaurante.class);
+                i.putExtra("idRestaurante",id);
+                startActivity(i);
+                Toast.makeText(PrincipalUC.this, "Posicion "+posicion + "ID:" + id, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
@@ -122,9 +137,10 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         //Envio de informacion a la vista Restaurante
         String dato = result.getText();
 
-            Intent Restaurante = new Intent(PrincipalUC.this, Restaurante.class);
-        Restaurante.putExtra("Restaurante",dato);
+        Intent Restaurante = new Intent(PrincipalUC.this, Restaurante.class);
+        Restaurante.putExtra("idRestaurante",dato);
         startActivity(Restaurante);
+        finish();
 
 
         //Permite seguir escaneando despues de la primera vez
@@ -146,4 +162,15 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         super.onStop();
         mAdapter.stopListening();
     }
+
+
+
+
+    //Funcion que hace una llamada a un menu creado para poder realizar la busqueda de los restaurantes
+    public boolean onCreateOptionMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_buscador, menu);
+        return true;
+    }
+
+
 }

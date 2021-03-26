@@ -3,6 +3,7 @@ package com.example.easytable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class RestaurantesAdapter extends FirestoreRecyclerAdapter<RestaurantePojo, RestaurantesAdapter.ViewHolder> {
-
+    private static OnItemClickListener listener;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -42,7 +44,7 @@ public class RestaurantesAdapter extends FirestoreRecyclerAdapter<RestaurantePoj
     }
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView descripcionLocal;
         TextView nombreLocal;
 
@@ -51,6 +53,25 @@ public class RestaurantesAdapter extends FirestoreRecyclerAdapter<RestaurantePoj
             super(itemView);
             descripcionLocal = itemView.findViewById(R.id.descripcionRestaurante);
             nombreLocal = itemView.findViewById(R.id.nombreRestaurante);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int posicion = getAdapterPosition();
+                    if (posicion != RecyclerView.NO_POSITION && listener != null){
+                        listener.onItemClick(getSnapshots().getSnapshot(posicion),posicion);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(DocumentSnapshot documentSnapshot, int posicion);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        RestaurantesAdapter.listener = listener;
     }
 }
