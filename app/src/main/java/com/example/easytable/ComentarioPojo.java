@@ -3,6 +3,9 @@ package com.example.easytable;
 public class ComentarioPojo {
     private String comentario, nombreDelLocalComentado;
 
+    public ComentarioPojo(){
+
+    }
 
     public ComentarioPojo(String comentario, String nombreDelLocalComentado) {
         this.comentario = comentario;

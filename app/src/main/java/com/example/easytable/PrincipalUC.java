@@ -121,6 +121,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 //        alertDialog.show();
         //Envio de informacion a la vista Restaurante
         String dato = result.getText();
+
             Intent Restaurante = new Intent(PrincipalUC.this, Restaurante.class);
         Restaurante.putExtra("Restaurante",dato);
         startActivity(Restaurante);

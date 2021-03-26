@@ -12,7 +12,7 @@
         android:id="@+id/imagenLocal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/platillo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="80dp"/>
@@ -24,8 +24,20 @@
         android:layout_alignStart="@+id/imagenLocal"
         android:layout_alignTop="@+id/reservar"
         android:layout_toStartOf="@+id/reservar"
-        android:layout_marginEnd="30dp"
-        android:text="Descripcion del local"/>
+        android:layout_marginEnd="20dp"
+        android:text="@string/des"
+        android:textStyle="bold"
+        android:textSize="17sp"/>
+    <TextView
+        android:id="@+id/tipoRestaurante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/restaurante"
+        android:layout_alignStart="@+id/imagenLocal"
+        android:layout_toStartOf="@+id/reservar"
+        android:layout_marginEnd="20dp"
+        android:text="@string/des"
+        android:textSize="14sp"/>
 
     <Button
         android:id="@+id/reservar"
@@ -42,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reservar"
         android:layout_alignStart="@id/reservar"
-        app:srcCompat="@drawable/__00estrellas"
-        android:layout_marginStart="-12dp" />
+        app:srcCompat="@drawable/__50estrellas"
+        android:layout_marginStart="-5dp" />
 
 
 
@@ -53,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/calificacionLocal"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="5dp">
     </androidx.recyclerview.widget.RecyclerView>
 

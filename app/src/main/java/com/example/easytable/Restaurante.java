@@ -1,5 +1,6 @@
 package com.example.easytable;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class Restaurante extends Activity {
     private ComentarioAdapter mAdapter;
     private ImageView mImagenLocal, mCalificacionLocal;
     private Button mReservar;
-    private TextView mRestaurante;
+    private TextView mRestaurante, mTipoRestaurante;
     String IdRestaurante;
 
     //Objetos para utilizar las dependencias
@@ -44,6 +45,7 @@ public class Restaurante extends Activity {
         mCalificacionLocal = findViewById(R.id.calificacionLocal);
         mReservar = findViewById(R.id.reservar);
         mRestaurante = findViewById(R.id.restaurante);
+        mTipoRestaurante = findViewById(R.id.tipoRestaurante);
 
         //Instanciacion del Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoComentarios);
@@ -61,16 +63,20 @@ public class Restaurante extends Activity {
         mAdapter = new ComentarioAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
+
+
         colocacionInformacion(IdRestaurante);
 
     }
 
     private void colocacionInformacion(String mIdRestaurante){
         db.collection("restaurante").document(mIdRestaurante).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     mRestaurante.setText(documentSnapshot.get("nombreLocal").toString());
+                    mTipoRestaurante.setText(documentSnapshot.get("tipoRestaurante").toString());
                 } else {
                 }
             }
