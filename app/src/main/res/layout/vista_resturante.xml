@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:context=".Restaurante">
 
     <ImageView
         android:id="@+id/imagenLocal"
@@ -57,61 +58,6 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <ImageView
-        android:id="@+id/cliente1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/restaurante"
-        android:layout_alignLeft="@+id/imagenLocal"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/ic_launcher_background" />
 
-    <ImageView
-        android:id="@+id/cliente2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_marginTop="60dp"
-        android:layout_below="@+id/cliente1"
-        android:layout_alignStart="@+id/imagenLocal"/>
-
-    <ImageView
-        android:id="@+id/cliente3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_below="@+id/cliente2"
-        android:layout_marginTop="60dp"
-        android:layout_alignStart="@+id/imagenLocal" />
-
-    <TextView
-        android:id="@+id/restaurante1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/cliente1"
-        android:layout_toEndOf="@+id/cliente1"
-        android:padding="5dp"
-        android:layout_alignEnd="@id/reservar"
-        android:text="@string/comenterio_aleatorio"/>
-
-    <TextView
-        android:id="@+id/restaurante2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/cliente2"
-        android:layout_toEndOf="@+id/cliente2"
-        android:padding="5dp"
-        android:layout_alignEnd="@id/reservar"
-        android:text="@string/comenterio_aleatorio"/>
-
-    <TextView
-        android:id="@+id/restaurante3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/cliente3"
-        android:layout_toEndOf="@+id/cliente3"
-        android:padding="5dp"
-        android:layout_alignEnd="@id/reservar"
-        android:text="@string/comenterio_aleatorio"/>
 
 </RelativeLayout>

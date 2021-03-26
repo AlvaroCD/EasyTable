@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseAuth mAuth;
     private Button mLogOut;
+    private TextView textView;
+    String IdRestaurante = "dss";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.text0);
+        IdRestaurante = getIntent().getStringExtra("Restaurante");
+        textView.setText(IdRestaurante);
 
         mLogOut = (Button) findViewById(R.id.LogOutButton);
 

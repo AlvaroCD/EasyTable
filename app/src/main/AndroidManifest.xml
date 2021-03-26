@@ -16,6 +16,7 @@
 
         <activity android:name=".BuscarRestaurante" />
         <activity android:name=".PrincipalUC" />
+        <activity android:name=".Restaurante"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistrarRestaurante3" />
         <activity android:name=".RegistrarRestaurante2" />

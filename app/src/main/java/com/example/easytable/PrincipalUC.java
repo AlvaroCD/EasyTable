@@ -114,11 +114,17 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     public void handleResult(com.google.zxing.Result result) {
         Log.v("HandleResult", result.getText());
         //Aparece el texto del codigo QR en un dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Resultado Scan");
-        builder.setMessage(result.getText());
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Resultado Scan");
+//        builder.setMessage(result.getText());
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+        //Envio de informacion a la vista Restaurante
+        String dato = result.getText();
+            Intent Restaurante = new Intent(PrincipalUC.this, Restaurante.class);
+        Restaurante.putExtra("Restaurante",dato);
+        startActivity(Restaurante);
+
 
         //Permite seguir escaneando despues de la primera vez
 //        mScannerView.resumeCameraPreview(this);
