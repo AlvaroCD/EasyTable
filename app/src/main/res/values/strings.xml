@@ -36,6 +36,7 @@
     <string name="comentario">Comentario</string>
     <string name="comenterio_aleatorio">Comenterio aleatorio</string>
     <string name="des">Descripcion del local</string>
+    <string name="numero_mesas_strings">N° de mesas: </string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

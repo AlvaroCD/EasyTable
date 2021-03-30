@@ -26,7 +26,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
     private static final String TAG = "RegistrarRestaurante1";
 
     //Creacion de las variables a relacionar con la parte grafica
-    private EditText mNombreDelLocal, mDireccion, mCodigoPostal, mTelefonoLocal;
+    private EditText mNombreDelLocal, mDireccion, mCodigoPostal, mTelefonoLocal, mNumeroMesas;
     private ImageButton mSiguienteButton;
 
     //Adicion de la instancia de Firebase para el uso de Cloud Firestore
@@ -38,6 +38,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
     private static final String KEY_CP = "cp";
     private static final String KEY_TELEFONOLOCAL= "telefonoLocal";
     private static final String KEY_ID_RESTAURANTE= "IdRestaurante";
+    private static final String KEY_NUMEROMESAS = "cantidadMesas";
     private static final String KEY_ID= "IdPropietario";
 
     @Override
@@ -51,6 +52,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
         mDireccion = (EditText) findViewById(R.id.direccionRegistrarLocalTxt);
         mCodigoPostal = (EditText) findViewById(R.id.codigoPostalRegistrarLocalTxt);
         mTelefonoLocal = (EditText) findViewById(R.id.telefonoRegistrarLocalTxt);
+        mNumeroMesas = (EditText) findViewById(R.id.numeroMesasRegistrarLocalTxt);
         mSiguienteButton = (ImageButton) findViewById(R.id.primerSiguienteRegistrarLocalButton);
 
         mSiguienteButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +67,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
                 String direccion = mDireccion.getText().toString();
                 String codigoPostal = mCodigoPostal.getText().toString();
                 String telefonoLocal = mTelefonoLocal.getText().toString();
+                String numeroMesas = mNumeroMesas.getText().toString();
                 //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
                 String idRestaurante = UUID.randomUUID().toString();
 
@@ -79,6 +82,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
                     restaurante.put(KEY_CP, codigoPostal);
                     restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
                     restaurante.put(KEY_ID, idPropietario);
+                    restaurante.put(KEY_NUMEROMESAS, numeroMesas);
                     restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
 
                     //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
@@ -92,6 +96,7 @@ public class RegistrarRestaurante1 extends AppCompatActivity {
                                     i.putExtra("direccion", direccion);
                                     i.putExtra("cp", codigoPostal);
                                     i.putExtra("telefonoLocal", telefonoLocal);
+                                    i.putExtra("numeroMesas", numeroMesas);
                                     i.putExtra("idPropietario", idPropietario);
                                     i.putExtra("idRestaurante", idRestaurante);
                                     startActivity(i);

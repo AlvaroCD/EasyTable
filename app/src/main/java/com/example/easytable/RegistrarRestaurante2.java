@@ -38,6 +38,7 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
     private static final String KEY_DIRECCION = "direccion";
     private static final String KEY_CP = "cp";
     private static final String KEY_TELEFONOLOCAL= "telefonoLocal";
+    private static final String KEY_NUMEROMESAS = "cantidadMesas";
     private static final String KEY_ID_RESTAURANTE= "IdRestaurante";
     private static final String KEY_ID_PROPIETARIO= "IdPropietario";
 
@@ -64,6 +65,7 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
                 String direccion = extra.getString("direccion");
                 String codigoPostal = extra.getString("cp");
                 String telefonoLocal = extra.getString("telefonoLocal");
+                String numeroMesas = extra.getString("numeroMesas");
                 String idRestaurante = extra.getString("idRestaurante");
                 String idPropietario = extra.getString("idPropietario");
 
@@ -79,6 +81,7 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
                 restaurante.put(KEY_DIRECCION, direccion);
                 restaurante.put(KEY_CP, codigoPostal);
                 restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
+                restaurante.put(KEY_NUMEROMESAS, numeroMesas);
                 restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
                 restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
 
@@ -97,6 +100,7 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
                                 i.putExtra("direccion", direccion);
                                 i.putExtra("cp", codigoPostal);
                                 i.putExtra("telefonoLocal", telefonoLocal);
+                                i.putExtra("numeroMesas", numeroMesas);
                                 i.putExtra("idPropietario", idPropietario);
                                 i.putExtra("idRestaurante", idRestaurante);
                                 startActivity(i);

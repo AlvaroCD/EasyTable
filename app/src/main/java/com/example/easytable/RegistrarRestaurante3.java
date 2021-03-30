@@ -28,6 +28,7 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String KEY_DIRECCION = "direccion";
     private static final String KEY_CP = "cp";
     private static final String KEY_TELEFONOLOCAL= "telefonoLocal";
+    private static final String KEY_NUMEROMESAS = "cantidadMesas";
     private static final String KEY_ID_RESTAURANTE= "IdRestaurante";
     private static final String KEY_ID_PROPIETARIO= "IdPropietario";
     private static final String KEY_DESCRIPCION = "descripcionRestaurante";
@@ -61,6 +62,9 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                 String codigoPostal = extra.getString("cp");
                 String telefonoLocal = extra.getString("telefonoLocal");
                 String categoria = extra.getString("categoria");
+                String numeroMesas = extra.getString("numeroMesas");
+                //se parsea la variable numeroMesas de String a int para agregarla como tal en la BD (como int)
+                int numeroMesasInt = Integer.parseInt(numeroMesas);
                 String idRestaurante = extra.getString("idRestaurante");
                 String idPropietario = extra.getString("idPropietario");
                 
@@ -73,6 +77,7 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                 restaurante.put(KEY_DIRECCION, direccion);
                 restaurante.put(KEY_CP, codigoPostal);
                 restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
+                restaurante.put(KEY_NUMEROMESAS, numeroMesasInt);
                 restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
                 restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
                 restaurante.put(KEY_DESCRIPCION, descripcion);

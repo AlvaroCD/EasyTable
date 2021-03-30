@@ -14,6 +14,7 @@ public class RestaurantePojo {
         this.direccion = direccion;
         this.nombreLocal = nombreLocal;
         this.tipoRestaurante = tipoRestaurante;
+        this.cantidadMesas = cantidadMesas;
         this.rfc = rfc;
     }
 
@@ -21,7 +22,7 @@ public class RestaurantePojo {
         return descripcionRestaurante;
     }
 
-    public void setDescripcionRestaurante(String descripcionRestaurante, String nombreLocal) {
+    public void setDescripcionRestaurante(String descripcionRestaurante) {
         this.descripcionRestaurante = descripcionRestaurante;
     }
 

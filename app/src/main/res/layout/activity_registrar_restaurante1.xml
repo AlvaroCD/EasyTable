@@ -53,6 +53,15 @@
         android:layout_marginTop="15dp">
     </EditText>
 
+    <EditText
+        android:id="@+id/numeroMesasRegistrarLocalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/numero_mesas_strings"
+        android:inputType="number"
+        android:layout_marginTop="15dp">
+    </EditText>
+
     <ImageButton
         android:id="@+id/primerSiguienteRegistrarLocalButton"
         android:layout_width="80dp"
