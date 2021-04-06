@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
 
-    public class ComentarioAdapter extends FirestoreRecyclerAdapter<ComentarioPojo, ComentarioAdapter.ViewHolder> {
+public class ComentarioAdapter extends FirestoreRecyclerAdapter<ComentarioPojo, ComentarioAdapter.ViewHolder> {
+    private static RestaurantesAdapter.OnItemClickListener listener;
 
     public ComentarioAdapter(@NonNull FirestoreRecyclerOptions<ComentarioPojo> options) {
         super(options);
@@ -41,6 +43,24 @@ import com.google.firebase.database.FirebaseDatabase;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             comentario = itemView.findViewById(R.id.ComentarioUsuario);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int posicion = getAdapterPosition();
+                    if (posicion != RecyclerView.NO_POSITION && listener != null){
+                        listener.onItemClick(getSnapshots().getSnapshot(posicion),posicion);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(DocumentSnapshot documentSnapshot, int posicion);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        ComentarioAdapter.listener = (RestaurantesAdapter.OnItemClickListener) listener;
     }
 }

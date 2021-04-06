@@ -3,10 +3,10 @@ package com.example.easytable;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -54,23 +53,34 @@ public class Restaurante extends Activity {
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
-        //Consulta para obtener los datos de la BD
-        Query query = db.collection("comentario");
+        colocacionInformacion(IdRestaurante);
 
-        FirestoreRecyclerOptions<ComentarioPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ComentarioPojo>()
-                .setQuery(query, ComentarioPojo.class).build();
+        String nombreRestaurante = mRestaurante.getText().toString();
+        Toast.makeText(getApplicationContext(),nombreRestaurante, Toast.LENGTH_LONG).show();
+
+        //Coloca los comentarios
+        recycleView(nombreRestaurante);
+
+    }
+
+    private void recycleView(String nombreRestaurante) {
+        //Consulta para obtener los datos de la BD
+        Query query = db.collection("comentario").whereEqualTo("nombreDelLocalComentado", nombreRestaurante);
+
+
+        FirestoreRecyclerOptions<ComentarioPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
+                        .Builder<ComentarioPojo>()
+                        .setQuery(query, ComentarioPojo.class).build();
 
         mAdapter = new ComentarioAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
-
-
-        colocacionInformacion(IdRestaurante);
-
     }
 
     private void colocacionInformacion(String mIdRestaurante){
-        db.collection("restaurante").document(mIdRestaurante).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        db.collection("restaurante").document(mIdRestaurante).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -81,6 +91,19 @@ public class Restaurante extends Activity {
                 }
             }
         });
+    }
 
+    //Metodo para que cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los restaurantes)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAdapter.startListening();
+    }
+
+    //Metodo para que cuando el usuario no esté dentro de la aplicacion, la aplicación deje de actualizar los datos de la misma (datos de los restaurantes)
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.stopListening();
     }
 }
