@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/imagenUsuario"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/platillo"
+        android:src="@drawable/usuario"
         app:srcCompat="@color/teal_200" />
 
     <TextView

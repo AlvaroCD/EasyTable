@@ -25,7 +25,7 @@
             android:layout_toEndOf="@+id/lupa"
             android:layout_toStartOf="@+id/codigoQR"
             />
-
+zz
 
         <ImageButton
             android:id="@+id/codigoQR"

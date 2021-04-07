@@ -25,7 +25,7 @@ public class Restaurante extends Activity {
     private ImageView mImagenLocal, mCalificacionLocal;
     private Button mReservar;
     private TextView mRestaurante, mTipoRestaurante;
-    String IdRestaurante;
+
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
@@ -36,8 +36,12 @@ public class Restaurante extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_resturante);
 
-        //Optencion del Id del local escaneado
+
+        //Optencion del Id del local escaneado y de su nombre
+        String IdRestaurante, nombreRestaurante;
         IdRestaurante = getIntent().getStringExtra("idRestaurante");
+        nombreRestaurante = getIntent().getStringExtra("nombreRestaurante");
+
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mImagenLocal = findViewById(R.id.imagenLocal);
@@ -53,11 +57,8 @@ public class Restaurante extends Activity {
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
+        //Funcion para obtener los datos del restaurante con su ID
         colocacionInformacion(IdRestaurante);
-
-        String nombreRestaurante = mRestaurante.getText().toString();
-        Toast.makeText(getApplicationContext(),nombreRestaurante, Toast.LENGTH_LONG).show();
-
         //Coloca los comentarios
         recycleView(nombreRestaurante);
 
@@ -81,13 +82,14 @@ public class Restaurante extends Activity {
 
         db.collection("restaurante").document(mIdRestaurante).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @SuppressLint("SetTextI18n")
+            @SuppressLint({"SetTextI18n"})
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     mRestaurante.setText(documentSnapshot.get("nombreLocal").toString());
                     mTipoRestaurante.setText(documentSnapshot.get("tipoRestaurante").toString());
                 } else {
+                    Toast.makeText(Restaurante.this, "Error, restaurante no encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -90,8 +90,10 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
                 RestaurantePojo restaurante = documentSnapshot.toObject(RestaurantePojo.class);
                 String id = documentSnapshot.getId();
+                String nombreRestaurante = documentSnapshot.get("nombreLocal").toString();
                 Intent i = new Intent(PrincipalUC.this, Restaurante.class);
                 i.putExtra("idRestaurante",id);
+                i.putExtra("nombreRestaurante", nombreRestaurante);
                 startActivity(i);
                 Toast.makeText(PrincipalUC.this, "Posicion "+posicion + "ID:" + id, Toast.LENGTH_SHORT).show();
             }
