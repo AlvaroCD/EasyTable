@@ -54,8 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reservar"
         android:layout_alignStart="@id/reservar"
-        app:srcCompat="@drawable/__50estrellas"
-        android:layout_marginStart="-5dp" />
+        android:layout_marginStart="-15dp"
+        android:src="@drawable/__50estrellas"
+        />
 
 
 

@@ -14,7 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class RestaurantesAdapter extends FirestoreRecyclerAdapter<RestaurantePojo, RestaurantesAdapter.ViewHolder> {
-    private static OnItemClickListener listener;
+        private static OnItemClickListener listener;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link

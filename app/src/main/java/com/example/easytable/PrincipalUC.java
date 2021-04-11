@@ -1,41 +1,30 @@
 package com.example.easytable;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.util.Util;
+import com.google.firebase.firestore.Source;
 
-import java.io.File;
-import java.net.URI;
+import java.util.EventListener;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -73,33 +62,11 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoRestaurantes);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Consulta para obtener los datos de la BD
-        Query query = db.collection("restaurante");
-
-        FirestoreRecyclerOptions<RestaurantePojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<RestaurantePojo>()
-                .setQuery(query, RestaurantePojo.class).build();
-
-        mAdapter = new RestaurantesAdapter(firestoreRecyclerOptions);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-
+        //Coloca los restaurantes
+        recyclerViewRestaurante();
 
         //Funcion que determina que accion se realiza cuando se hace click en algun restaurante
-        mAdapter.setOnItemClickListener(new RestaurantesAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
-                RestaurantePojo restaurante = documentSnapshot.toObject(RestaurantePojo.class);
-                String id = documentSnapshot.getId();
-                String nombreRestaurante = documentSnapshot.get("nombreLocal").toString();
-                Intent i = new Intent(PrincipalUC.this, Restaurante.class);
-                i.putExtra("idRestaurante",id);
-                i.putExtra("nombreRestaurante", nombreRestaurante);
-                startActivity(i);
-                Toast.makeText(PrincipalUC.this, "Posicion "+posicion + "ID:" + id, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        onClickRestaurante();
 
 
         //Boton de codigoQR
@@ -114,6 +81,11 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         });
 
         //Boton para salir de la app
+        onClickSalir();
+
+    }
+
+    private void onClickSalir() {
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,28 +94,63 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 finish();
             }
         });
+    }
 
+    private void recyclerViewRestaurante() {
+        //Consulta para obtener los datos de la BD
+        Query query = db.collection("restaurante");
+
+        FirestoreRecyclerOptions<RestaurantePojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<RestaurantePojo>()
+                .setQuery(query, RestaurantePojo.class).build();
+
+        mAdapter = new RestaurantesAdapter(firestoreRecyclerOptions);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void onClickRestaurante() {
+        mAdapter.setOnItemClickListener(new RestaurantesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
+                RestaurantePojo restaurante = documentSnapshot.toObject(RestaurantePojo.class);
+                String id = documentSnapshot.getId();
+                String nombreRestaurante = documentSnapshot.get("nombreLocal").toString();
+                Intent i = new Intent(PrincipalUC.this, Restaurante.class);
+                i.putExtra("idRestaurante",id);
+                i.putExtra("nombreRestaurante", nombreRestaurante);
+                startActivity(i);
+                Toast.makeText(PrincipalUC.this, "Posicion "+posicion + "ID:" + id, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
     //Metodo para desifrar codigo QR
     @Override
     public void handleResult(com.google.zxing.Result result) {
-        Log.v("HandleResult", result.getText());
+       // Log.v("HandleResult", result.getText());
         //Aparece el texto del codigo QR en un dialog
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setTitle("Resultado Scan");
 //        builder.setMessage(result.getText());
 //        AlertDialog alertDialog = builder.create();
 //        alertDialog.show();
-        //Envio de informacion a la vista Restaurante
+
+
         String dato = result.getText();
 
-        Intent Restaurante = new Intent(PrincipalUC.this, Restaurante.class);
-        Restaurante.putExtra("idRestaurante",dato);
-        startActivity(Restaurante);
-        finish();
-
+        final DocumentReference doc = db.collection("restaurante").document(dato);
+        doc.addSnapshotListener(new com.google.firebase.firestore.EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String nombreRestaurante = value.get("nombreLocal").toString();
+                //Envio de informacion a la vista MenuLocal
+                Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
+                Restaurante.putExtra("idRestaurante",nombreRestaurante);
+                startActivity(Restaurante);
+                finish();
+            }
+        });
 
         //Permite seguir escaneando despues de la primera vez
 //        mScannerView.resumeCameraPreview(this);
