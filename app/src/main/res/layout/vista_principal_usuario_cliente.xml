@@ -11,21 +11,24 @@
         <ImageButton
             android:id="@+id/lupa"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignBottom="@+id/buscar"
-            android:layout_marginBottom="-12dp"
-            android:src="@drawable/lupa" />
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/buscar"
+            android:src="@android:drawable/ic_menu_search"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginStart="20dp"
+            />
 
         <TextView
             android:id="@+id/buscar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:hint="@string/buscarRes_strings"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_toEndOf="@+id/lupa"
             android:layout_toStartOf="@+id/codigoQR"
+            android:layout_marginTop="10dp"
             />
 
         <ImageButton

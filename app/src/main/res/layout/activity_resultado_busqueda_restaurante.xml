@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ResultadoBusquedaRestaurante">
+    tools:context=".ResultadoBusquedaRestaurante"
+    android:padding="8dp">
 
     <TextView
+        android:id="@+id/textResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Resultado de tu busqueda:"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRestauranteEncontrado"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textResultado"
+        android:padding="8dp">
     </androidx.recyclerview.widget.RecyclerView>
 
 
 
-</LinearLayout>
+</RelativeLayout>

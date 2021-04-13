@@ -25,7 +25,6 @@
         android:layout_alignTop="@+id/reservar"
         android:layout_toStartOf="@+id/reservar"
         android:layout_marginEnd="20dp"
-        android:text="@string/nombreLocal_strings"
         android:textStyle="bold"
         android:textSize="17sp"/>
     <TextView
@@ -36,7 +35,6 @@
         android:layout_alignStart="@+id/imagenLocal"
         android:layout_toStartOf="@+id/reservar"
         android:layout_marginEnd="20dp"
-        android:text="@string/des"
         android:textSize="14sp"/>
 
     <Button

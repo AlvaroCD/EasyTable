@@ -38,7 +38,7 @@
     <string name="des">Descripcion del local</string>
     <string name="numero_mesas_strings">N° de mesas: </string>
     <string name="restaurante_strings">Nombre del Restaurante</string>
-    <string name="buscarRes_strings">Buscar Restaurantes</string>
+    <string name="buscarRes_strings">Buscar</string>
     <string name="nombreplatillo_strings">Nombre Platillo</string>
     <string name="costo_strings">Costo</string>
     <string-array name="tipo_de_cliente_strings">

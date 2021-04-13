@@ -4,25 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context=".BusquedaRestaurante">
-
-
-
-    <ImageView
-        android:id="@+id/lupa2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/lupa"
-        android:layout_alignBottom="@+id/buscar" />
 
     <EditText
         android:id="@+id/buscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="30dp"
         android:hint="@string/restaurante_strings"
-        android:layout_toEndOf="@+id/lupa2"
         />
 
     <TextView
@@ -31,8 +22,8 @@
         android:layout_height="wrap_content"
         android:text="@string/categoria_strings"
         android:layout_below="@+id/buscar"
-        android:layout_marginTop="20dp"
-        android:textSize="22sp"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
         android:textStyle="bold"/>
 
     <RadioGroup
@@ -41,15 +32,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/categoria"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/buscarRestaurantesButton"
+        android:layout_marginBottom="10dp">
 
         <RadioButton
             android:id="@+id/comidaRapidaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidarapida_strings"
-            android:textSize="18sp"
-            android:checked="true">
+            android:textSize="17sp"
+            android:checked="false">
         </RadioButton>
 
         <RadioButton
@@ -57,73 +50,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/buffets_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/tematicoBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tematico_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/paraLlevarBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/paraLlevar_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/deAutoBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/deAuto_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/altaCocinaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/altaCocina_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/fusionBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fusion_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/comidaMexicanaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidaMexicana_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/comidaAsiaticaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidaAsiatica_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
         <RadioButton
             android:id="@+id/comidaItalianaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidaItaliana_strings"
-            android:textSize="18sp">
+            android:textSize="17sp">
         </RadioButton>
-
     </RadioGroup>
 
     <ImageButton
@@ -131,10 +115,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/buscares"
-        android:background="#00000000"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/categoriaBuscarLocalRadioGroup"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         />
 
 </RelativeLayout>
