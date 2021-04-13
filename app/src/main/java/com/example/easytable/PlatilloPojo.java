@@ -2,18 +2,19 @@ package com.example.easytable;
 
 public class PlatilloPojo {
 
-    private String nombreLocal, nombrePlatillo;
+    private String nombreLocal, nombrePlatillo, descripcion;
     private int precio;
     private boolean disponibilidad;
 
     public PlatilloPojo() {
     }
 
-    public PlatilloPojo(String nombreLocal, String nombrePlatillo, int precio, boolean disponibilidad) {
+    public PlatilloPojo(String nombreLocal, String nombrePlatillo, int precio, boolean disponibilidad, String descripcion) {
         this.nombreLocal = nombreLocal;
         this.nombrePlatillo = nombrePlatillo;
         this.precio = precio;
         this.disponibilidad = disponibilidad;
+        this.descripcion = descripcion;
     }
 
     public String getNombreLocal() {
@@ -46,6 +47,14 @@ public class PlatilloPojo {
 
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 

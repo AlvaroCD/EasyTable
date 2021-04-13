@@ -33,7 +33,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerView;
     private RestaurantesAdapter mAdapter;
-    private ImageButton ImagenQR;
+    private ImageButton ImagenQR, mSearch;
     private Button mLogOut;
 
 
@@ -53,6 +53,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         ImagenQR = findViewById(R.id.codigoQR);
         mLogOut = findViewById(R.id.LogOutButton2);
+        mSearch = findViewById(R.id.lupa);
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         mAuth = FirebaseAuth.getInstance();
@@ -82,6 +83,14 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
         //Boton para salir de la app
         onClickSalir();
+
+        //Boton de busqueda
+        mSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PrincipalUC.this, BusquedaRestaurante.class));
+            }
+        });
 
     }
 
@@ -171,15 +180,4 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         super.onStop();
         mAdapter.stopListening();
     }
-
-
-
-
-    //Funcion que hace una llamada a un menu creado para poder realizar la busqueda de los restaurantes
-    public boolean onCreateOptionMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_buscador, menu);
-        return true;
-    }
-
-
 }

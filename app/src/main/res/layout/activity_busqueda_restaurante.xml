@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrarRestaurante2"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".BusquedaRestaurante">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/registrarRestaurante2_strings"
-        android:textSize="30sp"
-        android:layout_marginTop="15dp" >
-    </TextView>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/categoria_strings"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="15dp">
-    </TextView>
 
-    <RadioGroup
-        android:id="@+id/categoriaRegistrarLocalRadioGroup"
+    <ImageView
+        android:id="@+id/lupa2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp">
+        android:src="@drawable/lupa"
+        android:layout_alignBottom="@+id/buscar" />
+
+    <EditText
+        android:id="@+id/buscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="@string/restaurante_strings"
+        android:layout_toEndOf="@+id/lupa2"
+        />
+
+    <TextView
+        android:id="@+id/categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/categoria_strings"
+        android:layout_below="@+id/buscar"
+        android:layout_marginTop="20dp"
+        android:textSize="22sp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/categoriaBuscarLocalRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/categoria"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp">
 
         <RadioButton
-            android:id="@+id/comidaRapidaRegistrarLocalRadio"
+            android:id="@+id/comidaRapidaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidarapida_strings"
@@ -41,7 +53,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/buffetRegistrarLocalRadio"
+            android:id="@+id/buffetBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/buffets_strings"
@@ -49,7 +61,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/tematicoRegistrarLocalRadio"
+            android:id="@+id/tematicoBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tematico_strings"
@@ -57,7 +69,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/paraLlevarRegistrarLocalRadio"
+            android:id="@+id/paraLlevarBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/paraLlevar_strings"
@@ -65,7 +77,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/deAutoRegistrarLocalRadio"
+            android:id="@+id/deAutoBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/deAuto_strings"
@@ -73,7 +85,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/altaCocinaRegistrarLocalRadio"
+            android:id="@+id/altaCocinaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/altaCocina_strings"
@@ -81,7 +93,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/fusionRegistrarLocalRadio"
+            android:id="@+id/fusionBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fusion_strings"
@@ -89,7 +101,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/comidaMexicanaRegistrarLocalRadio"
+            android:id="@+id/comidaMexicanaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidaMexicana_strings"
@@ -97,7 +109,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/comidaAsiaticaRegistrarLocalRadio"
+            android:id="@+id/comidaAsiaticaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidaAsiatica_strings"
@@ -105,7 +117,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/comidaItalianaRegistrarLocalRadio"
+            android:id="@+id/comidaItalianaBuscarLocalRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/comidaItaliana_strings"
@@ -115,15 +127,14 @@
     </RadioGroup>
 
     <ImageButton
-        android:id="@+id/segundoSiguienteRegistrarLocalButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/flecha_derecha"
-        android:layout_gravity="center"
+        android:id="@+id/buscarRestaurantesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/buscares"
         android:background="#00000000"
-        android:layout_marginStart="145dp">
-    </ImageButton>
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/categoriaBuscarLocalRadioGroup"
+        />
 
-
-
-</LinearLayout>
+</RelativeLayout>

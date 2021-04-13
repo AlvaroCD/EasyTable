@@ -51,7 +51,6 @@ public class MenuLocal extends Activity {
         //Consulta para obtener los datos de la BD
         Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
 
-
         FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
                 .Builder<PlatilloPojo>()
                 .setQuery(query, PlatilloPojo.class).build();

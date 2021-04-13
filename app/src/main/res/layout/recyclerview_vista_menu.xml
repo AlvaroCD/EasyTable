@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:text="Nombre Platillo"
+        android:text="@string/nombreplatillo_strings"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp">
     </TextView>
@@ -20,19 +20,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/nombrePlatillo"
-        android:text="Descripcion"
+        android:text="@string/descripcion_strings"
         android:textSize="15sp"
         android:layout_alignStart="@id/nombrePlatillo"
         android:layout_marginTop="15dp"
-        android:layout_toLeftOf="@+id/costoPlatillo"
-        android:layout_marginRight="30dp">
+        android:layout_toStartOf="@+id/costoPlatillo"
+        android:layout_marginEnd="30dp">
     </TextView>
 
     <TextView
         android:id="@+id/costoPlatillo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Costo"
+        android:text="@string/costo_strings"
         android:textSize="15sp"
         android:layout_alignTop="@id/descripcionPlatillo"
         android:layout_alignParentEnd="true"

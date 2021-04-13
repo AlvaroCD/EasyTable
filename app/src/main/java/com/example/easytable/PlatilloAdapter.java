@@ -38,6 +38,7 @@ public class PlatilloAdapter extends FirestoreRecyclerAdapter<PlatilloPojo, Plat
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PlatilloPojo model) {
         holder.nombrePlatillo.setText(model.getNombrePlatillo());
         holder.costo.setText("$ " + model.getPrecio());
+        holder.descripcion.setText(model.getDescripcion());
         if (model.isDisponibilidad()) {
             holder.disponibilidad.setText("DISPONIBLE");
             holder.disponibilidad.setTextColor(Color.parseColor("#008F39"));

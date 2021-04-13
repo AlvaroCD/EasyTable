@@ -3,27 +3,26 @@
     package="com.example.easytable">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_easytable"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-
-        <activity android:name=".BuscarRestaurante" />
+        <activity android:name=".ResultadoBusquedaRestaurante" />
+        <activity android:name=".BusquedaRestaurante" />
         <activity android:name=".PrincipalUC" />
-        <activity android:name=".Restaurante"/>
+        <activity android:name=".Restaurante" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MenuLocal" />
         <activity android:name=".RegistrarRestaurante3" />
         <activity android:name=".RegistrarRestaurante2" />
         <activity android:name=".RegistrarRestaurante1" />
-        <activity android:name=".RegistrarUsuario"/>
-
+        <activity android:name=".RegistrarUsuario" />
         <activity android:name=".Ingresar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
