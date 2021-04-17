@@ -57,6 +57,7 @@ public class PlatilloAdapter extends FirestoreRecyclerAdapter<PlatilloPojo, Plat
         return new ViewHolder(view);
     }
 
+
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     public class ViewHolder extends RecyclerView.ViewHolder {
     TextView nombrePlatillo, descripcion, costo, disponibilidad;

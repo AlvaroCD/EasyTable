@@ -1,26 +1,27 @@
 package com.example.easytable;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class MenuLocal extends Activity {
-    //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
+public class Orden extends Activity {
+    private TextView mNombrePlatillo, mCostoToltal;
+    private Button mOrden, mPagar, mQueja, mAnadir;
+    private ImageButton mEliminarPlatillo;
+    private EditText mComentarioEspecifico;
     private RecyclerView mRecyclerView;
     private PlatilloAdapter mAdapter;
-    private TextView mNombreLocal;
-
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
@@ -28,34 +29,38 @@ public class MenuLocal extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vista_menu);
+        setContentView(R.layout.vista_orden);
 
-        //Optencion del Id del local escaneado y de su nombre
-        String  nombreRestaurante;
-        nombreRestaurante = getIntent().getStringExtra("idRestaurante");
+        String  nombrePlatillo;
+        nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
-        mNombreLocal = findViewById(R.id.nombreLocal);
+        mNombrePlatillo = findViewById(R.id.nombrePlatillo);
+        mCostoToltal = findViewById(R.id.costoPlatillo);
+        mOrden = findViewById(R.id.ordenar);
+        mPagar = findViewById(R.id.pagar);
+        mQueja = findViewById(R.id.queja);
+        mAnadir = findViewById(R.id.añadir);
+        mEliminarPlatillo = findViewById(R.id.eliminarPlatillo);
+        mComentarioEspecifico = findViewById(R.id.comentarioEspecifico);
+
 
         //Instanciacion del Recycler View
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoPlatillos);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoOrden);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
-        mNombreLocal.setText(nombreRestaurante);
+        mNombrePlatillo.setText(nombrePlatillo);
 
-        recycleView(nombreRestaurante);
-
-        //Funcion que determina que accion se realiza cuando se hace click en algun platillo
-        onClickPlatillo();
+        recycleView(nombrePlatillo);
     }
 
-    private void recycleView(String nombreRestaurante) {
+    private void recycleView(String nombrePlatillo) {
 
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
+        Query query = db.collection("platillos").whereEqualTo("nombrePlatillo", nombrePlatillo);
 
         FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
                 .Builder<PlatilloPojo>()
@@ -64,21 +69,6 @@ public class MenuLocal extends Activity {
         mAdapter = new PlatilloAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void onClickPlatillo() {
-        mAdapter.setOnItemClickListener(new PlatilloAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
-                PlatilloPojo platillo = documentSnapshot.toObject(PlatilloPojo.class);
-                String id = documentSnapshot.getId();
-                String nombrePlatillo = documentSnapshot.get("nombrePlatillo").toString();
-                Intent i = new Intent(MenuLocal.this, Orden.class);
-                i.putExtra("idPlatillo",id);
-                i.putExtra("nombrePlatillo", nombrePlatillo);
-                startActivity(i);
-            }
-        });
     }
 
     //Metodo para que cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los Platillos)
@@ -95,4 +85,3 @@ public class MenuLocal extends Activity {
         mAdapter.stopListening();
     }
 }
-

@@ -19,6 +19,7 @@
         <activity android:name=".Restaurante" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MenuLocal" />
+        <activity android:name=".Orden" />
         <activity android:name=".RegistrarRestaurante3" />
         <activity android:name=".RegistrarRestaurante2" />
         <activity android:name=".RegistrarRestaurante1" />

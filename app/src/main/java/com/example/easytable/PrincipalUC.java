@@ -128,7 +128,6 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 i.putExtra("idRestaurante",id);
                 i.putExtra("nombreRestaurante", nombreRestaurante);
                 startActivity(i);
-                Toast.makeText(PrincipalUC.this, "Posicion "+posicion + "ID:" + id, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -148,11 +147,11 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
         String dato = result.getText();
 
-        final DocumentReference doc = db.collection("restaurante").document(dato);
+        final DocumentReference doc = db.collection("mesa").document(dato);
         doc.addSnapshotListener(new com.google.firebase.firestore.EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                String nombreRestaurante = value.get("nombreLocal").toString();
+                String nombreRestaurante = value.get("nombreDelLocal").toString();
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
                 Restaurante.putExtra("idRestaurante",nombreRestaurante);

@@ -41,6 +41,11 @@
     <string name="buscarRes_strings">Buscar</string>
     <string name="nombreplatillo_strings">Nombre Platillo</string>
     <string name="costo_strings">Costo</string>
+    <string name="a_adir">Añadir</string>
+    <string name="queja">Queja</string>
+    <string name="pagar">Pagar</string>
+    <string name="cuenta">Cuenta:</string>
+    <string name="ordenar">Ordenar</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

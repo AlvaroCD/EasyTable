@@ -2,16 +2,109 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/nombrePlatillo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombreplatillo_strings"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <ImageButton
+        android:id="@+id/eliminarPlatillo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/nombrePlatillo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="50dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <Button
+        android:id="@+id/ordenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ordenar"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/eliminarPlatillo"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        />
+
+    <EditText
+        android:id="@+id/comentarioEspecifico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ordenar"
+        android:layout_below="@+id/nombrePlatillo"
+        android:layout_marginEnd="20dp"
+        android:layout_alignTop="@+id/ordenar"
+        android:layout_alignStart="@id/nombrePlatillo"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cuenta"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_above="@id/recyclerViewListadoOrden"
+        android:layout_marginBottom="10dp"
+        android:layout_alignStart="@+id/costoTotal"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewListado"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/codigoQR"
-        android:layout_marginTop="10dp"
-        android:layout_above="@+id/LogOutButton2"
-        android:layout_marginBottom="5dp">
+        android:id="@+id/recyclerViewListadoOrden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/costoTotal"
+        android:layout_toStartOf="@+id/pagar"
+        android:layout_marginEnd="20dp"
+        android:layout_alignTop="@id/añadir"
+        android:layout_alignStart="@+id/costoTotal">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/añadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/a_adir"
+        android:layout_alignStart="@+id/pagar"
+        android:layout_above="@+id/queja"
+       />
+
+    <Button
+        android:id="@+id/queja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/queja"
+        android:layout_alignStart="@+id/pagar"
+        android:layout_above="@+id/pagar"
+        android:layout_marginTop="22dp"
+        />
+    <Button
+        android:id="@+id/pagar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pagar"
+        android:layout_above="@id/costoTotal"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="22dp"/>
+
+<TextView
+    android:id="@+id/costoTotal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:text="@string/comenterio_aleatorio"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="50dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"/>
 
 </RelativeLayout>
