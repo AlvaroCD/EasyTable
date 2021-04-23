@@ -46,8 +46,32 @@
     <string name="pagar">Pagar</string>
     <string name="cuenta">Cuenta:</string>
     <string name="ordenar">Ordenar</string>
+    <string name="agregar_empleado_strings">Agregar un nuevo empleado</string>
+    <string name="editar_empleado">Editar datos de un empleado</string>
+    <string name="ver_listado_empleados_strings">Ver listado de todos tus empleados</string>
+    <string name="eliminar_empleado_strings">Eliminar a un empleado</string>
+    <string name="crud_empleados">¿Que deseas hacer?</string>
+    <string name="nuevo_empleado_strings">Ingresa los datos del nuevo empleado: </string>
+    <string name="registrar_empleado_strings">Registrar Empleado</string>
+    <string name="editar_empleado_strings">Ingresa los nuevos datos del empleado: </string>
+    <string name="editar_empleado_button_strings">Modificar</string>
+    <string name="nombre_empleado_strings">Nombre del Empleado</string>
+    <string name="tipo_de_usuario">Tipo de Usuario</string>
+    <string name="seleccion_empleado_strings">Selecciona al empleado que deseas editar</string>
+    <string name="puesto_actual">Puesto del empleado</string>
+    <string name="listado_empleados_strings">Listado de los empleados</string>
+    <string name="seleccion_empleado_eliminar_strings">Selecciona el empleado a eliminar</string>
+    <string name="resultado_tipo_restaurante_strings">Restaurantes que coincidieron con la categoria: </string>
+    <string name="resultado_nombre_restaurante_strings">Restaurantes que coincidieron con el nombre:</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>
+    </string-array>
+    <string-array name="tipo_de_empleado_strings">
+        <item>Host</item>
+        <item>Cocinero</item>
+        <item>Administrador</item>
+        <item>Mesero</item>
+        <item>Cajero</item>
     </string-array>
 </resources>

@@ -11,6 +11,7 @@
         android:id="@+id/buscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="30dp"
         android:hint="@string/restaurante_strings"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="@string/comidarapida_strings"
             android:textSize="17sp"
-            android:checked="false">
+            android:checked="true">
         </RadioButton>
 
         <RadioButton

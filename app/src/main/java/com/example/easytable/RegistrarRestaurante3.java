@@ -68,40 +68,41 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                 String idRestaurante = extra.getString("idRestaurante");
                 String idPropietario = extra.getString("idPropietario");
                 
-                
-                //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
-                Map<String, Object> restaurante = new HashMap<>();
-                //Se ingresan los datos en la estructura HashMap llamada "restaurante"
-                restaurante.put(KEY_CATEGORIA, categoria);
-                restaurante.put(KEY_NOMBRELOCAL, nombreLocal);
-                restaurante.put(KEY_DIRECCION, direccion);
-                restaurante.put(KEY_CP, codigoPostal);
-                restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
-                restaurante.put(KEY_NUMEROMESAS, numeroMesasInt);
-                restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
-                restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
-                restaurante.put(KEY_DESCRIPCION, descripcion);
+                if (!descripcion.isEmpty()){
+                    //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
+                    Map<String, Object> restaurante = new HashMap<>();
+                    //Se ingresan los datos en la estructura HashMap llamada "restaurante"
+                    restaurante.put(KEY_CATEGORIA, categoria);
+                    restaurante.put(KEY_NOMBRELOCAL, nombreLocal);
+                    restaurante.put(KEY_DIRECCION, direccion);
+                    restaurante.put(KEY_CP, codigoPostal);
+                    restaurante.put(KEY_TELEFONOLOCAL, telefonoLocal);
+                    restaurante.put(KEY_NUMEROMESAS, numeroMesasInt);
+                    restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
+                    restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
+                    restaurante.put(KEY_DESCRIPCION, descripcion);
 
-                //Aqui se indica con que nombre se creará la coleccion y el ID de cada restaurante en la BD
-                //(se usa el ID generado anteriormente para agregar la informacion al mismo restaurante)
-                db.collection("restaurante").document(idRestaurante).set(restaurante)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(RegistrarRestaurante3.this, "Restaurante Registrado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegistrarRestaurante3.this, MainActivity.class));
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(RegistrarRestaurante3.this, "Hubo un error", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, e.toString());
-                            }
-                        });
+                    //Aqui se indica con que nombre se creará la coleccion y el ID de cada restaurante en la BD
+                    //(se usa el ID generado anteriormente para agregar la informacion al mismo restaurante)
+                    db.collection("restaurante").document(idRestaurante).set(restaurante)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(RegistrarRestaurante3.this, "Restaurante Registrado", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(RegistrarRestaurante3.this, PrincipalUDL.class));
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(RegistrarRestaurante3.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, e.toString());
+                                }
+                            });
+                }else{
+                    Toast.makeText(RegistrarRestaurante3.this, "Escribe una descripcion", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
     }
 }

@@ -88,7 +88,6 @@ public class RegistrarUsuario extends AppCompatActivity {
                 //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
                 String id = UUID.randomUUID().toString();
 
-
                 if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !correo.isEmpty() &&
                         !username.isEmpty() && !password.isEmpty()){
 
@@ -115,7 +114,7 @@ public class RegistrarUsuario extends AppCompatActivity {
                             }
                         })
                         //Listener que indica si la creacion del usuario fue incorrecta
-                        .addOnFailureListener(new OnFailureListener()   {
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();

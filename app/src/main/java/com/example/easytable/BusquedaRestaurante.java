@@ -1,15 +1,22 @@
 package com.example.easytable;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class BusquedaRestaurante extends AppCompatActivity {
     private static final String TAG = "BusquedaRestaurante";
@@ -37,20 +44,33 @@ public class BusquedaRestaurante extends AppCompatActivity {
                 int idCategoriaSeleccionada = mCategoriaBuscada.getCheckedRadioButtonId();
                 mCategoriaBuscadaSeleccionada = findViewById(idCategoriaSeleccionada);
                 String categoriaSeleccionada = mCategoriaBuscadaSeleccionada.getText().toString();
-                if (!restauranteBuscado.isEmpty()){
-                    Toast.makeText(BusquedaRestaurante.this, "Escribiste: "+restauranteBuscado, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(BusquedaRestaurante.this, "Seleccionaste: "+categoriaSeleccionada, Toast.LENGTH_SHORT).show();
+                if (!restauranteBuscado.isEmpty() || !categoriaSeleccionada.isEmpty()) {
+                    Toast.makeText(BusquedaRestaurante.this, "Escribiste: " + restauranteBuscado, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusquedaRestaurante.this, "Seleccionaste: " + categoriaSeleccionada, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BusquedaRestaurante.this, ResultadoBusquedaRestaurante.class);
                     i.putExtra("restauranteBuscado", restauranteBuscado);
                     i.putExtra("categoriaRestauranteBuscado", categoriaSeleccionada);
                     startActivity(i);
                 }
                 else {
-                    Toast.makeText(BusquedaRestaurante.this, "Ingresa el nombre del restaurante a buscar", Toast.LENGTH_SHORT).show();
+                    mostrarDialogo();
                 }
-
             }
         });
-
     }
+
+
+    private void mostrarDialogo(){
+        new AlertDialog.Builder(this)
+                .setMessage("Ingresa el nombre y/o selecciona la categoria del restaurante")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
+    }
+
+
 }
