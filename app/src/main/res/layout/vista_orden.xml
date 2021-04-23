@@ -5,46 +5,25 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/nombrePlatillo"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewListadoPedidos"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nombreplatillo_strings"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="20dp"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
-
-    <ImageButton
-        android:id="@+id/eliminarPlatillo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/nombrePlatillo"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="50dp"
-        android:src="@android:drawable/ic_menu_delete"
-        android:background="?android:attr/selectableItemBackground"/>
+        android:layout_marginTop="20dp"
+        android:layout_above="@+id/ordenar"
+        android:layout_marginBottom="20dp"
+        android:layout_alignStart="@+id/recyclerViewListadoOrden"
+        android:layout_alignEnd="@+id/añadir">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/ordenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ordenar"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/eliminarPlatillo"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="25dp"
-        />
-
-    <EditText
-        android:id="@+id/comentarioEspecifico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/ordenar"
-        android:layout_below="@+id/nombrePlatillo"
-        android:layout_marginEnd="20dp"
-        android:layout_alignTop="@+id/ordenar"
-        android:layout_alignStart="@id/nombrePlatillo"
+        android:layout_above="@+id/añadir"
+        android:layout_alignEnd="@id/añadir"
+        android:layout_marginBottom="100dp"
         />
 
     <TextView

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/nombrePlatillo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombreplatillo_strings"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="2dp"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <ImageButton
+        android:id="@+id/eliminarPlatillo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/nombrePlatillo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <EditText
+        android:id="@+id/comentarioEspecifico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eliminarPlatillo"
+        android:layout_alignStart="@id/nombrePlatillo"
+        android:layout_marginEnd="55dp"
+        />
+
+</RelativeLayout>

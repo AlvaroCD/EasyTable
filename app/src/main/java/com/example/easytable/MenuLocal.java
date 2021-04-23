@@ -11,30 +11,83 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class MenuLocal extends Activity {
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerView;
     private PlatilloAdapter mAdapter;
     private TextView mNombreLocal;
-
+    boolean status;
+    private String nombreRestaurante;
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
+
+    //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
+    private static final String KEY_MESA = "mesa";
+    private static final String KEY_MONTOPAGAR = "montoPagar";
+    private static final String KEY_ID = "id";
+    private static final String KEY_IDUSUARIO = "idPrincipal";
+    private static final String KEY_USUARIO = "usuarios";
+    private static final String KEY_MATRIZUSUARIOS = "matriz";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_menu);
 
-        //Optencion del Id del local escaneado y de su nombre
-        String  nombreRestaurante;
-        nombreRestaurante = getIntent().getStringExtra("idRestaurante");
 
-        //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
+        //Optencion del Id del local escaneado y de su nombre
+        String  idMesa;
+        idMesa = getIntent().getStringExtra("idMesa");
+
+        //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
+        String idCuenta = UUID.randomUUID().toString();
+
+
+        final DocumentReference doc = db.collection("mesa").document(idMesa);
+        doc.addSnapshotListener(new com.google.firebase.firestore.EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                nombreRestaurante = value.get("nombreDelLocal").toString();
+                status = value.getBoolean("statusMesa");
+            }
+        });
+
+        //creacion de cuenta si la mesa esta vacia
+        if (status){
+            //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
+            Map<String, Object> cuenta = new HashMap<>();
+            //Se ingresan los datos en la estructura HashMap llamada "user"
+            cuenta.put(KEY_MESA, idMesa);
+            cuenta.put(KEY_MONTOPAGAR, 0);
+            cuenta.put(KEY_ID, idCuenta);
+
+            //sub raiz, donde se guardan los usuarios que participan en la cuenta
+            Map<String, Object> usuarios = new HashMap<>();
+            usuarios.put(KEY_IDUSUARIO, idUsuario);
+            usuarios.put(KEY_MATRIZUSUARIOS, Collections.emptyList());
+
+            cuenta.put(KEY_USUARIO, usuarios);
+            db.collection("cuenta").document(idCuenta).set(cuenta);
+        }else {
+
+        }
+
+            //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mNombreLocal = findViewById(R.id.nombreLocal);
 
         //Instanciacion del Recycler View
