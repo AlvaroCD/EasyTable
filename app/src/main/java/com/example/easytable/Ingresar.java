@@ -1,6 +1,7 @@
 package com.example.easytable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,16 +16,26 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
 public class Ingresar extends AppCompatActivity {
 
    private static final String TAG = "Login";
 
-    private EditText mUsername, mPassword;
+    private EditText mCorreo, mPassword;
     private Button mLoginButton, mRegisterButton;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    String tipoUsuario = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +47,17 @@ public class Ingresar extends AppCompatActivity {
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mLoginButton = (Button) findViewById(R.id.ingresarLoginButton);
         mRegisterButton = (Button) findViewById(R.id.registrarseLoginButton);
-        mUsername = (EditText) findViewById(R.id.correoUsuarioLoginTxt);
+        mCorreo = (EditText) findViewById(R.id.correoUsuarioLoginTxt);
         mPassword = (EditText) findViewById(R.id.contraseñaLoginTxt);
 
         //Instanciación de Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mUsername.getText().toString();
+                String username = mCorreo.getText().toString();
                 String password = mPassword.getText().toString();
                 if (!username.isEmpty() && !password.isEmpty()){
                     loginUser();
@@ -63,20 +75,53 @@ public class Ingresar extends AppCompatActivity {
             }
         });
     }
-
     private void loginUser(){
-        String username = mUsername.getText().toString();
+        String correo = mCorreo.getText().toString();
         String password = mPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        mAuth.signInWithEmailAndPassword(correo, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    startActivity(new Intent(Ingresar.this, PrincipalUC.class));
-                    finish();
-                }
-                else {
-                    Toast.makeText(Ingresar.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                }
+                String id = mAuth.getUid();
+                DocumentReference doc = db.collection("usuario").document(id);
+                doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        String tipoUsuario = value.get("tipoDeUsuario").toString();
+
+                        if (task.isSuccessful()){
+                            switch (tipoUsuario) {
+                                case "Cliente":
+                                    startActivity(new Intent(Ingresar.this, PrincipalUC.class));
+                                    break;
+                                case "Dueño del Local":
+                                    startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
+                                    break;
+                                case "Host":
+                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                    break;
+                                case "Cocinero":
+                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                    break;
+                                case "Administrador":
+                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                    break;
+                                case "Mesero":
+                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                    break;
+                                case "Cajero":
+                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                    break;
+                            }
+                            finish();
+
+                        }
+                        else {
+                            Toast.makeText(Ingresar.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
             }
         });
     }
@@ -86,6 +131,7 @@ public class Ingresar extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()!= null){
+            //El usuario tiene una sesion iniciada
             startActivity(new Intent(Ingresar.this, PrincipalUC.class));
             finish();
         }

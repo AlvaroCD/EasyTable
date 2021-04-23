@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PrincipalUDL"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crud_empleados"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/agregarEmpleadosButton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/agregar_empleado_strings"
+        android:layout_marginTop="35sp"
+        />
+
+    <Button
+        android:id="@+id/editarEmpleadosButton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/editar_empleado"
+        android:layout_marginTop="35sp"
+        />
+
+    <Button
+        android:id="@+id/listarEmpleadosButton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/ver_listado_empleados_strings"
+        android:layout_marginTop="35sp"
+        />
+
+    <Button
+        android:id="@+id/eliminarEmpleadosButton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/eliminar_empleado_strings"
+        android:layout_marginTop="35sp"
+        />
+
+    <Button
+        android:id="@+id/LogOutButton3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cerrar_sesion_strings"
+        android:layout_marginTop="80dp"
+        />
+
+</LinearLayout>

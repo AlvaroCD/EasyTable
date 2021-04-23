@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".EditarEmpleado">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/editar_empleado_strings"
+        android:textSize="35sp"
+        android:layout_marginTop="15dp">
+    </TextView>
+
+
+    <EditText
+        android:id="@+id/nombreEditarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_strings"
+        android:inputType="text"
+        android:layout_marginTop="25dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/apellidoEditarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/apellidos_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/telefonoEditarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/telefono_strings"
+        android:layout_marginTop="15dp"
+        android:inputType="phone">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/correoEditarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/correo_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/usernameEditarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_text"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+
+
+    <TextView
+        android:id="@+id/puestoActualEditarEmpleado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/puesto_actual"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        />
+
+    <Spinner
+        android:id="@+id/tipoDeUsuarioEditarEmpleadoSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:entries="@array/tipo_de_empleado_strings">
+    </Spinner>
+
+    <Button
+        android:id="@+id/modificarEditarEmpleadoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/editar_empleado_button_strings"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center" >
+    </Button>
+
+</LinearLayout>

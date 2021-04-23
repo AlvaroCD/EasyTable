@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ResultadoBusquedaRestaurante"
-    android:padding="8dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/textResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resultado de tu busqueda:"
+        android:text="@string/resultado_nombre_restaurante_strings"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="20sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewRestauranteEncontrado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/recyclerViewRestauranteEncontradoNombre"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
         android:layout_below="@+id/textResultado"
         android:padding="8dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textResultado2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/resultado_tipo_restaurante_strings"
+        android:layout_below="@+id/recyclerViewRestauranteEncontradoNombre"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRestauranteEncontradoTipoRestaurante"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/textResultado2"
+        android:padding="8dp">
+
     </androidx.recyclerview.widget.RecyclerView>
 
 

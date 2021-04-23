@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -25,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class RegistrarUsuario extends AppCompatActivity {
+public class RegistrarEmpleado extends AppCompatActivity {
 
     private static final String TAG = "RegistrarUsuario";
     private FirebaseAuth mAuth;
@@ -42,9 +41,9 @@ public class RegistrarUsuario extends AppCompatActivity {
 
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
-    private EditText mNombre, mApellidos, mTelefono, mCorreo, mUsername, mPassword;
-    private Spinner mTipoUsuario;
-    private Button mRegistrarseButton;
+    private EditText mNombreEmpleado, mApellidosEmpleado, mTelefonoEmpleado, mCorreoEmpleado, mUsernameEmpleado, mPasswordEmpleado;
+    private Spinner mTipoUsuarioEmpleado;
+    private Button mRegistrarEmpleadoButton;
 
     //Adicion de la instancia de Firebase para el uso de Cloud Firestore
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -53,39 +52,39 @@ public class RegistrarUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);           //Se utiliza para quitar el nombre de la aplicacion de la pantalla inicial en el celular
-        setContentView(R.layout.vista_registrar_usuario);
+        setContentView(R.layout.vista_registrar_empleado);
 
         //Instanciación de Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
 
         //Relacion de la parte grafica (xml) con la lógica (java)
-        mNombre = (EditText) findViewById(R.id.nombreRegistrarUsuarioTxt);
-        mApellidos = (EditText) findViewById(R.id.apellidoRegistrarUsuarioTxt);
-        mTelefono = (EditText) findViewById(R.id.telefonoRegistrarUsuarioTxt);
-        mCorreo = (EditText) findViewById(R.id.correoRegistrarUsuarioTxt);
-        mUsername = (EditText) findViewById(R.id.usernameRegistrarUsuarioTxt);
-        mPassword = (EditText) findViewById(R.id.passwordRegistrarUsuarioTxt);
-        mTipoUsuario = (Spinner) findViewById(R.id.tipoDeUsuarioRegistrarUsuarioSpinner);
-        mRegistrarseButton = (Button) findViewById(R.id.registrarseRegistrarUsuarioButton);
+        mNombreEmpleado = (EditText) findViewById(R.id.nombreRegistrarEmpleadoTxt);
+        mApellidosEmpleado = (EditText) findViewById(R.id.apellidoRegistrarEmpleadoTxt);
+        mTelefonoEmpleado = (EditText) findViewById(R.id.telefonoRegistrarEmpleadoTxt);
+        mCorreoEmpleado = (EditText) findViewById(R.id.correoRegistrarEmpleadoTxt);
+        mUsernameEmpleado = (EditText) findViewById(R.id.usernameRegistrarEmpleadoTxt);
+        mPasswordEmpleado = (EditText) findViewById(R.id.passwordRegistrarEmpleadoTxt);
+        mTipoUsuarioEmpleado = (Spinner) findViewById(R.id.tipoDeUsuarioRegistrarEmpleadoSpinner);
+        mRegistrarEmpleadoButton = (Button) findViewById(R.id.registrarseRegistrarEmpleadoButton);
 
 
 
+        //Variables que almacenaran el contenido de los EditText's y el Spinner de la parte grafica
 
 
-        mRegistrarseButton.setOnClickListener(new View.OnClickListener() {          //Boton de acción para registrar un usuario
+        mRegistrarEmpleadoButton.setOnClickListener(new View.OnClickListener() {          //Boton de acción para registrar un usuario
             @Override
             public void onClick(View v) {
-                //Variables que almacenaran el contenido de los EditText's y el Spinner de la parte grafica
-                String nombre = mNombre.getText().toString();
-                String apellidos = mApellidos.getText().toString();
-                String telefono = mTelefono.getText().toString();
-                String correo = mCorreo.getText().toString();
-                String username = mUsername.getText().toString();
-                String password = mPassword.getText().toString();
-                String tipoUsuario = mTipoUsuario.getSelectedItem().toString();
 
-                //Condicional que verifica que los campos no se dejen vacios
+                String nombre = mNombreEmpleado.getText().toString();
+                String apellidos = mApellidosEmpleado.getText().toString();
+                String telefono = mTelefonoEmpleado.getText().toString();
+                String correo = mCorreoEmpleado.getText().toString();
+                String username = mUsernameEmpleado.getText().toString();
+                String password = mPasswordEmpleado.getText().toString();
+                String tipoUsuario = mTipoUsuarioEmpleado.getSelectedItem().toString();
+
+
                 if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !correo.isEmpty() &&
                         !username.isEmpty() && !password.isEmpty()){
 
@@ -114,35 +113,33 @@ public class RegistrarUsuario extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                if (tipoUsuario.equals("Cliente")){
-                                                    startActivity(new Intent(RegistrarUsuario.this, PrincipalUC.class));//poner condicional para que acceda a una vista diferente dependiendo si es cliente o dueño de local
-                                                    finish();
-                                                }else {
-                                                    Intent i = new Intent(RegistrarUsuario.this, RegistrarRestaurante1.class);
-                                                    i.putExtra("idPropietario", id);
-                                                    startActivity(i);//poner condicional para que acceda a una vista diferente dependiendo si es cliente o dueño de local
-                                                    finish();
-                                                }
+                                                startActivity(new Intent(RegistrarEmpleado.this, PrincipalUDL.class));
+                                                finish();
                                             }
                                         })
                                         //Listener que indica si la creacion del usuario fue incorrecta
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(RegistrarEmpleado.this, "Error", Toast.LENGTH_SHORT).show();
                                                 Log.d(TAG, e.toString());
                                             }
                                         });
-                                Toast.makeText(RegistrarUsuario.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
+
+                                Toast.makeText(RegistrarEmpleado.this, "Empleado agregado", Toast.LENGTH_SHORT).show();
+                                //Una vez agregado el usuario dueño del local se retorna a la vista Principal de dueño del local
+                                startActivity(new Intent(RegistrarEmpleado.this, PrincipalUDL.class));
+                                //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
+                                finish();
                             }
                             else {
-                                Toast.makeText(RegistrarUsuario.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrarEmpleado.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
                 else{
-                    Toast.makeText(RegistrarUsuario.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrarEmpleado.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
                 }
             }
         });

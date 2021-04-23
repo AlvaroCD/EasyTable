@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.easytable">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -13,6 +14,12 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
+        <activity android:name=".ListadoEliminarEmpleado" />
+        <activity android:name=".ListadoEmpleados" />
+        <activity android:name=".ListadoEditarEmpleado" />
+        <activity android:name=".EditarEmpleado" />
+        <activity android:name=".RegistrarEmpleado" />
+        <activity android:name=".PrincipalUDL" />
         <activity android:name=".ResultadoBusquedaRestaurante" />
         <activity android:name=".BusquedaRestaurante" />
         <activity android:name=".PrincipalUC" />

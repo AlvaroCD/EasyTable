@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".RegistrarEmpleado">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nuevo_empleado_strings"
+        android:textSize="35sp"
+        android:layout_marginTop="15dp">
+    </TextView>
+
+
+    <EditText
+        android:id="@+id/nombreRegistrarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_strings"
+        android:inputType="text"
+        android:layout_marginTop="25dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/apellidoRegistrarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/apellidos_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/telefonoRegistrarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/telefono_strings"
+        android:layout_marginTop="15dp"
+        android:inputType="phone">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/correoRegistrarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/correo_strings"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/usernameRegistrarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_text"
+        android:inputType="text"
+        android:layout_marginTop="15dp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/passwordRegistrarEmpleadoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_text"
+        android:layout_marginTop="15dp"
+        android:inputType="textPassword">
+    </EditText>
+
+    <Spinner
+        android:id="@+id/tipoDeUsuarioRegistrarEmpleadoSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:entries="@array/tipo_de_empleado_strings">
+    </Spinner>
+
+    <Button
+        android:id="@+id/registrarseRegistrarEmpleadoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registrar_empleado_strings"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center" >
+    </Button>
+
+</LinearLayout>
