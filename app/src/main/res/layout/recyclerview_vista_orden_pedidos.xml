@@ -14,7 +14,6 @@
         android:layout_marginStart="2dp"
         android:textStyle="bold"
         android:textSize="18sp"/>
-
     <ImageButton
         android:id="@+id/eliminarPlatillo"
         android:layout_width="50dp"

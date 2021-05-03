@@ -49,6 +49,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_principal_usuario_cliente);
 
+        Toast.makeText(this, Global.getmIdUsuario(),Toast.LENGTH_LONG ).show();
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         ImagenQR = findViewById(R.id.codigoQR);
@@ -146,11 +147,21 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
 
         String dato = result.getText();
+
+        final DocumentReference doc = db.collection("mesa").document(dato);
+        doc.addSnapshotListener(new com.google.firebase.firestore.EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String nombreRestaurante = value.get("nombreDelLocal").toString();
+                boolean status = value.getBoolean("statusMesa");
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
-                Restaurante.putExtra("idMesa",dato);
+                Restaurante.putExtra("idRestaurante",nombreRestaurante);
+                Restaurante.putExtra("estado", status);
                 startActivity(Restaurante);
                 finish();
+            }
+        });
 
         //Permite seguir escaneando despues de la primera vez
 //        mScannerView.resumeCameraPreview(this);

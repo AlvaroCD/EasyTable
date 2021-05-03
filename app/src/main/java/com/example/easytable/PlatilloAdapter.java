@@ -90,6 +90,6 @@ public class PlatilloAdapter extends FirestoreRecyclerAdapter<PlatilloPojo, Plat
     }
 
     public void setOnItemClickListener(PlatilloAdapter.OnItemClickListener listener1){
-        listener = (OnItemClickListener) listener1;
+        listener = listener1;
     }
 }

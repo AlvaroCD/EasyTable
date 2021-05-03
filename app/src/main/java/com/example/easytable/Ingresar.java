@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.core.UserWriteRecord;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -83,6 +85,8 @@ public class Ingresar extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 String id = mAuth.getUid();
+                Global.setmIdUsuario(id);
+
                 DocumentReference doc = db.collection("usuario").document(id);
                 doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override

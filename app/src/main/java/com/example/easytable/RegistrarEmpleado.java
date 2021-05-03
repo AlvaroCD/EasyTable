@@ -94,8 +94,11 @@ public class RegistrarEmpleado extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 //Aqui se obtiene el ID con el que se creo el perfil de firebase auth para asociarlo al perfil en la base de datos (firestore)
                                 String id = mAuth.getUid();
+
+
                                 //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
                                 Map<String, Object> user = new HashMap<>();
+
                                 //Se ingresan los datos en la estructura HashMap llamada "user"
                                 user.put(KEY_NOMBRE, nombre);
                                 user.put(KEY_APELLIDO, apellidos);
