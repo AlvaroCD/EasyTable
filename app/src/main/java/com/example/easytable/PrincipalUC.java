@@ -153,10 +153,12 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String nombreRestaurante = value.get("nombreDelLocal").toString();
+                String idMesa = value.getId().toString();
                 boolean status = value.getBoolean("statusMesa");
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
                 Restaurante.putExtra("idRestaurante",nombreRestaurante);
+                Restaurante.putExtra("idMesa", idMesa);
                 Restaurante.putExtra("estado", status);
                 startActivity(Restaurante);
                 finish();
