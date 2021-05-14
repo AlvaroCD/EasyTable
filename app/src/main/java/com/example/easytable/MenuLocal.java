@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -32,6 +35,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class MenuLocal extends Activity {
+
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerView;
     private PlatilloAdapter mAdapter;
@@ -39,9 +43,9 @@ public class MenuLocal extends Activity {
     boolean status;
     private String nombreRestaurante;
 
-
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
+
 
 
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
@@ -64,23 +68,28 @@ public class MenuLocal extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_menu);
 
+        String idOrden = null;
+
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
         //Optencion del Id del local, estado y id de la mesa escaneada
         boolean statusMesa = getIntent().getBooleanExtra("estado",true);
-        String nombreRestaurante = getIntent().getStringExtra("idRestaurante");
-        String idMesa = getIntent().getStringExtra("idMesa");
 
         //Optencion del estatus de la cuenta
         boolean statusOrden = getIntent().getBooleanExtra("statusOrden", false);
+
+        String nombreRestaurante = getIntent().getStringExtra("idRestaurante");
+        String idMesa = getIntent().getStringExtra("idMesa");
+
 
 
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
         String idCuenta = date + "-" + Global.getmIdUsuario() + "-" + idMesa ;
 
-        String idOrden = UUID.randomUUID().toString();
+        if (idOrden==null)
+        idOrden = UUID.randomUUID().toString();
 
         CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date);
 
@@ -98,12 +107,27 @@ public class MenuLocal extends Activity {
 
         //Funcion que determina que accion se realiza cuando se hace click en algun platillo
         String idOrdenActual = "";
-        onClickPlatillo(idOrdenActual);
+        onClickPlatillo(idOrden, idMesa);
+    }
+
+    private void recycleView(String nombreRestaurante) {
+
+        //Consulta para obtener los datos de la BD
+        Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
+
+        FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
+                .Builder<PlatilloPojo>()
+                .setQuery(query, PlatilloPojo.class).build();
+
+        mAdapter = new PlatilloAdapter(firestoreRecyclerOptions);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date) {
         //creacion de cuenta si la mesa esta vacia
         if (status){
+
             //Se crea una estructura de datos HashMap para poder guardar los datos de la orden
             Map<String, Object> orden = new HashMap<>();
 
@@ -160,40 +184,52 @@ public class MenuLocal extends Activity {
                         }
                     });
 
+            Map <String, Object> statusmesa = new HashMap<>();
+            statusmesa.put("statusMesa", false);
 
-        }else if (!status && ordenTerminada){
+            db.collection("mesa").document(idMesa).update(statusmesa)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MenuLocal.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        }
+        //si la mesa no esta vacia y aun no mandan la comanda
+        else if (!status && !ordenTerminada){
+
             Toast.makeText(this,"ya hay un usuario", Toast.LENGTH_LONG).show();
-        }else if (!status && !ordenTerminada) {
+        }
+        //si la mesa no esta vacia y ya mandanron la comanda
+        else if (!status && ordenTerminada) {
 
         }
 
     }
 
-    private void recycleView(String nombreRestaurante) {
+    private void onClickPlatillo(String idOrden, String idMesa) {
 
-        //Consulta para obtener los datos de la BD
-        Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
-
-        FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
-                .Builder<PlatilloPojo>()
-                .setQuery(query, PlatilloPojo.class).build();
-
-        mAdapter = new PlatilloAdapter(firestoreRecyclerOptions);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void onClickPlatillo(String idOrden) {
         mAdapter.setOnItemClickListener(new PlatilloAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
                 PlatilloPojo platillo = documentSnapshot.toObject(PlatilloPojo.class);
                 String id = documentSnapshot.getId();
                 String nombrePlatillo = documentSnapshot.get("nombrePlatillo").toString();
+                final DocumentReference ordenRef = db.collection("orden").document(idOrden);
+                // Atomically add a new region to the "regions" array field.
+                ordenRef.update("matrizPlatillos", FieldValue.arrayUnion(id));
                 Intent i = new Intent(MenuLocal.this, Orden.class);
                 i.putExtra("idPlatillo",id);
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("idCuenta", idOrden);
+                i.putExtra("idRestaurante",nombreRestaurante);
+                i.putExtra("idMesa", idMesa);
                 startActivity(i);
             }
         });
@@ -206,7 +242,7 @@ public class MenuLocal extends Activity {
         mAdapter.startListening();
     }
 
-    //Metodo para que cuando el usuario no esté dentro de la aplicacion, la aplicación deje de actualizar los datos de la misma (datos de los Platillos     )
+    //Metodo para que cuando el usuario no esté dentro de la a  plicacion, la aplicación deje de actualizar los datos de la misma (datos de los Platillos     )
     @Override
     protected void onStop() {
         super.onStop();

@@ -119,8 +119,7 @@ public class RegistrarUsuario extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, e.toString());
-                            }
-                        });
+                            }                       });
             }
             else{
                     Toast.makeText(RegistrarUsuario.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();

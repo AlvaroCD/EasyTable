@@ -58,6 +58,4 @@ public class ListadoEmpleados extends AppCompatActivity {
         super.onStop();
         mEmpleadosAdapter.stopListening();
     }
-
-
 }

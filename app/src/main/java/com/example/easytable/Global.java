@@ -14,7 +14,4 @@ public class Global extends Application {
     public static void setmIdUsuario(String mIdUsuario) {
         Global.mIdUsuario = mIdUsuario;
     }
-
-
-
 }
