@@ -10,9 +10,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mLogOut;
     private TextView textView;
     String IdRestaurante = "dss";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

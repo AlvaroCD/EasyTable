@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class ComentarioAdapter extends FirestoreRecyclerAdapter<ComentarioPojo, ComentarioAdapter.ViewHolder> {
-    private static RestaurantesAdapter.OnItemClickListener listener;
+    private static ComentarioAdapter.OnItemClickListener listener;
 
     public ComentarioAdapter(@NonNull FirestoreRecyclerOptions<ComentarioPojo> options) {
         super(options);
@@ -31,7 +30,7 @@ public class ComentarioAdapter extends FirestoreRecyclerAdapter<ComentarioPojo, 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Aqui se crea una vista la cual será la encargada de renderizar cada una de las vistas de los restaurantes en la pantalla
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_vista_restaurante, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_comentario_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -61,6 +60,6 @@ public class ComentarioAdapter extends FirestoreRecyclerAdapter<ComentarioPojo, 
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
-        ComentarioAdapter.listener = (RestaurantesAdapter.OnItemClickListener) listener;
+        ComentarioAdapter.listener = listener;
     }
 }

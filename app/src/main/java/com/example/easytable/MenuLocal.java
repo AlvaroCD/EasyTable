@@ -140,7 +140,7 @@ public class MenuLocal extends Activity {
     private void recycleView(String nombreRestaurante) {
 
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
+        Query query = db.collection("platillos").whereEqualTo("idDelLocal", nombreRestaurante);
 
         FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
                 .Builder<PlatilloPojo>()

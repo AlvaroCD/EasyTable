@@ -19,6 +19,7 @@ public class ListadoEmpleados extends AppCompatActivity {
     //Adicion de la instancia de Firebase para el uso de Cloud Firestore
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +31,15 @@ public class ListadoEmpleados extends AppCompatActivity {
 
         //Coloca los empleados
         recyclerViewEmpleados();
+
     }
 
     private void recyclerViewEmpleados() {
+        Bundle extra = getIntent().getExtras();
+        String idRestaurante = extra.getString("idRestaurante");
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("usuario");
+        Query query = db.collection("usuario").whereEqualTo("IDRestReg", idRestaurante)
+                .whereNotEqualTo("tipoDeUsuario", "Dueño del Local");
 
         FirestoreRecyclerOptions<EmpleadosPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<EmpleadosPojo>()
                 .setQuery(query, EmpleadosPojo.class).build();

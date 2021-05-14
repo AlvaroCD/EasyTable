@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,9 +61,9 @@ public class Ingresar extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mCorreo.getText().toString();
+                String correo = mCorreo.getText().toString();
                 String password = mPassword.getText().toString();
-                if (!username.isEmpty() && !password.isEmpty()){
+                if (!correo.isEmpty() && !password.isEmpty()){
                     loginUser();
                 }
                 else {
@@ -77,57 +79,58 @@ public class Ingresar extends AppCompatActivity {
             }
         });
     }
-    private void loginUser(){
+
+    private void loginUser() {
         String correo = mCorreo.getText().toString();
         String password = mPassword.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(correo, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                String id = mAuth.getUid();
-                Global.setmIdUsuario(id);
-
-                DocumentReference doc = db.collection("usuario").document(id);
-                doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        mAuth.signInWithEmailAndPassword(correo, password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        String tipoUsuario = value.get("tipoDeUsuario").toString();
+                    public void onSuccess(AuthResult authResult) {
+                        String id = mAuth.getUid();
+                        Global.setmIdUsuario(id);
 
-                        if (task.isSuccessful()){
-                            switch (tipoUsuario) {
-                                case "Cliente":
-                                    startActivity(new Intent(Ingresar.this, PrincipalUC.class));
-                                    break;
-                                case "Dueño del Local":
-                                    startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
-                                    break;
-                                case "Host":
-                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
-                                    break;
-                                case "Cocinero":
-                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
-                                    break;
-                                case "Administrador":
-                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
-                                    break;
-                                case "Mesero":
-                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
-                                    break;
-                                case "Cajero":
-                                    startActivity(new Intent(Ingresar.this, MainActivity.class));
-                                    break;
+                        DocumentReference doc = db.collection("usuario").document(id);
+                        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                String tipoUsuario = value.get("tipoDeUsuario").toString();
+                                switch (tipoUsuario) {
+                                    case "Cliente":
+                                        startActivity(new Intent(Ingresar.this, PrincipalUC.class));
+                                        break;
+                                    case "Dueño del Local":
+                                        startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
+                                        break;
+                                    case "Host":
+                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        break;
+                                    case "Cocinero":
+                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        break;
+                                    case "Administrador":
+                                        startActivity(new Intent(Ingresar.this, PrincipalUA.class));
+                                        break;
+                                    case "Mesero":
+                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        break;
+                                    case "Cajero":
+                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        break;
+                                }
+                                finish();
+
                             }
-                            finish();
-
-                        }
-                        else {
-                            Toast.makeText(Ingresar.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                        }
-
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Ingresar.this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-        });
     }
 
     //Con este metodo y esta condicional se busca hacer que el usuario mantenga su sesion iniciada aún cuando la app ya se haya cerrado
@@ -135,9 +138,40 @@ public class Ingresar extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()!= null){
+            String id = mAuth.getUid();
             //El usuario tiene una sesion iniciada
-            startActivity(new Intent(Ingresar.this, PrincipalUC.class));
-            finish();
+            DocumentReference doc = db.collection("usuario").document(id);
+            doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    String tipoUsuario = value.get("tipoDeUsuario").toString();
+                    switch (tipoUsuario) {
+                        case "Cliente":
+                            startActivity(new Intent(Ingresar.this, PrincipalUC.class));
+                            break;
+                        case "Dueño del Local":
+                            startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
+                            break;
+                        case "Host":
+                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            break;
+                        case "Cocinero":
+                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            break;
+                        case "Administrador":
+                            startActivity(new Intent(Ingresar.this, PrincipalUA.class));
+                            break;
+                        case "Mesero":
+                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            break;
+                        case "Cajero":
+                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            break;
+                    }
+                    finish();
+
+                }
+            });
         }
     }
 }

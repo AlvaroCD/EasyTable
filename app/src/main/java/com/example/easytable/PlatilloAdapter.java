@@ -15,7 +15,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import static android.graphics.Color.*;
 import static android.graphics.Color.RED;
 
 public class PlatilloAdapter extends FirestoreRecyclerAdapter<PlatilloPojo, PlatilloAdapter.ViewHolder> {
@@ -53,7 +52,7 @@ public class PlatilloAdapter extends FirestoreRecyclerAdapter<PlatilloPojo, Plat
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Aqui se crea una vista la cual será la encargada de renderizar cada una de las vistas de los restaurantes en la pantalla
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_vista_menu, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_menu_list, parent, false);
         return new ViewHolder(view);
     }
 

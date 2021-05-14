@@ -12,41 +12,44 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class RestaurantesAdapter extends FirestoreRecyclerAdapter<RestaurantePojo, RestaurantesAdapter.ViewHolder> {
-        private static OnItemClickListener listener;
+public class RecursosAdapter extends FirestoreRecyclerAdapter<RecursosPojo, RecursosAdapter.ViewHolder> {
+    private static RecursosAdapter.OnItemClickListener listener;
 
-    public RestaurantesAdapter(@NonNull FirestoreRecyclerOptions<RestaurantePojo> options) {
+    public RecursosAdapter(@NonNull FirestoreRecyclerOptions<RecursosPojo> options) {
         super(options);
     }
 
     //Aqui se establecen los datos que va a tener cada uno de los elementos de nuestra vista
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull RestaurantePojo restaurante) {
-        holder.descripcionLocal.setText(restaurante.getDescripcionRestaurante());
-        holder.nombreLocal.setText(restaurante.getNombreLocal());
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull RecursosPojo model) {
+        holder.nombreDeIngrediente.setText(model.getNombreDeIngrediente());
+        if (model.getDisponibilidad().equals(true)){
+            holder.disponibilidad.setText("Disponible");
+        } else {
+            holder.disponibilidad.setText("No Disponible");
+        }
     }
+
 
     //El onCreateViewHolder de lo que se encarga es de "inflar" n cantidad de veces (donde n es la cantidad de elementos que hay en la base de datos)
     //la vista a la que se esta haciendo referencia, en este caso para mostrar los restaurantes
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Aqui se crea una vista la cual será la encargada de renderizar cada una de las vistas de los restaurantes en la pantalla
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelo_restaurante_list, viewGroup, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_recursos_list, parent, false);
         return new ViewHolder(view);
     }
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView descripcionLocal;
-        TextView nombreLocal;
+        TextView nombreDeIngrediente, disponibilidad;
 
         //Aqui se enlazan los objetos con el contenedor correspondiente del xml
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            descripcionLocal = itemView.findViewById(R.id.descripcionRestaurante);
-            nombreLocal = itemView.findViewById(R.id.nombreRestaurante);
-
+            nombreDeIngrediente = itemView.findViewById(R.id.nombreIngredienteModelo);
+            disponibilidad = itemView.findViewById(R.id.disponibilidadIngredienteModelo);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,6 +68,6 @@ public class RestaurantesAdapter extends FirestoreRecyclerAdapter<RestaurantePoj
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
-        RestaurantesAdapter.listener = listener;
+        RecursosAdapter.listener = listener;
     }
 }

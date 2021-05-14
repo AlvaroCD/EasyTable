@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".PrincipalUA">
+
+    <Button
+        android:id="@+id/agregarPlatilloButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/agregar_platillo_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/localButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/local_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/recursosButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recursos_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/meserosTrabajandoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/meseros_trabajando_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/LogOutButtonAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cerrar_sesion_strings"
+        android:layout_marginTop="35dp"
+        />
+
+</LinearLayout>

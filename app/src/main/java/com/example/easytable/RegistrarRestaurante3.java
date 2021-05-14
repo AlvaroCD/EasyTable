@@ -1,6 +1,7 @@
 package com.example.easytable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,7 +15,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +27,7 @@ import java.util.Map;
 public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String TAG = "RegistrarRestaurante3";
 
-    //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
+    //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap para el restaurante
     private static final String KEY_CATEGORIA = "tipoRestaurante";
     private static final String KEY_NOMBRELOCAL = "nombreLocal";
     private static final String KEY_DIRECCION = "direccion";
@@ -32,6 +37,23 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String KEY_ID_RESTAURANTE= "IdRestaurante";
     private static final String KEY_ID_PROPIETARIO= "IdPropietario";
     private static final String KEY_DESCRIPCION = "descripcionRestaurante";
+
+
+
+    //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap para el usuario
+    private static final String KEY_NOMBRE = "Nombre";
+    private static final String KEY_APELLIDO = "Apellidos";
+    private static final String KEY_TELEFONO = "Telefono";
+    private static final String KEY_CORREO = "Correo";
+    private static final String KEY_USUARIO = "Usuario";
+    private static final String KEY_PASSWORD = "Contraseña";
+    private static final String KEY_USERTYPE = "tipoDeUsuario";
+    private static final String KEY_ID= "ID";
+    private static final String KEY_ID_REST_REG= "IDRestReg";
+
+
+
+
 
     private EditText mDescripcion;
     private ImageButton mNextButton;
@@ -89,7 +111,10 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(RegistrarRestaurante3.this, "Restaurante Registrado", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegistrarRestaurante3.this, PrincipalUDL.class));
+                                    Intent i = new Intent(RegistrarRestaurante3.this, PrincipalUDL.class);
+                                    i.putExtra("idRestaurante", idRestaurante);
+                                    startActivity(i);
+                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -99,6 +124,52 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
+
+                    DocumentReference doc = db.collection("usuario").document(idPropietario);
+                    doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            String nombre = value.get(KEY_NOMBRE).toString();
+                            String apellidos = value.get(KEY_APELLIDO).toString();
+                            String telefono = value.get(KEY_TELEFONO).toString();
+                            String correo = value.get(KEY_CORREO).toString();
+                            String username = value.get(KEY_USUARIO).toString();
+                            String password = value.get(KEY_PASSWORD).toString();
+                            String tipoUsuario = value.get(KEY_USERTYPE).toString();
+
+
+
+                            Map<String, Object> user = new HashMap<>();
+                            //Se ingresan los datos en la estructura HashMap llamada "user"
+                            user.put(KEY_NOMBRE, nombre);
+                            user.put(KEY_APELLIDO, apellidos);
+                            user.put(KEY_TELEFONO, telefono);
+                            user.put(KEY_CORREO, correo);
+                            user.put(KEY_USUARIO, username);
+                            user.put(KEY_PASSWORD, password);
+                            user.put(KEY_USERTYPE, tipoUsuario);
+                            user.put(KEY_ID, idPropietario);
+                            user.put(KEY_ID_REST_REG, idRestaurante);
+
+                            //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
+                            db.collection("usuario").document(idPropietario).set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(RegistrarRestaurante3.this, "Hubo un error al guardar el ID del Restaurante", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                        }
+                    });
+
+
                 }else{
                     Toast.makeText(RegistrarRestaurante3.this, "Escribe una descripcion", Toast.LENGTH_SHORT).show();
                 }
