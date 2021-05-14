@@ -115,7 +115,6 @@ public class EditarEmpleado extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(EditarEmpleado.this, "Usuario modificado", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(EditarEmpleado.this, ListadoEditarEmpleado.class));
                             finish();
                         }
                     })

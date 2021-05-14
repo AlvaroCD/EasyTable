@@ -100,7 +100,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(PrincipalUC.this, Ingresar.class));
+                //startActivity(new Intent(PrincipalUC.this, Ingresar.class));
                 finish();
             }
         });

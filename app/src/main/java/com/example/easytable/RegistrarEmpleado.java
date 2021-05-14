@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -38,6 +39,7 @@ public class RegistrarEmpleado extends AppCompatActivity {
     private static final String KEY_PASSWORD = "Contraseña";
     private static final String KEY_USERTYPE = "tipoDeUsuario";
     private static final String KEY_ID= "ID";
+    private static final String KEY_REST_REG = "IDRestReg";
 
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -52,6 +54,7 @@ public class RegistrarEmpleado extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);           //Se utiliza para quitar el nombre de la aplicacion de la pantalla inicial en el celular
         setContentView(R.layout.vista_registrar_empleado);
 
         //Instanciación de Firebase Authentication
@@ -94,6 +97,8 @@ public class RegistrarEmpleado extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 //Aqui se obtiene el ID con el que se creo el perfil de firebase auth para asociarlo al perfil en la base de datos (firestore)
                                 String id = mAuth.getUid();
+                                Bundle extra = getIntent().getExtras();
+                                String idRestaurante = extra.getString("idRestaurante");
 
 
                                 //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
@@ -108,6 +113,7 @@ public class RegistrarEmpleado extends AppCompatActivity {
                                 user.put(KEY_PASSWORD, password);
                                 user.put(KEY_USERTYPE, tipoUsuario);
                                 user.put(KEY_ID, id);
+                                user.put(KEY_REST_REG, idRestaurante);
 
                                 //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
                                 db.collection("usuario").document(id).set(user)
@@ -116,7 +122,6 @@ public class RegistrarEmpleado extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                startActivity(new Intent(RegistrarEmpleado.this, PrincipalUDL.class));
                                                 finish();
                                             }
                                         })

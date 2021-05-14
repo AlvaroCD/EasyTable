@@ -104,6 +104,7 @@ public class RegistrarRestaurante2 extends AppCompatActivity {
                                 i.putExtra("idPropietario", idPropietario);
                                 i.putExtra("idRestaurante", idRestaurante);
                                 startActivity(i);
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

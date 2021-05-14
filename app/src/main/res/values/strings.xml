@@ -63,6 +63,24 @@
     <string name="seleccion_empleado_eliminar_strings">Selecciona el empleado a eliminar</string>
     <string name="resultado_tipo_restaurante_strings">Restaurantes que coincidieron con la categoria: </string>
     <string name="resultado_nombre_restaurante_strings">Restaurantes que coincidieron con el nombre:</string>
+    <string name="problema_strings">Ingresa cual fue el problema:</string>
+    <string name="detalles_queja_strings">El mensaje se enviará al administrador para informarle del problema y poder darte una solución.</string>
+    <string name="pagar_tv_strings">El total que vas a a pagar es:</string>
+    <string name="monto_strings">Monto a pagar</string>
+    <string name="pagar_strings">Pagar</string>
+    <string name="agregar_platillo_strings">Agregar Nuevo Platillo</string>
+    <string name="local_strings">Local</string>
+    <string name="listado_recursos_strings">Listado de Recursos</string>
+    <string name="meseros_trabajando_strings">Meseros Trabajando</string>
+    <string name="ingresa_datos_strings">Ingresa los siguientes datos:</string>
+    <string name="nombre_platillo_strings">Nombre del platillo:</string>
+    <string name="registrar_platillo_strings">Registrar Platillo</string>
+    <string name="agregar_ingrediente_strings">Agregar nuevo Ingrediente</string>
+    <string name="eliminar_ingrediente_strings">Eliminar Ingrediente</string>
+    <string name="recursos_strings">Recursos</string>
+    <string name="nombre_ingrediente_strings">Nombre del ingrediente:</string>
+    <string name="disponibilidad_strings">Disponibilidad:</string>
+    <string name="eliminar_recurso_strings">Selecciona el ingrediente a eliminar</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

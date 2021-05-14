@@ -45,14 +45,11 @@ public class BusquedaRestaurante extends AppCompatActivity {
                 mCategoriaBuscadaSeleccionada = findViewById(idCategoriaSeleccionada);
                 String categoriaSeleccionada = mCategoriaBuscadaSeleccionada.getText().toString();
                 if (!restauranteBuscado.isEmpty() || !categoriaSeleccionada.isEmpty()) {
-                    Toast.makeText(BusquedaRestaurante.this, "Escribiste: " + restauranteBuscado, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(BusquedaRestaurante.this, "Seleccionaste: " + categoriaSeleccionada, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BusquedaRestaurante.this, ResultadoBusquedaRestaurante.class);
                     i.putExtra("restauranteBuscado", restauranteBuscado);
                     i.putExtra("categoriaRestauranteBuscado", categoriaSeleccionada);
                     startActivity(i);
-                }
-                else {
+                } else {
                     mostrarDialogo();
                 }
             }
@@ -66,11 +63,8 @@ public class BusquedaRestaurante extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 })
                 .show();
     }
-
-
 }

@@ -43,8 +43,12 @@ public class ListadoEditarEmpleado extends AppCompatActivity {
     }
 
     private void recyclerViewEmpleados() {
+        //Obtencion del ID del restaurante para poder mostrar unicamente los empleados de dicho restaurante
+        Bundle extra = getIntent().getExtras();
+        String idRestaurante = extra.getString("idRestaurante");
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("usuario");
+        Query query = db.collection("usuario").whereEqualTo("IDRestReg", idRestaurante)
+                .whereNotEqualTo("tipoDeUsuario", "Dueño del Local");
 
         FirestoreRecyclerOptions<EmpleadosPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<EmpleadosPojo>()
                 .setQuery(query, EmpleadosPojo.class).build();

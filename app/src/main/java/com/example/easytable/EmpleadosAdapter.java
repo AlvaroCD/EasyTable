@@ -14,12 +14,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 public class EmpleadosAdapter extends FirestoreRecyclerAdapter<EmpleadosPojo, EmpleadosAdapter.ViewHolder> {
     private static EmpleadosAdapter.OnItemClickListener listener;
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+
     public EmpleadosAdapter(@NonNull FirestoreRecyclerOptions<EmpleadosPojo> options) {
         super(options);
     }
@@ -37,7 +32,7 @@ public class EmpleadosAdapter extends FirestoreRecyclerAdapter<EmpleadosPojo, Em
     @Override
     public EmpleadosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         //Aqui se crea una vista la cual será la encargada de renderizar cada una de las vistas de los restaurantes en la pantalla
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vista_empleados_modelo, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelo_empleados_list, viewGroup, false);
 
         return new ViewHolder(view);
     }
