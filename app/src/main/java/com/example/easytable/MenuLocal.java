@@ -1,5 +1,6 @@
 package com.example.easytable;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,18 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.WriteBatch;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class MenuLocal extends Activity {
+
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerView;
     private PlatilloAdapter mAdapter;
@@ -34,9 +44,9 @@ public class MenuLocal extends Activity {
     boolean status;
     private String nombreRestaurante;
 
-
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
+
 
 
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
@@ -44,62 +54,88 @@ public class MenuLocal extends Activity {
     private static final String KEY_MONTOPAGAR = "montoPagar";
     private static final String KEY_ID = "id";
     private static final String KEY_IDUSUARIO = "idPrincipal";
-    private static final String KEY_USUARIO = "usuarios";
-    private static final String KEY_MATRIZUSUARIOS = "matriz";
+    private static final String KEY_MATRIZUSUARIOS = "matrizUsuarios";
+    private static final String KEY_STATUSCUENTA = "pagado";
+    private static final String KEY_METODOPAGO = "efectivo";
+    private static final String KEY_FECHA = "fecha";
+    private static final String KEY_MATRIZORDEN = "matrizOrdenes";
 
+    private static final String KEY_STATUSORDEN = "ordenTerminadaPedir";
+    private static final String KEY_STATUSPREPARACION = "statusPreparacion";
+    private static final String KEY_MATRIZPLATILLOS = "matrizPlatillos";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_menu);
 
-        //Optencion del Id del local escaneado y de su nombre
-        String  idMesa;
-        boolean status;
-        idMesa = getIntent().getStringExtra("idRestaurante");
-        status = getIntent().getBooleanExtra("estado",true);
-        //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
-        String idCuenta = UUID.randomUUID().toString();
+        String idOrden = null;
 
+        //Instanciación de Firebase Authentication y de Firebase Firestore
+        db = FirebaseFirestore.getInstance();
+
+        //Obtención de los datos de la vista PrincipalUC
+        nombreRestaurante = getIntent().getStringExtra("idRestaurante");
+        String idMesa = getIntent().getStringExtra("idMesa");
+        boolean statusMesa = getIntent().getBooleanExtra("estado", true);
+
+        //Obtención de los datos de la vista Orden
+        boolean statusOrden = getIntent().getBooleanExtra("statusOrden", false);
+        idOrden = getIntent().getStringExtra("idOrden");
+
+        @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
+        String idCuenta = date + "-" + Global.getmIdUsuario() + "-" + idMesa;
+
+        //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
+        mNombreLocal = findViewById(R.id.nombreLocal);
+
+        //Instanciacion del Recycler View
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoPlatillos);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mNombreLocal.setText(nombreRestaurante);
+
+        recycleView(nombreRestaurante);
+
+        if (idOrden == null) idOrden = UUID.randomUUID().toString();
+        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date);
+
+        //Funcion que determina que accion se realiza cuando se hace click en algun platillo
+        onClickPlatillo(idOrden, idMesa);
+    }
+
+    private void recycleView(String nombreRestaurante) {
+
+        //Consulta para obtener los datos de la BD
+        Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
+
+        FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
+                .Builder<PlatilloPojo>()
+                .setQuery(query, PlatilloPojo.class).build();
+
+        mAdapter = new PlatilloAdapter(firestoreRecyclerOptions);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date) {
 
         //creacion de cuenta si la mesa esta vacia
         if (status){
-           /* Map<String, Object> city = new HashMap<>();
-            city.put("name", "Los Angeles");
-            city.put("state", "CA");
-            city.put("country", "USA");
 
-            db.collection("cuenta").document("LA")
-                    .set(city)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                        }
-                    });*/
+            //Se crea una estructura de datos HashMap para poder guardar los datos de la orden
+            Map<String, Object> orden = new HashMap<>();
 
-            //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
+            //Se ingresan los datos en la estructura HashMap
+            orden.put(KEY_MESA, idMesa);
+            orden.put(KEY_STATUSORDEN, false);
+            orden.put(KEY_STATUSPREPARACION, 0);
+            orden.put(KEY_IDUSUARIO, Global.getmIdUsuario());
+            orden.put(KEY_MATRIZPLATILLOS, Collections.emptyList());
 
-            Map<String, Object> cuenta = new HashMap<>();
-
-            //Se ingresan los datos en la estructura HashMap llamada "user"
-            cuenta.put(KEY_MESA, idMesa);
-            cuenta.put(KEY_MONTOPAGAR, 0);
-            cuenta.put(KEY_ID, idCuenta);
-
-            //sub raiz, donde se guardan los usuarios que participan en la cuenta
-            Map<String, Object> usuarios = new HashMap<>();
-
-            //usuarios.put(KEY_IDUSUARIO, idUsuario);
-            usuarios.put(KEY_MATRIZUSUARIOS, Collections.emptyList());
-
-            cuenta.put(KEY_USUARIO, usuarios);
-            db.collection("cuenta").document(idCuenta).collection("usuarios").document(idCuenta).set(cuenta)
-
+            db.collection("orden").document(idOrden).set(orden)
                     //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -115,52 +151,83 @@ public class MenuLocal extends Activity {
                     });
 
 
-        }else {
-            Toast.makeText(this,"ya hay un usuario", Toast.LENGTH_LONG).show();
+
+            //Se crea una estructura de datos HashMap para poder guardar los datos de la cuenta
+            Map<String, Object> cuenta = new HashMap<>();
+
+            //Se ingresan los datos en la estructura HashMap
+            cuenta.put(KEY_MESA, idMesa);
+            cuenta.put(KEY_MONTOPAGAR, 0);
+            cuenta.put(KEY_ID, idCuenta);
+            cuenta.put(KEY_IDUSUARIO, Global.getmIdUsuario());
+            cuenta.put(KEY_METODOPAGO, false);
+            cuenta.put(KEY_STATUSCUENTA, false);
+            cuenta.put(KEY_FECHA, date);
+            cuenta.put(KEY_MATRIZUSUARIOS, Collections.emptyList());
+            cuenta.put(KEY_MATRIZORDEN, Collections.singletonList(idOrden));
+
+            db.collection("cuenta").document(idCuenta).set(cuenta)
+                    //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    })
+                    //Listener que indica si la creacion del usuario fue incorrecta
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MenuLocal.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            final DocumentReference statusMesaCambio = db.collection("mesa").document(idMesa);
+            statusMesaCambio.update("statusMesa", false);
         }
 
-        //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
-        mNombreLocal = findViewById(R.id.nombreLocal);
+        else{
+            //si la mesa no esta vacia y aun no mandan la comanda
+            if (!ordenTerminada){
+                //Toast.makeText(this,"ya hay un usuario", Toast.LENGTH_LONG).show();
 
-        //Instanciacion del Recycler View
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoPlatillos);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            }
+            //si la mesa no esta vacia y ya mandanron la comanda a la cocina
+            else {
 
-        //Instanciación de Firebase Authentication y de Firebase Firestore
-        db = FirebaseFirestore.getInstance();
+            }
 
-        mNombreLocal.setText(nombreRestaurante);
+        }
 
-        recycleView(nombreRestaurante);
-
-        //Funcion que determina que accion se realiza cuando se hace click en algun platillo
-        onClickPlatillo();
     }
 
-    private void recycleView(String nombreRestaurante) {
+    private void onClickPlatillo(String idOrden, String idMesa) {
 
-        //Consulta para obtener los datos de la BD
-        Query query = db.collection("platillos").whereEqualTo("idDelLocal", nombreRestaurante);
-
-        FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
-                .Builder<PlatilloPojo>()
-                .setQuery(query, PlatilloPojo.class).build();
-
-        mAdapter = new PlatilloAdapter(firestoreRecyclerOptions);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void onClickPlatillo() {
         mAdapter.setOnItemClickListener(new PlatilloAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
-                PlatilloPojo platillo = documentSnapshot.toObject(PlatilloPojo.class);
+
                 String id = documentSnapshot.getId();
                 String nombrePlatillo = documentSnapshot.get("nombrePlatillo").toString();
+
+
+
+                /*CollectionReference ordenRef = db.collection("orden");
+                ordenRef.document(idOrden)
+                        .update("matrizPlatillos", FieldValue.arrayUnion(id));
+*/
+
+
+                final DocumentReference ordenRef = db.collection("orden").document(idOrden);
+                ordenRef.update("matrizPlatillos", FieldValue.arrayUnion("ahh"));
+
                 Intent i = new Intent(MenuLocal.this, Orden.class);
+
                 i.putExtra("idPlatillo",id);
                 i.putExtra("nombrePlatillo", nombrePlatillo);
+                i.putExtra("idCuenta", idOrden);
+                i.putExtra("idRestaurante",nombreRestaurante);
+                i.putExtra("idMesa", idMesa);
+
                 startActivity(i);
             }
         });
@@ -173,7 +240,7 @@ public class MenuLocal extends Activity {
         mAdapter.startListening();
     }
 
-    //Metodo para que cuando el usuario no esté dentro de la aplicacion, la aplicación deje de actualizar los datos de la misma (datos de los Platillos     )
+    //Metodo para que cuando el usuario no esté dentro de la a  plicacion, la aplicación deje de actualizar los datos de la misma (datos de los Platillos     )
     @Override
     protected void onStop() {
         super.onStop();

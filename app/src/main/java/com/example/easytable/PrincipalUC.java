@@ -44,12 +44,12 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
 
     //Vinculacion de la actividad con el layout
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.vista_principal_usuario_cliente);
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.vista_principal_usuario_cliente);
 
-        Toast.makeText(this, Global.getmIdUsuario(),Toast.LENGTH_LONG ).show();
+            Toast.makeText(this, Global.getmIdUsuario(),Toast.LENGTH_LONG ).show();
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         ImagenQR = findViewById(R.id.codigoQR);
@@ -100,7 +100,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                //startActivity(new Intent(PrincipalUC.this, Ingresar.class));
+                startActivity(new Intent(PrincipalUC.this, Ingresar.class));
                 finish();
             }
         });
@@ -137,14 +137,6 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     //Metodo para desifrar codigo QR
     @Override
     public void handleResult(com.google.zxing.Result result) {
-       // Log.v("HandleResult", result.getText());
-        //Aparece el texto del codigo QR en un dialog
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Resultado Scan");
-//        builder.setMessage(result.getText());
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-
 
         String dato = result.getText();
 
@@ -155,19 +147,18 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 String nombreRestaurante = value.get("nombreDelLocal").toString();
                 String idMesa = value.getId().toString();
                 boolean status = value.getBoolean("statusMesa");
+
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
+
                 Restaurante.putExtra("idRestaurante",nombreRestaurante);
                 Restaurante.putExtra("idMesa", idMesa);
                 Restaurante.putExtra("estado", status);
+
                 startActivity(Restaurante);
                 finish();
             }
         });
-
-        //Permite seguir escaneando despues de la primera vez
-//        mScannerView.resumeCameraPreview(this);
-
     }
 
 

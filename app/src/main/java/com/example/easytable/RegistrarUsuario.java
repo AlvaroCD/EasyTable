@@ -119,7 +119,8 @@ public class RegistrarUsuario extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, e.toString());
-                            }                       });
+                            }
+                        });
             }
             else{
                     Toast.makeText(RegistrarUsuario.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
@@ -129,21 +130,6 @@ public class RegistrarUsuario extends AppCompatActivity {
 
 
 
-                                        //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegistrarUsuario.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        //Listener que indica si la creacion del usuario fue incorrecta
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
-                                                Log.d(TAG, e.toString());
-                                            }
-                                        });
 
     }
 
