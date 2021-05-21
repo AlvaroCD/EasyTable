@@ -38,7 +38,7 @@ public class RegistrarUsuario extends AppCompatActivity {
     private static final String KEY_USUARIO = "Usuario";
     private static final String KEY_PASSWORD = "Contraseña";
     private static final String KEY_USERTYPE = "tipoDeUsuario";
-    private static final String KEY_ID= "ID";
+    private static final String KEY_ID = "ID";
 
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -70,7 +70,6 @@ public class RegistrarUsuario extends AppCompatActivity {
         mRegistrarseButton = (Button) findViewById(R.id.registrarseRegistrarUsuarioButton);
 
 
-
         //Variables que almacenaran el contenido de los EditText's y el Spinner de la parte grafica
 
 
@@ -86,83 +85,71 @@ public class RegistrarUsuario extends AppCompatActivity {
                 String password = mPassword.getText().toString();
                 String tipoUsuario = mTipoUsuario.getSelectedItem().toString();
                 //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
-                String id = UUID.randomUUID().toString();
+                //String id = UUID.randomUUID().toString();
 
                 if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !correo.isEmpty() &&
-                        !username.isEmpty() && !password.isEmpty()){
+                        !username.isEmpty() && !password.isEmpty()) {
 
-                //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
-                Map<String, Object> user = new HashMap<>();
-                //Se ingresan los datos en la estructura HashMap llamada "user"
-                user.put(KEY_NOMBRE, nombre);
-                user.put(KEY_APELLIDO, apellidos);
-                user.put(KEY_TELEFONO, telefono);
-                user.put(KEY_CORREO, correo);
-                user.put(KEY_USUARIO, username);
-                user.put(KEY_PASSWORD, password);
-                user.put(KEY_USERTYPE, tipoUsuario);
-                user.put(KEY_ID, id);
+                    mAuth.createUserWithEmailAndPassword(correo, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                //Aqui se obtiene el ID con el que se creo el perfil de firebase auth para asociarlo al perfil en la base de datos (firestore)
+                                String id = mAuth.getUid();
 
-                //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
-                db.collection("usuario").document(id).set(user)
+                                if (tipoUsuario.equals("Cliente")) {
+                                    //Una vez agregado el usuario cliente se retorna a la vista Ingresar
+                                    startActivity(new Intent(RegistrarUsuario.this, Ingresar.class));
+                                    //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
+                                    finish();
+                                } else {
+                                    //En caso contrario que sea Dueño de Local se pasa a la siguiente vista para registrar el restaurante del usuario
+                                    Intent i = new Intent(RegistrarUsuario.this, RegistrarRestaurante1.class);
+                                    i.putExtra("idPropietario", id);
+                                    startActivity(i);
+                                    finish();
+                                }
 
-                        //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                registerUserOnFirebaseAuth(id);
+                                //Se crea una estructura de datos HashMap para poder guardar los datos ingresados por el usuario
+                                Map<String, Object> user = new HashMap<>();
+                                //Se ingresan los datos en la estructura HashMap llamada "user"
+                                user.put(KEY_NOMBRE, nombre);
+                                user.put(KEY_APELLIDO, apellidos);
+                                user.put(KEY_TELEFONO, telefono);
+                                user.put(KEY_CORREO, correo);
+                                user.put(KEY_USUARIO, username);
+                                user.put(KEY_PASSWORD, password);
+                                user.put(KEY_USERTYPE, tipoUsuario);
+                                user.put(KEY_ID, id);
+
+                                //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
+                                db.collection("usuario").document(id).set(user)
+
+                                        //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(RegistrarUsuario.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        //Listener que indica si la creacion del usuario fue incorrecta
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
+                                                Log.d(TAG, e.toString());
+                                            }
+                                        });
+
+                            } else {
+                                Toast.makeText(RegistrarUsuario.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
                             }
-                        })
-                        //Listener que indica si la creacion del usuario fue incorrecta
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(RegistrarUsuario.this, "Error", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, e.toString());
-                            }
-                        });
-            }
-            else{
+                        }
+                    });
+                } else {
                     Toast.makeText(RegistrarUsuario.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
-            }
-            }
-        });
-
-
-
-
-    }
-
-    //Se recibe el ID para posteriormente en la funcion "OnComplete" poder enviar dicho ID a la siguiente ventana (RegistrarRestaurante1)
-    //y de esa manera poder ligar el ID del usuario con el restaurante
-    private void registerUserOnFirebaseAuth(String id) {
-        String correo = mCorreo.getText().toString();
-        String password = mPassword.getText().toString();
-        String tipoUsuario = mTipoUsuario.getSelectedItem().toString();
-        mAuth.createUserWithEmailAndPassword(correo, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(RegistrarUsuario.this, "Usuario agregado", Toast.LENGTH_SHORT).show();
-                    if (tipoUsuario.equals("Cliente")){
-                        //Una vez agregado el usuario cliente se retorna a la vista Ingresar
-                        startActivity(new Intent(RegistrarUsuario.this, Ingresar.class));
-                        //Se finaliza la activity para evitar que el usuario regrese de nuevo a la activity del registro con todos los datos ingresados
-                        finish();
-                    }
-                    else {
-                        //En caso contrario que sea Dueño de Local se pasa a la siguiente vista para registrar el restaurante del usuario
-                        Intent i = new Intent(RegistrarUsuario.this, RegistrarRestaurante1.class);
-                        i.putExtra("idPropietario", id);
-                        startActivity(i);
-                        finish();
-                    }
-                }
-                else {
-                    Toast.makeText(RegistrarUsuario.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 }

@@ -81,6 +81,8 @@
     <string name="nombre_ingrediente_strings">Nombre del ingrediente:</string>
     <string name="disponibilidad_strings">Disponibilidad:</string>
     <string name="eliminar_recurso_strings">Selecciona el ingrediente a eliminar</string>
+    <string name="inicio_strings">Volver al Inicio</string>
+    <string name="pago_exitoso_strings">Pago Exitoso</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

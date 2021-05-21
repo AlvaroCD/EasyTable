@@ -83,8 +83,6 @@ public class ListadoEliminarEmpleado extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        //TODO: Implementar Firebase Admin
-                                        //mAuth.delete
                                         Toast.makeText(ListadoEliminarEmpleado.this, "Empleado eliminado", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }

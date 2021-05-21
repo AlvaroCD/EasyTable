@@ -1,12 +1,16 @@
 package com.example.easytable;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,19 +35,38 @@ public class Queja extends AppCompatActivity {
         mDescripcionQueja = findViewById(R.id.queja_Txt);
         mEnviarQueja = findViewById(R.id.enviarQuejaButton);
 
-
-
-        
         mEnviarQueja.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)       //Esta linea sirve para poder indicar el nivel de API de android necesaria para mostrar notificaciones
             @Override
             public void onClick(View v) {
-                //TODO: CREAR NOTIFICACIONES Y HACER QUE ESTAS LE LLEGUEN SOLO AL ADMINISTRADOR DEL LOCAL)
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(Queja.this, idUnico)
+                String id ="channel_1";//id of channel
+                String numeroMesa = "3";//Description information of channel
+                String problema = mDescripcionQueja.getText().toString();
+                int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
+                NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
+                Intent i = new Intent(Queja.this, MainActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(Queja.this, 0, i, 0);
+//Adding attributes to channel
+//channel.enableVibration(true); vibration
+//channel.enableLights(true); prompt light
+                NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                manager.createNotificationChannel(channel);//Add channel
+                Notification notification = new Notification.Builder(Queja.this,id)
+                        //Note that there is an additional parameter id, which refers to the ID of the configured Notification Channel.
+                        //You can try it on your own and then configure the generation above this line of code after you run it once.
+                        //Code comment can also run successfully if the parameter id is changed directly to "channel_1"
+                        //But we can't change it to something else like "channel_2".
+                        .setCategory(Notification.CATEGORY_MESSAGE)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Titulo")
-                        .setContentText("Contenido de la notificacion")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                Toast.makeText(Queja.this, "Queja enviada", Toast.LENGTH_SHORT).show();
+                        .setContentTitle("Mesa: "+numeroMesa)
+                        .setContentText(problema)
+                        .setSmallIcon(R.drawable.checked)
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true)
+                        .build();
+                manager.notify(1,notification);
+
+                Toast.makeText(Queja.this, "Presionado", Toast.LENGTH_SHORT).show();
             }
         });
     }
