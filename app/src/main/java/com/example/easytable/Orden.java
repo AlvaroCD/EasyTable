@@ -60,6 +60,7 @@ public class Orden extends Activity {
 
         recycleViewOrden(nombrePlatillo);
 
+        //Query query = db.collection("orden").document(idOrden)
         mAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +70,14 @@ public class Orden extends Activity {
                 intent.putExtra("statusMesa", false);
                 intent.putExtra("statusOrden", false);
             intent.putExtra("idOrden", idOrden);
+                startActivity(intent);
+            }
+        });
+
+        mQueja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Orden.this, Queja.class);
                 startActivity(intent);
             }
         });
@@ -83,22 +92,22 @@ public class Orden extends Activity {
                 .Builder<PlatilloPojo>()
                 .setQuery(query, PlatilloPojo.class).build();
 
-        mAdapterOrden = new PlatilloAdapter(firestoreRecyclerOptions);
-        mAdapterOrden.notifyDataSetChanged();
-        mRecyclerViewOrden.setAdapter(mAdapterOrden);
+        mAdapterListadoPedidos = new PlatilloAdapter(firestoreRecyclerOptions);
+        mAdapterListadoPedidos.notifyDataSetChanged();
+        mRecyclerViewlistadoPedidos.setAdapter(mAdapterListadoPedidos);
     }
 
     //Metodo para que cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los Platillos)
     @Override
     protected void onStart() {
         super.onStart();
-        mAdapterOrden.startListening();
+        mAdapterListadoPedidos.startListening();
     }
 
     //Metodo para que cuando el usuario no esté dentro de la aplicacion, la aplicación deje de actualizar los datos de la misma (datos de los Platillos     )
     @Override
     protected void onStop() {
         super.onStop();
-        mAdapterOrden.stopListening();
+        mAdapterListadoPedidos.stopListening();
     }
 }

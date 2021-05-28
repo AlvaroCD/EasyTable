@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/agregarEmpleadosButton"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="60dp"
         android:text="@string/agregar_empleado_strings"
         android:layout_marginTop="35sp"
@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/editarEmpleadosButton"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="60dp"
         android:text="@string/editar_empleado"
         android:layout_marginTop="35sp"
@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/listarEmpleadosButton"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="60dp"
         android:text="@string/ver_listado_empleados_strings"
         android:layout_marginTop="35sp"
@@ -43,10 +43,18 @@
 
     <Button
         android:id="@+id/eliminarEmpleadosButton"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="60dp"
         android:text="@string/eliminar_empleado_strings"
         android:layout_marginTop="35sp"
+        />
+
+    <Button
+        android:id="@+id/listarCodigosQR"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="35sp"
+        android:text="@string/listado_codigos_qr"
         />
 
     <Button

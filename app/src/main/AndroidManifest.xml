@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
         <activity android:name=".ListadoEliminarRecursos" />
+        <activity android:name=".GenerarQR"/>
+        <activity android:name=".ListadoCodigosQR"/>
         <activity android:name=".DisponibilidadRecursos" />
         <activity android:name=".ListadoRecursos" />
         <activity android:name=".AgregarIngrediente" />
@@ -24,7 +26,15 @@
         <activity android:name=".PrincipalUA" />
         <activity android:name=".PagoExitoso" />
         <activity android:name=".PagarCuenta" />
-        <activity android:name=".Ingresar" />
+        <activity android:name=".Ingresar">
+        <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ListadoEliminarEmpleado" />
         <activity android:name=".ListadoEmpleados" />
         <activity android:name=".ListadoEditarEmpleado" />
@@ -43,12 +53,7 @@
         <activity android:name=".RegistrarRestaurante1" />
         <activity android:name=".RegistrarUsuario" />
         <activity android:name=".Queja">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

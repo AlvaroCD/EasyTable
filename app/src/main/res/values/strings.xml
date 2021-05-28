@@ -83,6 +83,8 @@
     <string name="eliminar_recurso_strings">Selecciona el ingrediente a eliminar</string>
     <string name="inicio_strings">Volver al Inicio</string>
     <string name="pago_exitoso_strings">Pago Exitoso</string>
+    <string name="listado_codigos_qr">Listado codigos QR</string>
+    <string name="seleciona_la_mesa">Seleciona la mesa</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>
