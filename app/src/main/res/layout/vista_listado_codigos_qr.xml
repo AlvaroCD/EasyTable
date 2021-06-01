@@ -22,5 +22,4 @@
         android:layout_below="@+id/text"
         android:padding="8dp">
     </androidx.recyclerview.widget.RecyclerView>
-
 </RelativeLayout>

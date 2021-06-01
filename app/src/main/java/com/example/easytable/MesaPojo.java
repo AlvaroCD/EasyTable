@@ -8,7 +8,6 @@ public class MesaPojo {
     private int numeroMesa;
     private Boolean statusMesa;
 
-
     public MesaPojo() {
     }
 

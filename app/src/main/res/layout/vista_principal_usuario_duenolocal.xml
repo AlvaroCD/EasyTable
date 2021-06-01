@@ -64,5 +64,4 @@
         android:text="@string/cerrar_sesion_strings"
         android:layout_marginTop="80dp"
         />
-
 </LinearLayout>

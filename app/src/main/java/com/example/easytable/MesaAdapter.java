@@ -15,7 +15,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 public class MesaAdapter extends FirestoreRecyclerAdapter<MesaPojo, MesaAdapter.ViewHolder> {
     private static MesaAdapter.OnItemClickListener listener;
 
-
     public MesaAdapter(@NonNull FirestoreRecyclerOptions<MesaPojo> options) {
         super(options);
     }

@@ -29,7 +29,6 @@ public class ListadoCodigosQR extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_listado_codigos_qr);
-
         //Instanciacion del Recycler View
         mRecyclerView = findViewById(R.id.recyclerViewListadoMesas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

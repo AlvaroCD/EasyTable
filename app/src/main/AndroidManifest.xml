@@ -28,7 +28,6 @@
         <activity android:name=".PagarCuenta" />
         <activity android:name=".Ingresar">
         <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
 
