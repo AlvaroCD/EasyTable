@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+    <TextView
+        android:id="@+id/numeroMesaListadoOrdenes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="@string/numero_mesa_strings"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp">
+    </TextView>
+
+
+
+
+    <TextView
+        android:id="@+id/estadoPreparacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/numeroMesaListadoOrdenes"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:text="@string/estado_preparacion_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <ImageView
+        android:id="@+id/recyclerViewListadoPlatillosOrdenados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/numeroMesaListadoOrdenes"
+        android:src="@drawable/usuario"
+        android:layout_marginTop="25dp"
+        />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/numeroMesaListadoOrdenes"
+        />
+
+    <View
+        android:id="@+id/barraInferior"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@+id/recyclerViewListadoPlatillosOrdenados"
+        />
+
+    <View
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_above="@+id/barraInferior"
+        />
+
+    <View
+        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_above="@+id/barraInferior"/>
+
+</RelativeLayout>

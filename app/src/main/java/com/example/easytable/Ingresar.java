@@ -107,7 +107,7 @@ public class Ingresar extends AppCompatActivity {
                                         startActivity(new Intent(Ingresar.this, MainActivity.class));
                                         break;
                                     case "Cocinero":
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        startActivity(new Intent(Ingresar.this, PrincipalUCO.class));
                                         break;
                                     case "Administrador":
                                         startActivity(new Intent(Ingresar.this, PrincipalUA.class));
@@ -156,7 +156,7 @@ public class Ingresar extends AppCompatActivity {
                             startActivity(new Intent(Ingresar.this, MainActivity.class));
                             break;
                         case "Cocinero":
-                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            startActivity(new Intent(Ingresar.this, PrincipalUCO.class));
                             break;
                         case "Administrador":
                             startActivity(new Intent(Ingresar.this, PrincipalUA.class));

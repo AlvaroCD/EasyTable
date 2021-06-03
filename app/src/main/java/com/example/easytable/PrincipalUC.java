@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -144,6 +145,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         doc.addSnapshotListener(new com.google.firebase.firestore.EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String idDelLocal = value.get("idDelLocal").toString();
                 String nombreRestaurante = value.get("nombreDelLocal").toString();
                 String idMesa = value.getId().toString();
                 boolean status = value.getBoolean("statusMesa");
@@ -151,7 +153,8 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
 
-                Restaurante.putExtra("idRestaurante",nombreRestaurante);
+                Restaurante.putExtra("idRestaurante",idDelLocal);
+                Restaurante.putExtra("nombreDelLocal", nombreRestaurante);
                 Restaurante.putExtra("idMesa", idMesa);
                 Restaurante.putExtra("estado", status);
 
