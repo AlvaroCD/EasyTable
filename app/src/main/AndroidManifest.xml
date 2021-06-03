@@ -15,9 +15,11 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
+        <activity android:name=".ListadoOrdenes"></activity>
+        <activity android:name=".PrincipalUCO" />
         <activity android:name=".ListadoEliminarRecursos" />
-        <activity android:name=".GenerarQR"/>
-        <activity android:name=".ListadoCodigosQR"/>
+        <activity android:name=".GenerarQR" />
+        <activity android:name=".ListadoCodigosQR" />
         <activity android:name=".DisponibilidadRecursos" />
         <activity android:name=".ListadoRecursos" />
         <activity android:name=".AgregarIngrediente" />
@@ -27,7 +29,7 @@
         <activity android:name=".PagoExitoso" />
         <activity android:name=".PagarCuenta" />
         <activity android:name=".Ingresar">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
 
@@ -51,9 +53,7 @@
         <activity android:name=".RegistrarRestaurante2" />
         <activity android:name=".RegistrarRestaurante1" />
         <activity android:name=".RegistrarUsuario" />
-        <activity android:name=".Queja">
-
-        </activity>
+        <activity android:name=".Queja" />
     </application>
 
 </manifest>

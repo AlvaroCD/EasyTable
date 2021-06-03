@@ -75,7 +75,8 @@ public class MenuLocal extends Activity {
         db = FirebaseFirestore.getInstance();
 
         //Obtención de los datos de la vista PrincipalUC
-        nombreRestaurante = getIntent().getStringExtra("idRestaurante");
+        String nombreRestaurante = getIntent().getStringExtra("nombreDelLocal");
+        String idDelLocal = getIntent().getStringExtra("idRestaurante");
         String idMesa = getIntent().getStringExtra("idMesa");
         boolean statusMesa = getIntent().getBooleanExtra("estado", true);
 
@@ -97,7 +98,7 @@ public class MenuLocal extends Activity {
 
         mNombreLocal.setText(nombreRestaurante);
 
-        recycleView(nombreRestaurante);
+        recycleView(idDelLocal);
 
         if (idOrden == null) idOrden = UUID.randomUUID().toString();
         CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date);
@@ -106,10 +107,10 @@ public class MenuLocal extends Activity {
         onClickPlatillo(idOrden, idMesa);
     }
 
-    private void recycleView(String nombreRestaurante) {
+    private void recycleView(String idDelLocal) {
 
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("platillos").whereEqualTo("nombreDelLocal", nombreRestaurante);
+        Query query = db.collection("platillos").whereEqualTo("idDelLocal", idDelLocal);
 
         FirestoreRecyclerOptions<PlatilloPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
                 .Builder<PlatilloPojo>()
@@ -118,6 +119,7 @@ public class MenuLocal extends Activity {
         mAdapter = new PlatilloAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
+        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
     }
 
     private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date) {
