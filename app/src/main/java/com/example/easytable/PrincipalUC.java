@@ -164,7 +164,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     }
 
 
-    //Metodo para que cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los restaurantes)
+    //Metodo para que que  cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los restaurantes)
     @Override
     protected void onStart() {
         super.onStart();
