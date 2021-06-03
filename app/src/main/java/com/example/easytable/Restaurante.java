@@ -89,6 +89,39 @@ public class Restaurante extends Activity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
+                    String cali =  documentSnapshot.get("calificacion").toString();
+                    String usuariosCali = documentSnapshot.get("usuariosCalificacion").toString();
+
+                    float calificacion = Float.parseFloat(cali);
+                    float usuariosCalificacion =Float.parseFloat(usuariosCali);
+
+                    float calificaciones = calificacion/usuariosCalificacion;
+
+                    switch ((0 <= calificaciones && calificaciones < 1)?0 : (1 <= calificaciones && calificaciones < 2)?1 :
+                            (2 <= calificaciones && calificaciones < 3)?2 : (3 <= calificaciones && calificaciones < 4)?3 :
+                                    (4 <= calificaciones && calificaciones < 5)?4 : (calificaciones == 5)?5 : 6) {
+                        case 0:
+                            mCalificacionLocal.setImageResource(R.drawable.__00estrellas);
+                            break;
+                        case 1:
+                            mCalificacionLocal.setImageResource(R.drawable.__10estrellas);
+                            break;
+                        case 2:
+                            mCalificacionLocal.setImageResource(R.drawable.__20estrellas);
+                            break;
+                        case 3:
+                            mCalificacionLocal.setImageResource(R.drawable.__30estrellas);
+                            break;
+                        case 4:
+                            mCalificacionLocal.setImageResource(R.drawable.__40estrellas);
+                            break;
+                        case 5:
+                            mCalificacionLocal.setImageResource(R.drawable.__50estrellas);
+                            break;
+                        case 6:
+                            mCalificacionLocal.setImageResource(R.drawable.__05estrellas);
+                            break;
+                    }
                     mRestaurante.setText(documentSnapshot.get("nombreLocal").toString());
                     mTipoRestaurante.setText(documentSnapshot.get("tipoRestaurante").toString());
                 } else {

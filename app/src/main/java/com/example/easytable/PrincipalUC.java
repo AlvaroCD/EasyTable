@@ -19,12 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
-
-import java.util.EventListener;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -141,7 +140,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         String dato = result.getText();
 
         final DocumentReference doc = db.collection("mesa").document(dato);
-        doc.addSnapshotListener(new com.google.firebase.firestore.EventListener<DocumentSnapshot>() {
+        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String nombreRestaurante = value.get("nombreDelLocal").toString();

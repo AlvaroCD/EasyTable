@@ -37,7 +37,8 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String KEY_ID_RESTAURANTE= "IdRestaurante";
     private static final String KEY_ID_PROPIETARIO= "IdPropietario";
     private static final String KEY_DESCRIPCION = "descripcionRestaurante";
-
+    private static final String KEY_CALIFICACION = "calificacion";
+    private static final String KEY_USUARIOSCALIFICACION = "usuariosCalificacion";
 
 
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap para el usuario
@@ -103,6 +104,8 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                     restaurante.put(KEY_ID_RESTAURANTE, idRestaurante);
                     restaurante.put(KEY_ID_PROPIETARIO, idPropietario);
                     restaurante.put(KEY_DESCRIPCION, descripcion);
+                    restaurante.put(KEY_CALIFICACION, 5);
+                    restaurante.put(KEY_USUARIOSCALIFICACION, 1);
 
                     //Aqui se indica con que nombre se creará la coleccion y el ID de cada restaurante en la BD
                     //(se usa el ID generado anteriormente para agregar la informacion al mismo restaurante)
