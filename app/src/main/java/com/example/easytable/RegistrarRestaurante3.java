@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String TAG = "RegistrarRestaurante3";
@@ -51,6 +52,13 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
     private static final String KEY_USERTYPE = "tipoDeUsuario";
     private static final String KEY_ID= "ID";
     private static final String KEY_ID_REST_REG= "IDRestReg";
+
+    //Creacion de las KEYS necesarias para ingresar los datos dentro de la estructura HashMap para las mesas
+    private static final String KEY_LOCAL = "idDelLocal";
+    private static final String KEY_ID_MESA = "idMesa";
+    private static final String KEY_NOMBRE_DEL_LOCAL = "nombreDelLocal";
+    private static final String KEY_NUMERO_MESA = "numeroMesa";
+    private static final String KEY_STATUS_MESA = "statusMesa";
 
 
 
@@ -127,6 +135,35 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
+
+
+                    //____________________________________________________________________________-
+                    for (int i = 1; i<=numeroMesasInt; i++) {
+                        //Id unico para cada mesa creada
+                        String idMesa = UUID.randomUUID().toString();
+                        Map<String, Object> creacionMesas = new HashMap<>();
+                        creacionMesas.put(KEY_LOCAL, idRestaurante);
+                        creacionMesas.put(KEY_ID_MESA, idMesa);
+                        creacionMesas.put(KEY_NOMBRE_DEL_LOCAL, nombreLocal);
+                        creacionMesas.put(KEY_NUMERO_MESA, i);//variable del ciclo
+                        creacionMesas.put(KEY_STATUS_MESA, false);
+
+                        db.collection("mesa").document(idMesa).set(creacionMesas)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //Toast.makeText(RegistrarRestaurante3.this, "Mesas creadas", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(RegistrarRestaurante3.this, "Error al crear las mesas", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                    //______________________________________________________________________________
+
 
                     DocumentReference doc = db.collection("usuario").document(idPropietario);
                     doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
