@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".ListadoOrdenes"></activity>
+        <activity android:name=".ListadoOrdenesTerminadas"></activity>
+        <activity android:name=".ListadoOrdenesPreparacion" />
+        <activity android:name=".ListadoOrdenes" />
         <activity android:name=".PrincipalUCO" />
         <activity android:name=".ListadoEliminarRecursos" />
         <activity android:name=".GenerarQR" />

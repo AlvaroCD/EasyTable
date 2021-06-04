@@ -21,7 +21,7 @@ import com.google.firebase.firestore.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListadoOrdenes extends AppCompatActivity {
+public class ListadoOrdenesPreparacion extends AppCompatActivity {
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerView;
@@ -33,10 +33,10 @@ public class ListadoOrdenes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vista_listado_ordenes);
+        setContentView(R.layout.vista_listado_ordenes_preparacion);
 
         //Instanciacion del Recycler View
-        mRecyclerView = findViewById(R.id.recyclerViewListadoOrdenes);
+        mRecyclerView = findViewById(R.id.recyclerViewListadoOrdenesPreparacion);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Coloca las ordenes
@@ -44,13 +44,12 @@ public class ListadoOrdenes extends AppCompatActivity {
 
         //Funcion que determina que accion se realiza cuando se hace click en alguna orden
         onClickOrden();
+
     }
-
-
 
     private void recyclerViewOrdenes() {
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 0);
+        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 1);
 
         FirestoreRecyclerOptions<ListadoOrdenesPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoOrdenesPojo>()
                 .setQuery(query, ListadoOrdenesPojo.class).build();
@@ -72,26 +71,26 @@ public class ListadoOrdenes extends AppCompatActivity {
 
     private void mostrarDialogo(String id) {
         new AlertDialog.Builder(this)
-                .setTitle("¿Iniciar la preparación?")
-                .setMessage("Se le avisará a la mesa seleccionada que se está preparando su orden")
+                .setTitle("¿Quieres terminar con la preparación?")
+                .setMessage("Se dará por terminada la preparación de esta orden")
                 .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Map <String, Object> preparacion = new HashMap<>();
-                        preparacion.put("statusPreparacion", 1);
+                        Map<String, Object> preparacion = new HashMap<>();
+                        preparacion.put("statusPreparacion", 2);
 
                         db.collection("orden").document(id).update(preparacion)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ListadoOrdenes.this, "En preparacion", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ListadoOrdenesPreparacion.this, "Preparacion terminada", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ListadoOrdenes.this, "Error al comenzar la preparacion", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ListadoOrdenesPreparacion.this, "Error al terminar la preparacion", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

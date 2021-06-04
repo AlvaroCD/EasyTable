@@ -30,20 +30,24 @@ public class ListadoOrdenesAdapter extends FirestoreRecyclerAdapter<ListadoOrden
     //Aqui se establecen los datos que va a tener cada uno de los elementos de nuestra vista
     @Override
     protected void onBindViewHolder(@NonNull ListadoOrdenesAdapter.ViewHolder holder, int position, @NonNull ListadoOrdenesPojo model) {
+
+        if (model.getStatusPreparacion() == 0) {
+            holder.statusPreparacion.setText("Sin Preparar");
+        } else if (model.getStatusPreparacion() == 1) {
+            holder.statusPreparacion.setText("En Preparación");
+        } else if (model.getStatusPreparacion() == 2) {
+            holder.statusPreparacion.setText("Pendiente de Entrega");
+        }
         String idMesa = model.getMesa();
-        //Obtener el numero de mesaa con el id de la mesa
-        DocumentReference doc = db.collection("mesa").document("9a66xgz2JYxwrKpSqJfn");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference doc = db.collection("mesa").document(idMesa);
         doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String numeroMesa = value.get("numeroMesa").toString();
-                holder.idMesa.setText(numeroMesa);
+                holder.idMesa.setText("Mesa #"+numeroMesa);
             }
         });
-        String statusPreparacionParse = String.valueOf(model.getStatusPreparacion());
-        if (model.getStatusPreparacion() == 0){
-            holder.statusPreparacion.setText("Sin Preparar");
-        }
     }
 
     //El onCreateViewHolder de lo que se encarga es de "inflar" n cantidad de veces (donde n es la cantidad de elementos que hay en la base de datos)

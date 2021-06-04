@@ -18,6 +18,14 @@
         />
 
     <Button
+        android:id="@+id/ordenesPreparacionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ordenes_preparacion_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
         android:id="@+id/ordenesTerminadasButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

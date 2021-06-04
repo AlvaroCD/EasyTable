@@ -89,6 +89,7 @@
     <string name="ordenes_terminadas_strings">Ordenes Terminadas</string>
     <string name="numero_mesa_strings">Mesa #n</string>
     <string name="estado_preparacion_strings">Estado Preparacion</string>
+    <string name="ordenes_preparacion_strings">Ordenes en Preparacion</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>
