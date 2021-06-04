@@ -76,10 +76,7 @@ public class ListadoOrdenesTerminadas extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Map<String, Object> preparacion = new HashMap<>();
-                        preparacion.put("statusPreparacion", 2);
-
-                        db.collection("orden").document(id).update(preparacion)
+                        db.collection("orden").document(id).delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
