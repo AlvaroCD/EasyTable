@@ -24,8 +24,9 @@ import java.util.Map;
 public class ListadoOrdenes extends AppCompatActivity {
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewOrdenes, mRecyclerViewPlatillosOrdenados;
     private ListadoOrdenesAdapter mOrdenesAdapter;
+    //private ListadoPlatillosOrdenadosAdapter mPlatillosOrdenadosAdapter;
 
     //Adicion de la instancia de Firebase para el uso de Cloud Firestore
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -36,16 +37,35 @@ public class ListadoOrdenes extends AppCompatActivity {
         setContentView(R.layout.vista_listado_ordenes);
 
         //Instanciacion del Recycler View
-        mRecyclerView = findViewById(R.id.recyclerViewListadoOrdenes);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewOrdenes = findViewById(R.id.recyclerViewListadoOrdenes);
+        mRecyclerViewOrdenes.setLayoutManager(new LinearLayoutManager(this));
+
+        //TODO: REPLANTEAR COMO ES QUE SE VAN A MOSTRAR LOS PLATILLOS ORDENADOS EN EL LISTADO
+//        mRecyclerViewPlatillosOrdenados = findViewById(R.id.recyclerViewListadoPlatillosOrdenados);
+//        mRecyclerViewPlatillosOrdenados.setLayoutManager(new LinearLayoutManager(this));
+
 
         //Coloca las ordenes
         recyclerViewOrdenes();
+
+        //Coloca los platillos
+        //recyclerViewPlatillosOrdenados();
 
         //Funcion que determina que accion se realiza cuando se hace click en alguna orden
         onClickOrden();
     }
 
+//    private void recyclerViewPlatillosOrdenados() {
+//        //Consulta para obtener los datos de la BD
+//        Query query = db.collection("orden").whereEqualTo("mesa", "p5LATAuaqXza4cIKVn1W");
+//
+//        FirestoreRecyclerOptions<ListadoPlatillosOrdenadosPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoPlatillosOrdenadosPojo>()
+//                .setQuery(query, ListadoPlatillosOrdenadosPojo.class).build();
+//
+//        mPlatillosOrdenadosAdapter = new ListadoPlatillosOrdenadosAdapter(firestoreRecyclerOptions);
+//        mPlatillosOrdenadosAdapter.notifyDataSetChanged();
+//        mRecyclerViewPlatillosOrdenados.setAdapter(mPlatillosOrdenadosAdapter);
+//    }
 
 
     private void recyclerViewOrdenes() {
@@ -57,7 +77,7 @@ public class ListadoOrdenes extends AppCompatActivity {
 
         mOrdenesAdapter = new ListadoOrdenesAdapter(firestoreRecyclerOptions);
         mOrdenesAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mOrdenesAdapter);
+        mRecyclerViewOrdenes.setAdapter(mOrdenesAdapter);
     }
 
     private void onClickOrden() {
@@ -111,6 +131,7 @@ public class ListadoOrdenes extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mOrdenesAdapter.startListening();
+        //mPlatillosOrdenadosAdapter.startListening();
     }
 
     //Metodo para que cuando el usuario no esté dentro de la aplicacion, la aplicación deje de actualizar los datos de la misma (datos de los empleados)
@@ -118,6 +139,7 @@ public class ListadoOrdenes extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mOrdenesAdapter.stopListening();
+        //mPlatillosOrdenadosAdapter.stopListening();
     }
 
 }

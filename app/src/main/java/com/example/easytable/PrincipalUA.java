@@ -73,6 +73,9 @@ public class PrincipalUA extends AppCompatActivity {
                 mMeserosTrabajando.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUA.this, MeserosTrabajando.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
                         Toast.makeText(PrincipalUA.this, "Meseros Trabajando", Toast.LENGTH_SHORT).show();
                     }
                 });

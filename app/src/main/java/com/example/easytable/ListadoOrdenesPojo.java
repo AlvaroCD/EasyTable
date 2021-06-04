@@ -1,12 +1,13 @@
 package com.example.easytable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListadoOrdenesPojo {
 
     private int statusPreparacion;
     private String idPrincipal, mesa;
-    private List<String> matrizPlatillos;
+    private List<String> matrizPlatillos = new ArrayList<>();
 
     public ListadoOrdenesPojo(){
 

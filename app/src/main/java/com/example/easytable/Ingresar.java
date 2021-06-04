@@ -29,9 +29,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Ingresar extends AppCompatActivity {
 
-   private static final String TAG = "Login";
+    private static final String TAG = "Login";
 
     private EditText mCorreo, mPassword;
     private Button mLoginButton, mRegisterButton;
@@ -63,10 +66,9 @@ public class Ingresar extends AppCompatActivity {
             public void onClick(View v) {
                 String correo = mCorreo.getText().toString();
                 String password = mPassword.getText().toString();
-                if (!correo.isEmpty() && !password.isEmpty()){
+                if (!correo.isEmpty() && !password.isEmpty()) {
                     loginUser();
-                }
-                else {
+                } else {
                     Toast.makeText(Ingresar.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -113,6 +115,11 @@ public class Ingresar extends AppCompatActivity {
                                         startActivity(new Intent(Ingresar.this, PrincipalUA.class));
                                         break;
                                     case "Mesero":
+                                        if (mAuth.getCurrentUser() != null) {
+                                            Map<String, Object> online = new HashMap<>();
+                                            online.put("online", true);
+                                            db.collection("usuario").document(id).update(online);
+                                        }
                                         startActivity(new Intent(Ingresar.this, MainActivity.class));
                                         break;
                                     case "Cajero":
@@ -137,7 +144,7 @@ public class Ingresar extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mAuth.getCurrentUser()!= null){
+        if (mAuth.getCurrentUser() != null) {
             String id = mAuth.getUid();
             //El usuario tiene una sesion iniciada
             DocumentReference doc = db.collection("usuario").document(id);
@@ -162,6 +169,11 @@ public class Ingresar extends AppCompatActivity {
                             startActivity(new Intent(Ingresar.this, PrincipalUA.class));
                             break;
                         case "Mesero":
+                            if (mAuth.getCurrentUser() != null) {
+                                Map<String, Object> online = new HashMap<>();
+                                online.put("online", true);
+                                db.collection("usuario").document(id).update(online);
+                            }
                             startActivity(new Intent(Ingresar.this, MainActivity.class));
                             break;
                         case "Cajero":
@@ -173,5 +185,10 @@ public class Ingresar extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

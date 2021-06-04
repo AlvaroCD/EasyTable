@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/clock"
+        android:layout_marginTop="4dp"
+        />
+
+    <TextView
+        android:id="@+id/nombreMeseroTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_strings"
+        android:layout_marginStart="5dp"
+        />
+
+    <TextView
+        android:id="@+id/apellidosMeseroTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/apellidos_strings"
+        android:layout_marginStart="5dp"
+        />
+
+
+</LinearLayout>

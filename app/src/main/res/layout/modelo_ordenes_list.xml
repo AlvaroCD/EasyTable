@@ -34,10 +34,10 @@
     <ImageView
         android:id="@+id/recyclerViewListadoPlatillosOrdenados"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/numeroMesaListadoOrdenes"
+        android:layout_height="50sp"
         android:src="@drawable/usuario"
-        android:layout_marginTop="25dp"
+        android:layout_below="@id/numeroMesaListadoOrdenes"
+        android:layout_marginTop="5dp"
         />
 
 
