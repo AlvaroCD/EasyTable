@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -32,6 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -63,6 +65,8 @@ public class MenuLocal extends Activity {
     private static final String KEY_STATUSORDEN = "ordenTerminadaPedir";
     private static final String KEY_STATUSPREPARACION = "statusPreparacion";
     private static final String KEY_MATRIZPLATILLOS = "matrizPlatillos";
+
+    ArrayList<String> platillos = new ArrayList<String>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -190,6 +194,15 @@ public class MenuLocal extends Activity {
         else{
             //si la mesa no esta vacia y aun no mandan la comanda
             if (!ordenTerminada){
+                final DocumentReference doc = db.collection("orden").document(idOrden);
+                doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        //platillos = (ArrayList<String>) value.;
+                        List<Map<String, Object>> users = (List<Map<String, Object>>) value.get("matrizPlatillos");
+                        Toast.makeText(MenuLocal.this, platillos.get(0), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 //Toast.makeText(this,"ya hay un usuario", Toast.LENGTH_LONG).show();
 
             }
