@@ -39,16 +39,20 @@ public class ListadoOrdenesTerminadas extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerViewListadoOrdenesTerminadas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        Bundle extra = getIntent().getExtras();
+        String idDelLocal = extra.getString("idRestaurante");
+
         //Coloca las ordenes
-        recyclerViewOrdenes();
+        recyclerViewOrdenes(idDelLocal);
 
         //Funcion que determina que accion se realiza cuando se hace click en alguna orden
         onClickOrden();
     }
 
-    private void recyclerViewOrdenes() {
+    private void recyclerViewOrdenes(String idDelLocal) {
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 2);
+        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 2)
+                .whereEqualTo("idDelLocal", idDelLocal);
 
         FirestoreRecyclerOptions<ListadoOrdenesPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoOrdenesPojo>()
                 .setQuery(query, ListadoOrdenesPojo.class).build();

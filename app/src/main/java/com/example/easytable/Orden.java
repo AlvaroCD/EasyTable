@@ -8,22 +8,35 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Orden extends Activity {
     private TextView  mCostoToltal;
     private Button mOrden, mPagar, mQueja, mAnadir;
     private RecyclerView mRecyclerViewOrden, mRecyclerViewlistadoPedidos;
     private PlatilloAdapter mAdapterOrden, mAdapterListadoPedidos ;
+
+    private static float cantidadSumar, montoPagar;
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
@@ -33,12 +46,15 @@ public class Orden extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_orden);
 
-        String nombrePlatillo, idOrden, nombreRestaurante, idMesa;
+        String nombrePlatillo, idOrden, idRestaurante, idMesa, idCuenta, idPlatillo, precioPlatillo;
 
         nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
-        idOrden = getIntent().getStringExtra("idCuenta");
-        nombreRestaurante = getIntent().getStringExtra("idRestaurante");
+        idPlatillo = getIntent().getStringExtra("idPlatillo");
+        precioPlatillo = getIntent().getStringExtra("precio");
+        idOrden = getIntent().getStringExtra("idOrden");
+        idRestaurante = getIntent().getStringExtra("idRestaurante");
         idMesa = getIntent().getStringExtra("idMesa");
+        idCuenta = getIntent().getStringExtra("idCuenta");
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mCostoToltal = findViewById(R.id.costoPlatillo);
@@ -60,17 +76,59 @@ public class Orden extends Activity {
 
         recycleViewOrden(nombrePlatillo);
 
+
         //Query query = db.collection("orden").document(idOrden)
         mAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(Orden.this, idPlatillo, Toast.LENGTH_SHORT).show();
+                Map<String, Object> platillo = new HashMap<>();
+                platillo.put("nombrePlatillo", nombrePlatillo);
+                db.collection("cuenta").document(idCuenta).collection("platillos").document(idPlatillo).set(platillo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                cantidadSumar = Float.parseFloat(precioPlatillo);
+                                montoPagar = (montoPagar + cantidadSumar);
+                                Map<String, Object> monto = new HashMap<>();
+                                monto.put("montoPagar", (montoPagar));
+                                db.collection("cuenta").document(idCuenta).update(monto)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(Orden.this, "Good", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(Orden.this, "Bad", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                Toast.makeText(Orden.this, "Nice", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Orden.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
+
+
+
                 Intent intent = new Intent(Orden.this, MenuLocal.class);
-                intent.putExtra("idRestaurante",nombreRestaurante);
+                intent.putExtra("idRestaurante",idRestaurante);
                 intent.putExtra("idMesa", idMesa);
                 intent.putExtra("statusMesa", false);
                 intent.putExtra("statusOrden", false);
-            intent.putExtra("idOrden", idOrden);
+                intent.putExtra("idOrden", idOrden);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -79,6 +137,14 @@ public class Orden extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Orden.this, Queja.class);
+                startActivity(intent);
+            }
+        });
+
+        mPagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Orden.this, PagarCuenta.class);
                 startActivity(intent);
             }
         });

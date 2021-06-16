@@ -42,8 +42,6 @@ public class Ingresar extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
-    String tipoUsuario = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
