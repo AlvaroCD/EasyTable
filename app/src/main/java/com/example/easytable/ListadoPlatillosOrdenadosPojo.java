@@ -1,16 +1,20 @@
 package com.example.easytable;
 
+import java.util.ArrayList;
+
 public class ListadoPlatillosOrdenadosPojo {
     private int cantidad;
-    private String nombrePlatillo;
+    String nombrePlatillo;
+    private ArrayList<String> matrizPlatillo;
 
     public ListadoPlatillosOrdenadosPojo(){
 
     }
 
-    public ListadoPlatillosOrdenadosPojo(int cantidad, String nombrePlatillo){
+    public ListadoPlatillosOrdenadosPojo(int cantidad, String nombrePlatillo, ArrayList<String> matrizPlatillo){
         this.cantidad = cantidad;
         this.nombrePlatillo = nombrePlatillo;
+        this.matrizPlatillo = matrizPlatillo;
     }
 
     public int getCantidad() {
@@ -27,5 +31,13 @@ public class ListadoPlatillosOrdenadosPojo {
 
     public void setNombrePlatillo(String nombrePlatillo) {
         this.nombrePlatillo = nombrePlatillo;
+    }
+
+    public ArrayList<String> getMatrizPlatillo() {
+        return matrizPlatillo;
+    }
+
+    public void setMatrizPlatillo(ArrayList<String> matrizPlatillo) {
+        this.matrizPlatillo = matrizPlatillo;
     }
 }

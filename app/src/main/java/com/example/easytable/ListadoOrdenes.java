@@ -1,12 +1,14 @@
 package com.example.easytable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,9 +16,14 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,37 +47,24 @@ public class ListadoOrdenes extends AppCompatActivity {
         mRecyclerViewOrdenes = findViewById(R.id.recyclerViewListadoOrdenes);
         mRecyclerViewOrdenes.setLayoutManager(new LinearLayoutManager(this));
 
+        Bundle extra = getIntent().getExtras();
+        String idDelLocal = extra.getString("idRestaurante");
+
         //TODO: REPLANTEAR COMO ES QUE SE VAN A MOSTRAR LOS PLATILLOS ORDENADOS EN EL LISTADO
-//        mRecyclerViewPlatillosOrdenados = findViewById(R.id.recyclerViewListadoPlatillosOrdenados);
-//        mRecyclerViewPlatillosOrdenados.setLayoutManager(new LinearLayoutManager(this));
+
 
 
         //Coloca las ordenes
-        recyclerViewOrdenes();
-
-        //Coloca los platillos
-        //recyclerViewPlatillosOrdenados();
+        recyclerViewOrdenes(idDelLocal);
 
         //Funcion que determina que accion se realiza cuando se hace click en alguna orden
-        onClickOrden();
+        onClickOrden(idDelLocal);
     }
 
-//    private void recyclerViewPlatillosOrdenados() {
-//        //Consulta para obtener los datos de la BD
-//        Query query = db.collection("orden").whereEqualTo("mesa", "p5LATAuaqXza4cIKVn1W");
-//
-//        FirestoreRecyclerOptions<ListadoPlatillosOrdenadosPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoPlatillosOrdenadosPojo>()
-//                .setQuery(query, ListadoPlatillosOrdenadosPojo.class).build();
-//
-//        mPlatillosOrdenadosAdapter = new ListadoPlatillosOrdenadosAdapter(firestoreRecyclerOptions);
-//        mPlatillosOrdenadosAdapter.notifyDataSetChanged();
-//        mRecyclerViewPlatillosOrdenados.setAdapter(mPlatillosOrdenadosAdapter);
-//    }
 
-
-    private void recyclerViewOrdenes() {
+    private void recyclerViewOrdenes(String idDelLocal) {
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 0);
+        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 0).whereEqualTo("idDelLocal", idDelLocal);
 
         FirestoreRecyclerOptions<ListadoOrdenesPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoOrdenesPojo>()
                 .setQuery(query, ListadoOrdenesPojo.class).build();
@@ -80,50 +74,29 @@ public class ListadoOrdenes extends AppCompatActivity {
         mRecyclerViewOrdenes.setAdapter(mOrdenesAdapter);
     }
 
-    private void onClickOrden() {
+    private void onClickOrden(String idDelLocal) {
         mOrdenesAdapter.setOnItemClickListener(new ListadoOrdenesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
                 String ID = documentSnapshot.getId();
-                mostrarDialogo(ID);
+                DocumentReference documentReference = db.collection("orden").document(ID);
+                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        String idCuenta = value.get("idCuenta").toString();
+                        Intent i = new Intent(ListadoOrdenes.this, ListadoPlatillosOrdenados.class);
+                        i.putExtra("idOrden", ID);
+                        i.putExtra("idCuenta", idCuenta);
+                        i.putExtra("idRestaurante", idDelLocal);
+                        Toast.makeText(ListadoOrdenes.this, idDelLocal, Toast.LENGTH_SHORT).show();
+                        startActivity(i);
+                        finish();
+                    }
+                });
             }
         });
     }
 
-    private void mostrarDialogo(String id) {
-        new AlertDialog.Builder(this)
-                .setTitle("¿Iniciar la preparación?")
-                .setMessage("Se le avisará a la mesa seleccionada que se está preparando su orden")
-                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Map <String, Object> preparacion = new HashMap<>();
-                        preparacion.put("statusPreparacion", 1);
-
-                        db.collection("orden").document(id).update(preparacion)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ListadoOrdenes.this, "En preparacion", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ListadoOrdenes.this, "Error al comenzar la preparacion", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("Mensaje", "Se cancelo la accion");
-                    }
-                })
-                .show();
-    }
 
 
     //Metodo para que cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los empleados)

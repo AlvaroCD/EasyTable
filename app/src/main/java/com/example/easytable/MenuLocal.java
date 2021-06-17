@@ -60,11 +60,12 @@ public class MenuLocal extends Activity {
     private static final String KEY_STATUSCUENTA = "pagado";
     private static final String KEY_METODOPAGO = "efectivo";
     private static final String KEY_FECHA = "fecha";
-    private static final String KEY_MATRIZORDEN = "matrizOrdenes";
 
+    private static final String KEY_ID_CUENTA = "idCuenta";
+
+    private static final String KEY_ID_LOCAL = "idDelLocal";
     private static final String KEY_STATUSORDEN = "ordenTerminadaPedir";
     private static final String KEY_STATUSPREPARACION = "statusPreparacion";
-    private static final String KEY_MATRIZPLATILLOS = "matrizPlatillos";
 
     ArrayList<String> platillos = new ArrayList<String>();
 
@@ -103,12 +104,15 @@ public class MenuLocal extends Activity {
         mNombreLocal.setText(nombreRestaurante);
 
         recycleView(idDelLocal);
+        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
+        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date, idDelLocal);
+        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
 
         if (idOrden == null) idOrden = UUID.randomUUID().toString();
-        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date);
+
 
         //Funcion que determina que accion se realiza cuando se hace click en algun platillo
-        onClickPlatillo(idOrden, idMesa);
+        onClickPlatillo(idOrden, idMesa, idDelLocal, idCuenta);
     }
 
     private void recycleView(String idDelLocal) {
@@ -126,7 +130,7 @@ public class MenuLocal extends Activity {
         Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
     }
 
-    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date) {
+    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date, String idDelLocal) {
 
         //creacion de cuenta si la mesa esta vacia
         if (status){
@@ -136,11 +140,13 @@ public class MenuLocal extends Activity {
 
             //Se ingresan los datos en la estructura HashMap
             orden.put(KEY_MESA, idMesa);
+            orden.put(KEY_ID_LOCAL, idDelLocal);
             orden.put(KEY_STATUSORDEN, false);
             orden.put(KEY_STATUSPREPARACION, 0);
             orden.put(KEY_IDUSUARIO, Global.getmIdUsuario());
-            orden.put(KEY_MATRIZPLATILLOS, Collections.emptyList());
-
+            orden.put(KEY_ID_CUENTA, idCuenta);
+            Toast.makeText(this, idMesa, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
             db.collection("orden").document(idOrden).set(orden)
                     //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -169,8 +175,8 @@ public class MenuLocal extends Activity {
             cuenta.put(KEY_METODOPAGO, false);
             cuenta.put(KEY_STATUSCUENTA, false);
             cuenta.put(KEY_FECHA, date);
+            cuenta.put(KEY_ID_LOCAL, idDelLocal);
             cuenta.put(KEY_MATRIZUSUARIOS, Collections.emptyList());
-            cuenta.put(KEY_MATRIZORDEN, Collections.singletonList(idOrden));
 
             db.collection("cuenta").document(idCuenta).set(cuenta)
                     //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
@@ -215,7 +221,7 @@ public class MenuLocal extends Activity {
 
     }
 
-    private void onClickPlatillo(String idOrden, String idMesa) {
+    private void onClickPlatillo(String idOrden, String idMesa, String idDelLocal, String idCuenta) {
 
         mAdapter.setOnItemClickListener(new PlatilloAdapter.OnItemClickListener() {
             @Override
@@ -223,7 +229,8 @@ public class MenuLocal extends Activity {
 
                 String id = documentSnapshot.getId();
                 String nombrePlatillo = documentSnapshot.get("nombrePlatillo").toString();
-
+                String precio = documentSnapshot.get("precio").toString();
+                String idPlatillo = documentSnapshot.getId();
 
 
                 /*CollectionReference ordenRef = db.collection("orden");
@@ -239,9 +246,12 @@ public class MenuLocal extends Activity {
 
                 i.putExtra("idPlatillo",id);
                 i.putExtra("nombrePlatillo", nombrePlatillo);
-                i.putExtra("idCuenta", idOrden);
-                i.putExtra("idRestaurante",nombreRestaurante);
+                i.putExtra("precio", precio);
+                i.putExtra("idPlatillo", idPlatillo);
+                i.putExtra("idOrden", idOrden);
+                i.putExtra("idRestaurante",idDelLocal);
                 i.putExtra("idMesa", idMesa);
+                i.putExtra("idCuenta", idCuenta);
 
                 startActivity(i);
             }

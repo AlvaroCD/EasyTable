@@ -196,6 +196,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 Restaurante.putExtra("nombreDelLocal", nombreRestaurante);
                 Restaurante.putExtra("idMesa", idMesa);
                 Restaurante.putExtra("estado", status);
+                Restaurante.putExtra("montoPagar", 0);
 
                 startActivity(Restaurante);
                 finish();
