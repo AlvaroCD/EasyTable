@@ -70,7 +70,6 @@ public class MenuLocal extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_menu);
 
-        String idOrden = null;
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
@@ -79,11 +78,11 @@ public class MenuLocal extends Activity {
         String nombreRestaurante = getIntent().getStringExtra("nombreDelLocal");
         String idDelLocal = getIntent().getStringExtra("idRestaurante");
         String idMesa = getIntent().getStringExtra("idMesa");
+        String idOrden = getIntent().getStringExtra("idOrden");
         boolean statusMesa = getIntent().getBooleanExtra("estado", true);
 
         //Obtención de los datos de la vista Orden
         boolean statusOrden = getIntent().getBooleanExtra("statusOrden", false);
-        idOrden = getIntent().getStringExtra("idOrden");
 
         @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
@@ -100,11 +99,8 @@ public class MenuLocal extends Activity {
         mNombreLocal.setText(nombreRestaurante);
 
         recycleView(idDelLocal);
-        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
-        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date, idDelLocal);
-        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
 
-        if (idOrden == null) idOrden = UUID.randomUUID().toString();
+        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date, idDelLocal);
 
 
         //Funcion que determina que accion se realiza cuando se hace click en algun platillo
@@ -126,7 +122,8 @@ public class MenuLocal extends Activity {
         Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
     }
 
-    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date, String idDelLocal) {
+    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta,
+                                String idOrden ,String date, String idDelLocal) {
 
         //creacion de cuenta si la mesa esta vacia
         if (status){

@@ -2,22 +2,31 @@ package com.example.easytable;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Restaurante extends Activity {
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -64,6 +73,61 @@ public class Restaurante extends Activity {
         //Coloca los comentarios
         recycleView(nombreRestaurante);
 
+        mReservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                //db.collection("usuario").document(Global.getmIdUsuario()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                  //  @Override
+                    //public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                      //  Float adeudo = (Float) value.get("Adeudo");
+                        //if (adeudo == 0){
+
+                            //Consulta para obtener que mesas estan disponibles en el local seleccionado
+                            Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
+                                    .whereEqualTo("statusMesa", true);
+
+
+                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    //Si la consulta contiene un elemento o mas, es posible reservar
+                                    if (queryDocumentSnapshots.size() >= 1) {
+                                        Intent intent = new Intent(Restaurante.this, ApartarLugar.class);
+                                        startActivity(intent);
+                                    }
+                                    //De lo contrario aparecera un mensaje que indica que no disponibilidad
+                                    else {
+                                        new AlertDialog.Builder(Restaurante.this)
+                                                .setMessage("No hay mesas disponibles")
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                })
+                                                .show();
+                                    }
+                                }
+                            });
+                        //}
+                        //else {
+                            new AlertDialog.Builder(Restaurante.this)
+                                    .setTitle("Cuota pendiente")
+                                    .setMessage("Realiza el pago del adeudo en ")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+                                    .show();
+                        //}
+                    //}
+                //});
+            }
+        });
 
     }
 

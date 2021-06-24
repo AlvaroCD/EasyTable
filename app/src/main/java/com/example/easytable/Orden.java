@@ -81,10 +81,9 @@ public class Orden extends Activity {
         mAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Orden.this, idPlatillo, Toast.LENGTH_SHORT).show();
                 Map<String, Object> platillo = new HashMap<>();
                 platillo.put("nombrePlatillo", nombrePlatillo);
-                db.collection("cuenta").document(idCuenta).collection("platillos").document(idPlatillo).set(platillo)
+                db.collection("orden").document(idOrden).collection("platillos").document(idPlatillo).set(platillo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -92,7 +91,7 @@ public class Orden extends Activity {
                                 montoPagar = (montoPagar + cantidadSumar);
                                 Map<String, Object> monto = new HashMap<>();
                                 monto.put("montoPagar", (montoPagar));
-                                db.collection("cuenta").document(idCuenta).update(monto)
+                                db.collection("Orden").document(idOrden).update(monto)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -105,7 +104,6 @@ public class Orden extends Activity {
                                                 Toast.makeText(Orden.this, "Bad", Toast.LENGTH_SHORT).show();
                                             }
                                         });
-                                Toast.makeText(Orden.this, "Nice", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -114,12 +112,6 @@ public class Orden extends Activity {
                                 Toast.makeText(Orden.this, "Hubo un error", Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
-
-
-
-
 
                 Intent intent = new Intent(Orden.this, MenuLocal.class);
                 intent.putExtra("idRestaurante",idRestaurante);
@@ -132,6 +124,12 @@ public class Orden extends Activity {
             }
         });
 
+        mOrden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         mQueja.setOnClickListener(new View.OnClickListener() {
             @Override

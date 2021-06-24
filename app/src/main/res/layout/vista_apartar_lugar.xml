@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <View
+        android:id="@+id/barraInferior"
+        android:layout_width="250dp"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_marginBottom="15dp"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Numero de personar"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:id="@+id/cantidadPersonasApartarLugarUC"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        />
+    <Button
+        android:id="@+id/horaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hora"
+        android:layout_marginTop="20dp"
+        />
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_width="250dp"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
+
+        <ImageButton
+            android:id="@+id/regresarInicioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/flecha_derecha"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
+        <ImageButton
+            android:id="@+id/hacerReservacionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/checked"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

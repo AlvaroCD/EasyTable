@@ -26,6 +26,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
 
+import java.util.UUID;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class PrincipalUC extends Activity implements ZXingScannerView.ResultHandler{
@@ -101,7 +103,6 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             public void onClick(View v) {
                 mAuth.signOut();
                 startActivity(new Intent(PrincipalUC.this, Ingresar.class));
-                finish();
             }
         });
     }
@@ -148,6 +149,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 String nombreRestaurante = value.get("nombreDelLocal").toString();
                 String idMesa = value.getId().toString();
                 boolean status = value.getBoolean("statusMesa");
+                String idOrden = UUID.randomUUID().toString();
 
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
@@ -157,6 +159,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 Restaurante.putExtra("idMesa", idMesa);
                 Restaurante.putExtra("estado", status);
                 Restaurante.putExtra("montoPagar", 0);
+                Restaurante.putExtra("idOrden", idOrden);
 
                 startActivity(Restaurante);
                 finish();
