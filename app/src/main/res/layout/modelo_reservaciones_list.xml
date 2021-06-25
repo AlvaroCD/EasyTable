@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+    <TextView
+        android:id="@+id/nombreUsuarioReservaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="@string/nombre_reservar_strings"
+        android:layout_marginStart="5dp">
+    </TextView>
+
+
+
+
+    <TextView
+        android:id="@+id/fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/nombreUsuarioReservaciones"
+        android:layout_below="@id/barraMedia"
+        android:text="@string/fecha_strings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/fechaContenedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/fecha"
+        android:layout_below="@id/barraMedia"
+        android:layout_marginStart="5dp"
+        android:text="@string/fecha_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/fecha"
+        android:layout_below="@id/fecha"
+        android:text="@string/hora_strings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/horaContenedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/hora"
+        android:layout_below="@id/fechaContenedor"
+        android:layout_marginStart="5dp"
+        android:text="@string/hora_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/cantidadPersonas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/fecha"
+        android:layout_below="@id/hora"
+        android:text="@string/cant_personas_strings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/cantidadPersonasContenedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horaContenedor"
+        android:layout_toEndOf="@id/cantidadPersonas"
+        android:layout_marginStart="5dp"
+        android:text="@string/cant_personas_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        />
+
+    <View
+        android:id="@+id/barraMedia"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/nombreUsuarioReservaciones"
+        />
+
+    <View
+        android:id="@+id/barraInferior"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@+id/cantidadPersonas"
+        />
+
+    <View
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_above="@+id/barraInferior"
+        />
+
+    <View
+        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_above="@+id/barraInferior"/>
+
+</RelativeLayout>

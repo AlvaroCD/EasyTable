@@ -22,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/imagenLocal"
-        android:layout_alignTop="@+id/reservar"
-        android:layout_toStartOf="@+id/reservar"
+        android:layout_alignTop="@+id/reservarButton"
+        android:layout_toStartOf="@+id/reservarButton"
         android:layout_marginEnd="20dp"
         android:textStyle="bold"
         android:textSize="17sp"/>
@@ -33,12 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nombreRestauranteVistaRestaurante"
         android:layout_alignStart="@+id/imagenLocal"
-        android:layout_toStartOf="@+id/reservar"
+        android:layout_toStartOf="@+id/reservarButton"
         android:layout_marginEnd="20dp"
         android:textSize="14sp"/>
 
     <Button
-        android:id="@+id/reservar"
+        android:id="@+id/reservarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imagenLocal"
@@ -50,8 +50,8 @@
         android:id="@+id/calificacionLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/reservar"
-        android:layout_alignStart="@id/reservar"
+        android:layout_below="@+id/reservarButton"
+        android:layout_alignStart="@id/reservarButton"
         android:layout_marginStart="-15dp"
         android:src="@drawable/__50estrellas"
         />

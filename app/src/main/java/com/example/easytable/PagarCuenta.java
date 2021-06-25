@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -25,9 +30,11 @@ public class PagarCuenta extends AppCompatActivity {
 
     public static final String PAYPAL_CLIENT_ID = "AUM8W9KU49DmhJENE37MV5vTKeIfwJpOIh2jTYH1KhXrLhuYkkEZiDhG7yJxLuL-f0GpL1OCz3za6ITP";
     private static final int PAYPAL_REQUEST_CODE = 7171;
+    private FirebaseFirestore db;
 
     //Esta configuracion es para utilizar cuenta sandbox para pruebas
-    private static PayPalConfiguration configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+    private static PayPalConfiguration configuration = new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
             .clientId(PAYPAL_CLIENT_ID);
 
     //TODO: REALIZAR ESTA PARTE DE LOS PAGOS
@@ -54,6 +61,18 @@ public class PagarCuenta extends AppCompatActivity {
         mMontoPagar = findViewById(R.id.montoPagarTxt);
         mPagar = findViewById(R.id.pagarButton);
 
+        db = FirebaseFirestore.getInstance();
+
+        String idCuenta = getIntent().getStringExtra("idCuenta");
+
+        DocumentReference doc = db.collection("cuenta").document(idCuenta);
+        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String montoPagar = value.get("montoPagar").toString();
+               // mMontoPagar.setText(montoPagar);
+            }
+        });
 
 
         mPagar.setOnClickListener(new View.OnClickListener() {

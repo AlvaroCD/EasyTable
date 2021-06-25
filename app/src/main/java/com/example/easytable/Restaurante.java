@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class Restaurante extends Activity {
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mImagenLocal = findViewById(R.id.imagenLocal);
         mCalificacionLocal = findViewById(R.id.calificacionLocal);
-        mReservar = findViewById(R.id.reservar);
+        mReservar = findViewById(R.id.reservarButton);
         mRestaurante = findViewById(R.id.nombreRestauranteVistaRestaurante);
         mTipoRestaurante = findViewById(R.id.tipoRestauranteVistaRestaurante);
 
@@ -65,6 +66,13 @@ public class Restaurante extends Activity {
         recycleView(nombreRestaurante);
 
 
+        mReservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Restaurante.this, ApartarLugarUC.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void recycleView(String nombreRestaurante) {

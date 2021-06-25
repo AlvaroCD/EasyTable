@@ -115,12 +115,6 @@ public class Orden extends Activity {
                             }
                         });
 
-
-
-
-
-
-
                 Intent intent = new Intent(Orden.this, MenuLocal.class);
                 intent.putExtra("idRestaurante",idRestaurante);
                 intent.putExtra("idMesa", idMesa);
@@ -145,6 +139,7 @@ public class Orden extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Orden.this, PagarCuenta.class);
+                intent.putExtra("idCuenta", idCuenta);
                 startActivity(intent);
             }
         });

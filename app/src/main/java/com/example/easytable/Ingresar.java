@@ -104,7 +104,7 @@ public class Ingresar extends AppCompatActivity {
                                         startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
                                         break;
                                     case "Host":
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        startActivity(new Intent(Ingresar.this, PrincipalUH.class));
                                         break;
                                     case "Cocinero":
                                         startActivity(new Intent(Ingresar.this, PrincipalUCO.class));
@@ -158,7 +158,7 @@ public class Ingresar extends AppCompatActivity {
                             startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
                             break;
                         case "Host":
-                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            startActivity(new Intent(Ingresar.this, PrincipalUH.class));
                             break;
                         case "Cocinero":
                             startActivity(new Intent(Ingresar.this, PrincipalUCO.class));

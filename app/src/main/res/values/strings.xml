@@ -92,6 +92,16 @@
     <string name="ordenes_preparacion_strings">Ordenes en Preparacion</string>
     <string name="cantidad_strings">Cantidad</string>
     <string name="meseros_trabajando_2_strings">Los meseros que estan trabajando en este momento son:</string>
+    <string name="asignar_mesero_strings">Asignar Mesero</string>
+    <string name="apartar_lugares_strings">Apartar Lugares</string>
+    <string name="selecciona_strings">(Selecciona uno)</string>
+    <string name="mesas_disponibles_strings">Mesas disponibles</string>
+    <string name="solicitudes_strings">Solicitudes de reservación</string>
+    <string name="nombre_reservar_strings">Nombre del usuario a reservar</string>
+    <string name="fecha_strings">Fecha:</string>
+    <string name="hora_strings">Hora:</string>
+    <string name="cant_personas_strings">Cant. Personas:</string>
+    <string name="reservacion_strings">Reservacion</string>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

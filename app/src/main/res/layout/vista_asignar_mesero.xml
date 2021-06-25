@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="50dp"
+    tools:context=".AsignarMesero">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/asignar_mesero_strings"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selecciona_strings"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mesas_disponibles_strings"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewListadoMesasDisponibles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+
+
+</LinearLayout>
