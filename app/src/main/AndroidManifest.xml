@@ -34,9 +34,11 @@
         <activity android:name=".AgregarIngrediente" />
         <activity android:name=".Recursos" />
         <activity android:name=".AgregarPlatillo" />
-        <activity android:name=".PrincipalUA" />
-        <activity android:name=".PagoExitoso" />
-        <activity android:name=".PagarCuenta" />
+        <activity android:name=".ApartarLugar"/>
+        <activity android:name=".BusquedaRestaurante" />
+        <activity android:name=".DisponibilidadRecursos" />
+        <activity android:name=".EditarEmpleado"/>
+        <activity android:name=".GenerarQR" />
         <activity android:name=".Ingresar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,23 +47,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListadoEliminarEmpleado" />
-        <activity android:name=".ListadoEmpleados" />
+        <activity android:name=".ListadoCodigosQR" />
         <activity android:name=".ListadoEditarEmpleado" />
-        <activity android:name=".EditarEmpleado" />
-        <activity android:name=".RegistrarEmpleado" />
-        <activity android:name=".PrincipalUDL" />
-        <activity android:name=".ResultadoBusquedaRestaurante" />
-        <activity android:name=".BusquedaRestaurante" />
-        <activity android:name=".PrincipalUC" />
-        <activity android:name=".Restaurante" />
+        <activity android:name=".ListadoEliminarEmpleado" />
+        <activity android:name=".ListadoEliminarRecursos" />
+        <activity android:name=".ListadoEmpleados"/>
+        <activity android:name=".ListadoOrdenes" />
+        <activity android:name=".ListadoOrdenesPreparacion" />
+        <activity android:name=".ListadoOrdenesTerminadas" />
+        <activity android:name=".ListadoPlatillosOrdenados" />
+        <activity android:name=".ListadoRecursos" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MenuLocal" />
+        <activity android:name=".MeserosTrabajando" />
         <activity android:name=".Orden" />
-        <activity android:name=".RegistrarRestaurante3" />
-        <activity android:name=".RegistrarRestaurante2" />
+        <activity android:name=".PagarCuenta" />
+        <activity android:name=".PagoExitoso" />
+        <activity android:name=".PrincipalUA" />
+        <activity android:name=".PrincipalUC" />
+        <activity android:name=".PrincipalUCO" />
+        <activity android:name=".PrincipalUDL" />
+        <activity android:name=".PrincipalUM"/>
+        <activity android:name=".Queja" />
+        <activity android:name=".Recursos" />
+        <activity android:name=".RegistrarEmpleado" />
         <activity android:name=".RegistrarRestaurante1" />
+        <activity android:name=".RegistrarRestaurante2" />
+        <activity android:name=".RegistrarRestaurante3" />
         <activity android:name=".RegistrarUsuario" />
+        <activity android:name=".Restaurante" />
+        <activity android:name=".ResultadoBusquedaRestaurante" />
         <activity android:name=".Queja" />
 
         <service
