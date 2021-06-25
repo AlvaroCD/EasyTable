@@ -25,6 +25,8 @@ import com.paypal.android.sdk.payments.PaymentConfirmation;
 import org.json.JSONException;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PagarCuenta extends AppCompatActivity {
 
@@ -37,10 +39,10 @@ public class PagarCuenta extends AppCompatActivity {
             .environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
             .clientId(PAYPAL_CLIENT_ID);
 
-    //TODO: REALIZAR ESTA PARTE DE LOS PAGOS
     private TextView mMontoPagar;
     private Button mPagar;
     String monto;
+    String idRestaurante = getIntent().getStringExtra("idRestaurante");
 
     @Override
     protected void onDestroy() {
@@ -70,7 +72,7 @@ public class PagarCuenta extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String montoPagar = value.get("montoPagar").toString();
-               // mMontoPagar.setText(montoPagar);
+                mMontoPagar.setText(montoPagar);
             }
         });
 
@@ -85,8 +87,8 @@ public class PagarCuenta extends AppCompatActivity {
 
     private void procesarPago() {
         //Recibir el monto
-        //monto = mMontoPagar.getText().toString();
-        monto = "0.01";
+        monto = mMontoPagar.getText().toString();
+        //monto = "0.01";
         PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(monto)), "MXN", "Pagado", PayPalPayment
                     .PAYMENT_INTENT_SALE);
         //Enviar parametros
@@ -107,7 +109,8 @@ public class PagarCuenta extends AppCompatActivity {
                     try {
                         String paymentDetails = confirmation.toJSONObject().toString(4);
                         startActivity(new Intent(PagarCuenta.this, PagoExitoso.class).putExtra("PaymentDetails", paymentDetails)
-                        .putExtra("montoPagado", monto));
+                        .putExtra("montoPagado", monto)
+                        .putExtra("idRestaurante", idRestaurante));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

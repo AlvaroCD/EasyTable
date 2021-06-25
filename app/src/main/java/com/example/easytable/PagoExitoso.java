@@ -7,17 +7,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class PagoExitoso extends AppCompatActivity {
 
     Button mRegresar;
+    FirebaseFirestore db;
 
-    //TODO: REALIZAR ESTA PARTE DE PAGOS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_pago_exitoso);
 
         mRegresar = findViewById(R.id.regresarInicioButton);
+        db = FirebaseFirestore.getInstance();
+
+        String montoPagado = getIntent().getStringExtra("montoPagado");
+        String idRestaurante = getIntent().getStringExtra("idRestaurante");
+
+        Map <String, Object> ventas = new HashMap<>();
+        ventas.put("ventas", montoPagado);
+
+        db.collection("restaurante").document(idRestaurante).update(ventas);
 
         mRegresar.setOnClickListener(new View.OnClickListener() {
             @Override

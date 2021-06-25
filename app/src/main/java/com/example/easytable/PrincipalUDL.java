@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class PrincipalUDL extends AppCompatActivity {
 
 
-    private Button mAgregarEmpleados, mEditarEmpleados, mListarEmpleados, mEliminarEmpleados, mListarCodigos, mLogOut;
+    private Button mAgregarEmpleados, mEditarEmpleados, mListarEmpleados, mEliminarEmpleados, mListarCodigos, mVentas, mLogOut;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -38,6 +38,7 @@ public class PrincipalUDL extends AppCompatActivity {
         mListarEmpleados = findViewById(R.id.listarEmpleadosButton);
         mEliminarEmpleados = findViewById(R.id.eliminarEmpleadosButton);
         mListarCodigos = findViewById(R.id.listarCodigosQR);
+        mVentas = findViewById(R.id.ventas);
         mLogOut = findViewById(R.id.LogOutButton3);
 
         String idUsuarioLogueado = mAuth.getUid();
@@ -87,6 +88,15 @@ public class PrincipalUDL extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(PrincipalUDL.this, ListadoCodigosQR.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
+
+                mVentas.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUDL.this, Ventas.class);
                         i.putExtra("idRestaurante", idRestaurante);
                         startActivity(i);
                     }

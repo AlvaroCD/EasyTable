@@ -102,6 +102,16 @@
     <string name="hora_strings">Hora:</string>
     <string name="cant_personas_strings">Cant. Personas:</string>
     <string name="reservacion_strings">Reservacion</string>
+    <string name="metodo_pago_strings">Selecciona tu método de pago:</string>
+    <string name="pago_en_efectivo_strings">Pago en efectivo</string>
+    <string name="paga_la_cantidad_de">Paga la cantidad de</string>
+    <string name="entendido_strings">Entendido</string>
+    <string name="ventas_strings">Ventas</string>
+    <string name="ventas_totales_del_local_strings">Ventas totales del local</string>
+    <string-array name="metodos_pago_strings">
+        <item>Efectivo</item>
+        <item>Tarjeta/Paypal</item>
+    </string-array>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>

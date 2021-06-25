@@ -216,16 +216,6 @@ public class MenuLocal extends Activity {
                 String precio = documentSnapshot.get("precio").toString();
                 String idPlatillo = documentSnapshot.getId();
 
-
-                /*CollectionReference ordenRef = db.collection("orden");
-                ordenRef.document(idOrden)
-                        .update("matrizPlatillos", FieldValue.arrayUnion(id));
-*/
-
-
-                final DocumentReference ordenRef = db.collection("orden").document(idOrden);
-                ordenRef.update("matrizPlatillos", FieldValue.arrayUnion("ahh"));
-
                 Intent i = new Intent(MenuLocal.this, Orden.class);
 
                 i.putExtra("idPlatillo",id);

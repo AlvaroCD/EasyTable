@@ -6,6 +6,10 @@ public class MeserosPojo {
     private String Apellidos;
     private String Cuenta;
 
+    public MeserosPojo(){
+
+    }
+
     public MeserosPojo(String Nombre, String Apellidos, String Cuenta){
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;

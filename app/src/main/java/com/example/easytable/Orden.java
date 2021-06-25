@@ -81,17 +81,20 @@ public class Orden extends Activity {
         mAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(Orden.this, "Boton Añadir", Toast.LENGTH_SHORT).show();
                 Map<String, Object> platillo = new HashMap<>();
                 platillo.put("nombrePlatillo", nombrePlatillo);
                 db.collection("orden").document(idOrden).collection("platillos").document(idPlatillo).set(platillo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                Toast.makeText(Orden.this, "Se agrego el platillo y el precio", Toast.LENGTH_SHORT).show();
                                 cantidadSumar = Float.parseFloat(precioPlatillo);
                                 montoPagar = (montoPagar + cantidadSumar);
                                 Map<String, Object> monto = new HashMap<>();
                                 monto.put("montoPagar", (montoPagar));
-                                db.collection("Orden").document(idOrden).update(monto)
+                                //TODO: ARREGLAR COMO SE VA A REALIZAR ESTO
+                                db.collection("cuenta").document(idCuenta).update(monto)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -142,8 +145,9 @@ public class Orden extends Activity {
         mPagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Orden.this, PagarCuenta.class);
+                Intent intent = new Intent(Orden.this, MetodoDePago.class);
                 intent.putExtra("idCuenta", idCuenta);
+                intent.putExtra("idRestaurante", idRestaurante);
                 startActivity(intent);
             }
         });

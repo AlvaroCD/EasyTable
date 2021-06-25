@@ -87,7 +87,7 @@ public class Restaurante extends Activity {
 
                             //Consulta para obtener que mesas estan disponibles en el local seleccionado
                             Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
-                                    .whereEqualTo("statusMesa", true);
+                                    .whereEqualTo("statusMesa", false);
 
 
                             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -127,14 +127,6 @@ public class Restaurante extends Activity {
                         //}
                     //}
                 //});
-            }
-        });
-
-        mReservar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Restaurante.this, ApartarLugarUC.class);
-                startActivity(i);
             }
         });
     }
