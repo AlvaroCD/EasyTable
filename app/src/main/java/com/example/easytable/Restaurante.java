@@ -79,12 +79,13 @@ public class Restaurante extends Activity {
             public void onClick(View v) {
 
 
-                //db.collection("usuario").document(Global.getmIdUsuario()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                  //  @Override
-                    //public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                      //  Float adeudo = (Float) value.get("Adeudo");
-                        //if (adeudo == 0){
-
+                /*db.collection("usuario").document("cdt49HsCbiM0h7J7IOWJ2ZwAqvm2").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        int adeudo = (int) value.get("Adeudo");
+                        String nombre = value.getString("Nombre");
+                        if (adeudo == 0){
+*/
                             //Consulta para obtener que mesas estan disponibles en el local seleccionado
                             Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
                                     .whereEqualTo("statusMesa", false);
@@ -112,11 +113,11 @@ public class Restaurante extends Activity {
                                     }
                                 }
                             });
-                        //}
-                        //else {
+                        /*}
+                        else {
                             new AlertDialog.Builder(Restaurante.this)
                                     .setTitle("Cuota pendiente")
-                                    .setMessage("Realiza el pago del adeudo en ")
+                                    .setMessage("Realiza el pago de tu adeudo")
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -124,9 +125,9 @@ public class Restaurante extends Activity {
                                         }
                                     })
                                     .show();
-                        //}
-                    //}
-                //});
+                        }
+                    }
+                });*/
             }
         });
     }
