@@ -1,0 +1,388 @@
+Index: app/src/main/java/com/example/easytable/ApartarLugar.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/easytable/ApartarLugar.java	(revision d0d9af14b45173fe3bf0814f4eb64f92a6fdf1ec)
++++ app/src/main/java/com/example/easytable/ApartarLugar.java	(date 1624614094506)
+@@ -1,28 +1,137 @@
+ package com.example.easytable;
+ 
++import android.annotation.SuppressLint;
+ import android.app.Activity;
++import android.app.Notification;
++import android.app.NotificationChannel;
++import android.app.NotificationManager;
++import android.app.PendingIntent;
++import android.app.TimePickerDialog;
++import android.content.DialogInterface;
++import android.content.Intent;
++import android.os.Build;
+ import android.os.Bundle;
++import android.view.View;
+ import android.widget.Button;
+ import android.widget.EditText;
+ import android.widget.ImageButton;
++import android.widget.TimePicker;
++import android.widget.Toast;
+ 
++import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
++import androidx.annotation.RequiresApi;
++import androidx.appcompat.app.AlertDialog;
++import androidx.core.app.NotificationCompat;
++import androidx.fragment.app.DialogFragment;
++import androidx.fragment.app.FragmentManager;
++
++import com.google.android.gms.tasks.OnFailureListener;
++import com.google.android.gms.tasks.OnSuccessListener;
++import com.google.firebase.firestore.FirebaseFirestore;
++
++import java.sql.Time;
++import java.util.Calendar;
++import java.util.HashMap;
++import java.util.Map;
+ 
+ public class ApartarLugar extends Activity {
+ 
++    int hora, min;
++    String getMin,getHora;
++
+     private Button mHora;
+     private ImageButton mAceptar, mRetroceder;
+     private EditText mPersonas;
+ 
++    //Objetos para utilizar las dependencias
++    private FirebaseFirestore db;
++
++    //Elemento para poder crear notificaciones
++    private NotificationCompat.Builder notificacion;
++    private static final String idUnico = "asdf";
++
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.vista_apartar_lugar);
+ 
++        //Instanciación de Firebase Authentication y de Firebase Firestore
++        db = FirebaseFirestore.getInstance();
++
+         mHora = findViewById(R.id.horaButton);
+         mPersonas = findViewById(R.id.cantidadPersonasApartarLugarUC);
+         mAceptar = findViewById(R.id.hacerReservacionButton);
+ 
++        mHora.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                Calendar calendar = Calendar.getInstance();
++                hora = calendar.get(Calendar.HOUR_OF_DAY);
++                min = calendar.get(Calendar.MINUTE);
++
++                TimePickerDialog timePickerDialog = new TimePickerDialog(ApartarLugar.this, new TimePickerDialog.OnTimeSetListener() {
++                    @SuppressLint("SetTextI18n")
++                    @Override
++                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
++                        mHora.setText(""+hourOfDay+":"+minute);
++                        getHora = ""+hourOfDay;
++                        getMin = ""+minute;
++                    }
++                }, hora, min, true);
++                timePickerDialog.show();
++            }
++        });
++
++        mAceptar.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                String persona = mPersonas.getText().toString();
++
++                if (!persona.isEmpty() && !getHora.isEmpty() && !getMin.isEmpty()) {
++                    new AlertDialog.Builder(ApartarLugar.this)
++                            .setTitle("Comfirma la informacion")
++                            .setMessage("Reservacion para " + persona + " personas a las " + getHora + ":" + getMin)
++                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
++                                @RequiresApi(api = Build.VERSION_CODES.O)
++                                @Override
++                                public void onClick(DialogInterface dialog, int which) {
++                                    String id ="channel_1";//id of channel
++                                    int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
++                                    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
++
++                                    Intent i = new Intent(ApartarLugar.this, MainActivity.class);
++                                    PendingIntent pendingIntent = PendingIntent.getActivity(ApartarLugar.this, 0, i, 0);
++
++                                    NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
++                                    manager.createNotificationChannel(channel);//Add channel
++                                    Notification notification = new Notification.Builder(ApartarLugar.this,id)
++                                            .setCategory(Notification.CATEGORY_MESSAGE)
++                                            .setSmallIcon(R.mipmap.ic_launcher)
++                                            .setContentTitle("Nueva reservacion")
++                                            .setContentText( "Reservacion para " + persona + " personas a las " + getHora + ":" + getMin )
++                                            .setSmallIcon(R.drawable.checked)
++                                            .setContentIntent(pendingIntent)
++                                            .setAutoCancel(true)
++                                            .build();
++                                    manager.notify(1,notification);
+ 
++                                }
++                            })
++                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
++                                @Override
++                                public void onClick(DialogInterface dialog, int which) {
++
++                                }
++                            })
++                            .show();
++                }
++                else {
++                    Toast.makeText(ApartarLugar.this, "Llena todos los campos", Toast.LENGTH_SHORT).show();
++                }
++            }
++        });
++
+     }
++
+ }
+Index: app/src/main/java/com/example/easytable/PlatilloAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/easytable/PlatilloAdapter.java	(revision d0d9af14b45173fe3bf0814f4eb64f92a6fdf1ec)
++++ app/src/main/java/com/example/easytable/PlatilloAdapter.java	(date 1624616755272)
+@@ -7,18 +7,24 @@
+ import android.view.ViewGroup;
+ import android.widget.ImageView;
+ import android.widget.TextView;
++import android.widget.Toast;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
++import com.google.android.gms.tasks.OnSuccessListener;
+ import com.google.firebase.firestore.DocumentSnapshot;
++import com.google.firebase.firestore.FirebaseFirestore;
+ 
+ import static android.graphics.Color.RED;
+ 
+ public class PlatilloAdapter extends FirestoreRecyclerAdapter<PlatilloPojo, PlatilloAdapter.ViewHolder> {
+     private static PlatilloAdapter.OnItemClickListener listener;
++    //Objetos para utilizar las dependencias
++    private FirebaseFirestore db;
++
+     /**
+      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
+      * FirestoreRecyclerOptions} for configuration options.
+@@ -46,6 +52,52 @@
+             holder.disponibilidad.setText("NO DISPONIBLE");
+             holder.disponibilidad.setTextColor(RED);
+         }
++
++        //Instanciación de Firebase Authentication y de Firebase Firestore
++        db = FirebaseFirestore.getInstance();
++
++        db.collection("platillos").document(model.getIdPlatillo()).get()
++                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
++                    @SuppressLint({"SetTextI18n"})
++                    @Override
++                    public void onSuccess(DocumentSnapshot documentSnapshot) {
++                        if (documentSnapshot.exists()) {
++                            String cali =  documentSnapshot.get("calificacion").toString();
++                            String usuariosCali = documentSnapshot.get("usuariosCalificacion").toString();
++
++                            float calificacion = Float.parseFloat(cali);
++                            float usuariosCalificacion =Float.parseFloat(usuariosCali);
++
++                            float calificaciones = calificacion/usuariosCalificacion;
++
++                            switch ((0 <= calificaciones && calificaciones < 1)?0 : (1 <= calificaciones && calificaciones < 2)?1 :
++                                    (2 <= calificaciones && calificaciones < 3)?2 : (3 <= calificaciones && calificaciones < 4)?3 :
++                                            (4 <= calificaciones && calificaciones < 5)?4 : (calificaciones == 5)?5 : 6) {
++                                case 0:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__00estrellas);
++                                    break;
++                                case 1:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__10estrellas);
++                                    break;
++                                case 2:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__20estrellas);
++                                    break;
++                                case 3:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__30estrellas);
++                                    break;
++                                case 4:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__40estrellas);
++                                    break;
++                                case 5:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__50estrellas);
++                                    break;
++                                case 6:
++                                    holder.calificicionPlatillo.setImageResource(R.drawable.__05estrellas);
++                                    break;
++                            }
++                        }
++                    }
++                });
+     }
+ 
+     @NonNull
+Index: app/src/main/res/layout/vista_apartar_lugar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/vista_apartar_lugar.xml	(revision d0d9af14b45173fe3bf0814f4eb64f92a6fdf1ec)
++++ app/src/main/res/layout/vista_apartar_lugar.xml	(date 1624612529748)
+@@ -16,8 +16,6 @@
+         android:layout_marginBottom="15dp"
+         />
+ 
+-
+-
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+@@ -28,7 +26,7 @@
+ 
+     <EditText
+         android:id="@+id/cantidadPersonasApartarLugarUC"
+-        android:layout_width="80dp"
++        android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:inputType="number"
+         />
+@@ -36,7 +34,7 @@
+         android:id="@+id/horaButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="Hora"
++        android:text="Selecciona hora"
+         android:layout_marginTop="20dp"
+         />
+ 
+@@ -47,20 +45,6 @@
+         android:background="@color/teal_700"
+         />
+ 
+-    <LinearLayout
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal"
+-        android:layout_marginTop="50dp">
+-
+-        <ImageButton
+-            android:id="@+id/regresarInicioButton2"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="15dp"
+-            android:src="@drawable/flecha_derecha"
+-            android:background="?android:attr/selectableItemBackground"
+-            />
+ 
+         <ImageButton
+             android:id="@+id/hacerReservacionButton"
+@@ -72,7 +56,6 @@
+             android:background="?android:attr/selectableItemBackground"
+             />
+ 
+-    </LinearLayout>
+ 
+ 
+ 
+Index: app/src/main/java/com/example/easytable/PlatilloPojo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/easytable/PlatilloPojo.java	(revision d0d9af14b45173fe3bf0814f4eb64f92a6fdf1ec)
++++ app/src/main/java/com/example/easytable/PlatilloPojo.java	(date 1624616980357)
+@@ -2,19 +2,29 @@
+ 
+ public class PlatilloPojo {
+ 
+-    private String nombreLocal, nombrePlatillo, descripcion;
++    private String nombreLocal;
++    private String nombrePlatillo;
++    private String descripcion;
++    private String idPlatillo;
+     private int precio;
+     private boolean disponibilidad;
+ 
+     public PlatilloPojo() {
+     }
+ 
+-    public PlatilloPojo(String nombreLocal, String nombrePlatillo, int precio, boolean disponibilidad, String descripcion) {
++
++    public PlatilloPojo(String nombreLocal, String nombrePlatillo, String descripcion,
++                        String idPlatillo, int precio, boolean disponibilidad) {
+         this.nombreLocal = nombreLocal;
+         this.nombrePlatillo = nombrePlatillo;
++        this.descripcion = descripcion;
++        this.idPlatillo = idPlatillo;
+         this.precio = precio;
+         this.disponibilidad = disponibilidad;
+-        this.descripcion = descripcion;
++    }
++
++    public String getIdPlatillo() {
++        return idPlatillo;
+     }
+ 
+     public String getNombreLocal() {
+Index: app/src/main/java/com/example/easytable/Restaurante.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/easytable/Restaurante.java	(revision d0d9af14b45173fe3bf0814f4eb64f92a6fdf1ec)
++++ app/src/main/java/com/example/easytable/Restaurante.java	(date 1624615186140)
+@@ -78,12 +78,13 @@
+             public void onClick(View v) {
+ 
+ 
+-                //db.collection("usuario").document(Global.getmIdUsuario()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+-                  //  @Override
+-                    //public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+-                      //  Float adeudo = (Float) value.get("Adeudo");
+-                        //if (adeudo == 0){
+-
++                /*db.collection("usuario").document("cdt49HsCbiM0h7J7IOWJ2ZwAqvm2").addSnapshotListener(new EventListener<DocumentSnapshot>() {
++                    @Override
++                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
++                        int adeudo = (int) value.get("Adeudo");
++                        String nombre = value.getString("Nombre");
++                        if (adeudo == 0){
++*/
+                             //Consulta para obtener que mesas estan disponibles en el local seleccionado
+                             Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
+                                     .whereEqualTo("statusMesa", true);
+@@ -111,11 +112,11 @@
+                                     }
+                                 }
+                             });
+-                        //}
+-                        //else {
++                        /*}
++                        else {
+                             new AlertDialog.Builder(Restaurante.this)
+                                     .setTitle("Cuota pendiente")
+-                                    .setMessage("Realiza el pago del adeudo en ")
++                                    .setMessage("Realiza el pago de tu adeudo")
+                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                         @Override
+                                         public void onClick(DialogInterface dialog, int which) {
+@@ -123,9 +124,9 @@
+                                         }
+                                     })
+                                     .show();
+-                        //}
+-                    //}
+-                //});
++                        }
++                    }
++                });*/
+             }
+         });
+ 
