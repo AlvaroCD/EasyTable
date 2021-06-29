@@ -81,6 +81,24 @@ public class AsignarMesero extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Insertar la accion de asignar un mesero
+
+                        //Al asignar un mesero la mesa pasa automaticamente a estar ocupada, por lo que se actualiza el campo
+                        //de la disponibilidad de la mesa
+                        Map<String, Object> disponibilidadActualizada = new HashMap<>();
+                        disponibilidadActualizada.put("statusMesa", true);
+                        db.collection("mesa").document(id).update(disponibilidadActualizada)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                         Toast.makeText(AsignarMesero.this, "Mesero asignado", Toast.LENGTH_SHORT).show();
                     }
                 })

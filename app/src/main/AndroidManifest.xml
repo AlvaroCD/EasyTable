@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".Ventas"></activity>
+        <activity android:name=".PrincipalUCJ"></activity>
+        <activity android:name=".DisponibilidadMesa" />
+        <activity android:name=".Local" />
+        <activity android:name=".Ventas" />
         <activity android:name=".PagoEfectivo" />
         <activity android:name=".MetodoDePago" />
         <activity android:name=".ApartarLugarUC" />

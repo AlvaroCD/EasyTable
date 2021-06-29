@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,11 +37,12 @@ public class Restaurante extends Activity {
     private ComentarioAdapter mAdapter;
     private ImageView mImagenLocal, mCalificacionLocal;
     private Button mReservar;
-    private TextView mRestaurante, mTipoRestaurante;
+    private TextView mRestaurante, mTipoRestaurante, mDireccionRestaurante;
 
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -48,7 +51,7 @@ public class Restaurante extends Activity {
         setContentView(R.layout.vista_resturante);
 
 
-        //Optencion del Id del local escaneado y de su nombre
+        //Obtencion del Id del local escaneado y de su nombre
         String IdRestaurante, nombreRestaurante;
         IdRestaurante = getIntent().getStringExtra("idRestaurante");
         nombreRestaurante = getIntent().getStringExtra("nombreRestaurante");
@@ -60,6 +63,7 @@ public class Restaurante extends Activity {
         mReservar = findViewById(R.id.reservar);
         mRestaurante = findViewById(R.id.nombreRestauranteVistaRestaurante);
         mTipoRestaurante = findViewById(R.id.tipoRestauranteVistaRestaurante);
+        mDireccionRestaurante = findViewById(R.id.direcionRestauranteVistaRestaurante);
 
         //Instanciacion del Recycler View
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoComentarios);
@@ -67,6 +71,7 @@ public class Restaurante extends Activity {
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //Funcion para obtener los datos del restaurante con su ID
         colocacionInformacion(IdRestaurante);
@@ -78,14 +83,14 @@ public class Restaurante extends Activity {
             @Override
             public void onClick(View v) {
 
+                String idLogueado = mAuth.getUid();
 
-                /*db.collection("usuario").document("cdt49HsCbiM0h7J7IOWJ2ZwAqvm2").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                DocumentReference doc = db.collection("usuario").document(idLogueado);
+                doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        int adeudo = (int) value.get("Adeudo");
-                        String nombre = value.getString("Nombre");
-                        if (adeudo == 0){
-*/
+                        boolean adeudo = value.getBoolean("Adeudo");
+                        if (!adeudo){
                             //Consulta para obtener que mesas estan disponibles en el local seleccionado
                             Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
                                     .whereEqualTo("statusMesa", false);
@@ -113,8 +118,7 @@ public class Restaurante extends Activity {
                                     }
                                 }
                             });
-                        /*}
-                        else {
+                        } else {
                             new AlertDialog.Builder(Restaurante.this)
                                     .setTitle("Cuota pendiente")
                                     .setMessage("Realiza el pago de tu adeudo")
@@ -127,7 +131,8 @@ public class Restaurante extends Activity {
                                     .show();
                         }
                     }
-                });*/
+                });
+
             }
         });
     }
@@ -189,6 +194,7 @@ public class Restaurante extends Activity {
                     }
                     mRestaurante.setText(documentSnapshot.get("nombreLocal").toString());
                     mTipoRestaurante.setText(documentSnapshot.get("tipoRestaurante").toString());
+                    mDireccionRestaurante.setText(documentSnapshot.get("direccion").toString());
                 } else {
                     Toast.makeText(Restaurante.this, "Error, restaurante no encontrado", Toast.LENGTH_SHORT).show();
                 }

@@ -57,6 +57,9 @@ public class PrincipalUA extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(PrincipalUA.this, "Local", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(PrincipalUA.this, Local.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
                     }
                 });
 

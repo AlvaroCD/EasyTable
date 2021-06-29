@@ -9,7 +9,11 @@ import java.util.Date;
 
 public class ReservacionesPojo {
 
-    private String Usuario, fecha, hora;
+    private String Usuario;
+    private String fecha;
+    private String hora;
+
+    private String ID;
     private int cantidadPersonas, statusReservacion;
 
     public ReservacionesPojo() {
@@ -22,9 +26,26 @@ public class ReservacionesPojo {
         this.statusReservacion = statusReservacion;
         this.fecha = fecha;
         this.hora = hora;
+
+    }
+
+    public ReservacionesPojo(String usuario, String fecha, String hora, String ID, int cantidadPersonas, int statusReservacion) {
+        Usuario = usuario;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.ID = ID;
+        this.cantidadPersonas = cantidadPersonas;
+        this.statusReservacion = statusReservacion;
     }
 
 
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public String getUsuario() {
         return Usuario;

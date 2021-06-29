@@ -37,6 +37,16 @@
         android:layout_marginEnd="20dp"
         android:textSize="14sp"/>
 
+    <TextView
+        android:id="@+id/direcionRestauranteVistaRestaurante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tipoRestauranteVistaRestaurante"
+        android:layout_alignStart="@id/imagenLocal"
+        android:layout_toStartOf="@id/reservar"
+        android:layout_marginEnd="20dp"
+        />
+
     <Button
         android:id="@+id/reservar"
         android:layout_width="wrap_content"

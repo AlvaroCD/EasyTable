@@ -108,6 +108,8 @@
     <string name="entendido_strings">Entendido</string>
     <string name="ventas_strings">Ventas</string>
     <string name="ventas_totales_del_local_strings">Ventas totales del local</string>
+    <string name="ocupada_strings">Ocupada</string>
+    <string name="libre_strings">Libre</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

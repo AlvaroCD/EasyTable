@@ -93,7 +93,7 @@ public class Orden extends Activity {
                                 montoPagar = (montoPagar + cantidadSumar);
                                 Map<String, Object> monto = new HashMap<>();
                                 monto.put("montoPagar", (montoPagar));
-                                //TODO: ARREGLAR COMO SE VA A REALIZAR ESTO
+
                                 db.collection("cuenta").document(idCuenta).update(monto)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

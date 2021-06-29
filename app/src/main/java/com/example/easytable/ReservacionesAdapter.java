@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ReservacionesAdapter extends FirestoreRecyclerAdapter <ReservacionesPojo, ReservacionesAdapter.ViewHolder>{
     private static ReservacionesAdapter.OnItemClickListener listener;
+    private FirebaseFirestore db;
 
     public ReservacionesAdapter(@NonNull FirestoreRecyclerOptions<ReservacionesPojo> options) {
         super(options);
@@ -26,6 +29,18 @@ public class ReservacionesAdapter extends FirestoreRecyclerAdapter <Reservacione
         holder.fecha.setText(model.getFecha());
         String cantidadPersonasParse = String.valueOf(model.getCantidadPersonas());
         holder.cantidadPersonas.setText(cantidadPersonasParse);
+
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("usuario").document(model.getID()).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            String idUsuario = documentSnapshot.get("ID").toString();
+                        }
+                    }
+                });
     }
 
 
