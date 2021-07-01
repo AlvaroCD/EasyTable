@@ -6,8 +6,14 @@ public class MeserosPojo {
     private String Apellidos;
     private String Cuenta;
 
+    private String mesa;
+
     public MeserosPojo(){
 
+    }
+
+    public MeserosPojo(String mesa) {
+        this.mesa = mesa;
     }
 
     public MeserosPojo(String Nombre, String Apellidos, String Cuenta){
@@ -22,6 +28,14 @@ public class MeserosPojo {
 
     public void setNombre(String nombre) {
         Nombre = nombre;
+    }
+
+    public String getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(String mesa) {
+        this.mesa = mesa;
     }
 
     public String getCuenta() { return Cuenta; }

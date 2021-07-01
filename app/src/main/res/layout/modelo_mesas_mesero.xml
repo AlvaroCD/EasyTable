@@ -16,7 +16,24 @@
             android:layout_height="wrap_content"
             android:text="@string/comenterio_aleatorio"
             android:textSize="16sp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+
+        <TextView
+            android:id="@+id/pago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/mesa"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="NO PAGADO"
+            android:textStyle="bold"
+            android:textSize="16sp">
+        </TextView>
+
+
 
         <View
             android:layout_width="match_parent"
@@ -24,20 +41,33 @@
             android:background="@color/teal_700"
             android:layout_below="@+id/mesa" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewListadoPlatillosOrdenaUM"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/nombreUsuario"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/comenterio_aleatorio"
             android:layout_below="@+id/mesa"
-            android:padding="8dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:id="@+id/Total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comenterio_aleatorio"
+            android:layout_below="@+id/nombreUsuario"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            />
 
         <View
             android:id="@+id/barraInferior2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/teal_700"
-            android:layout_below="@+id/recyclerViewListadoPlatillosOrdenaUM" />
+            android:layout_below="@+id/Total" />
 
 
         <View
