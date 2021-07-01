@@ -118,7 +118,7 @@ public class Ingresar extends AppCompatActivity {
                                             online.put("online", true);
                                             db.collection("usuario").document(id).update(online);
                                         }
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        startActivity(new Intent(Ingresar.this, PrincipalUM.class));
                                         break;
                                     case "Cajero":
                                         startActivity(new Intent(Ingresar.this, MainActivity.class));

@@ -12,34 +12,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class PrincipalUM extends Activity {
 
     private RecyclerView mRecyclerView;
-    private RestaurantesAdapter mAdapter;
-    private ImageButton  mIniciarCuenta;
+    private CuentaUMAdapter mAdapter;
 
     private FirebaseFirestore db;
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modelo_mesas_mesero);
 
-
-//        mIniciarCuenta.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PrincipalUM.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-        mRecyclerView = findViewById(R.id.recyclerViewListadoCuentasUM);
+        //Instanciacion del Recycler View
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoCuentasUM);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Coloca los restaurantes
@@ -49,14 +43,15 @@ public class PrincipalUM extends Activity {
     }
 
     private void recyclerViewRestaurante() {
+        String idMesero = mAuth.getUid();
         //Consulta para obtener los datos de la BD
-       /* Query query = db.collection("usuario");
+        Query query = db.collection("usuario").whereEqualTo("ID", idMesero);
 
         FirestoreRecyclerOptions<MeserosPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<MeserosPojo>()
                 .setQuery(query, MeserosPojo.class).build();
 
-        mAdapter = new RestaurantesAdapter(firestoreRecyclerOptions);
+        mAdapter = new CuentaUMAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);*/
+        mRecyclerView.setAdapter(mAdapter);
     }
 }
