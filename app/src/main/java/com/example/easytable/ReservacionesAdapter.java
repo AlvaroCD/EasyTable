@@ -32,15 +32,15 @@ public class ReservacionesAdapter extends FirestoreRecyclerAdapter <Reservacione
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("usuario").document(model.getID()).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()){
-                            String idUsuario = documentSnapshot.get("ID").toString();
-                        }
-                    }
-                });
+//        db.collection("usuario").document(model.getID()).get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        if (documentSnapshot.exists()){
+//                            String idUsuario = documentSnapshot.get("ID").toString();
+//                        }
+//                    }
+//                });
     }
 
 

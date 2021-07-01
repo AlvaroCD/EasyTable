@@ -90,45 +90,56 @@ public class Restaurante extends Activity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         boolean adeudo = value.getBoolean("Adeudo");
-                        if (!adeudo){
-                            //Consulta para obtener que mesas estan disponibles en el local seleccionado
-                            Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
-                                    .whereEqualTo("statusMesa", false);
+                        boolean reserva = value.getBoolean("Reserva");
+                        String usuario = value.getString("Usuario");
+
+                        if (!reserva) {
+                            if (!adeudo) {
+                                //Consulta para obtener que mesas estan disponibles en el local seleccionado
+                                Query query = db.collection("mesa").whereEqualTo("nombreDelLocal", nombreRestaurante)
+                                        .whereEqualTo("statusMesa", false);
 
 
-                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    //Si la consulta contiene un elemento o mas, es posible reservar
-                                    if (queryDocumentSnapshots.size() >= 1) {
-                                        Intent intent = new Intent(Restaurante.this, ApartarLugar.class);
-                                        startActivity(intent);
-                                    }
-                                    //De lo contrario aparecera un mensaje que indica que no disponibilidad
-                                    else {
-                                        new AlertDialog.Builder(Restaurante.this)
-                                                .setMessage("No hay mesas disponibles")
-                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                    }
-                                                })
-                                                .show();
-                                    }
-                                }
-                            });
-                        } else {
-                            new AlertDialog.Builder(Restaurante.this)
-                                    .setTitle("Cuota pendiente")
-                                    .setMessage("Realiza el pago de tu adeudo")
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
+                                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        //Si la consulta contiene un elemento o mas, es posible reservar
+                                        if (queryDocumentSnapshots.size() >= 1) {
+                                            Intent intent = new Intent(Restaurante.this, ApartarLugar.class);
+                                            intent.putExtra("usuario",usuario);
+                                            intent.putExtra("idRestaurante", IdRestaurante);
+                                            intent.putExtra("idLogueado", idLogueado);
+                                            startActivity(intent);
                                         }
-                                    })
-                                    .show();
+                                        //De lo contrario aparecera un mensaje que indica que no disponibilidad
+                                        else {
+                                            new AlertDialog.Builder(Restaurante.this)
+                                                    .setMessage("No hay mesas disponibles")
+                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+
+                                                        }
+                                                    })
+                                                    .show();
+                                        }
+                                    }
+                                });
+                            } else {
+                                new AlertDialog.Builder(Restaurante.this)
+                                        .setTitle("Cuota pendiente")
+                                        .setMessage("Realiza el pago de tu adeudo")
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        })
+                                        .show();
+                            }
+                        }else {
+                            Toast.makeText(Restaurante.this, "Ya tienes una reservacion hecha", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }
                 });
