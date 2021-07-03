@@ -121,7 +121,16 @@ public class Ingresar extends AppCompatActivity {
                                         startActivity(new Intent(Ingresar.this, PrincipalUM.class));
                                         break;
                                     case "Cajero":
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        db.collection("usuario").document(id).get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        String idRestaurante = documentSnapshot.getString("IDRestReg");
+                                                        Intent i = new Intent(Ingresar.this, PrincipalUCJ.class);
+                                                        i.putExtra("idLocal", idRestaurante);
+                                                        startActivity(i);
+                                                    }
+                                                });
                                         break;
                                 }
                                 finish();
@@ -175,7 +184,16 @@ public class Ingresar extends AppCompatActivity {
                             startActivity(new Intent(Ingresar.this, MainActivity.class));
                             break;
                         case "Cajero":
-                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            db.collection("usuario").document(id).get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            String idRestaurante = documentSnapshot.getString("IDRestReg");
+                                            Intent i = new Intent(Ingresar.this, PrincipalUCJ.class);
+                                            i.putExtra("idLocal", idRestaurante);
+                                            startActivity(i);
+                                        }
+                                    });
                             break;
                     }
                     finish();

@@ -13,38 +13,30 @@ public class ReservacionesPojo {
     private String fecha;
     private String hora;
 
-    private String ID;
+    private String idUsuario;
     private int cantidadPersonas, statusReservacion;
 
     public ReservacionesPojo() {
 
     }
 
-    public ReservacionesPojo(String Usuario, int cantidadPersonas, int statusReservacion, String fecha, String hora){
+    public ReservacionesPojo(String Usuario, int cantidadPersonas, int statusReservacion, String fecha, String hora, String idUsuario){
         this.Usuario = Usuario;
         this.cantidadPersonas = cantidadPersonas;
         this.statusReservacion = statusReservacion;
         this.fecha = fecha;
         this.hora = hora;
+        this.idUsuario = idUsuario;
 
     }
 
-    public ReservacionesPojo(String usuario, String fecha, String hora, String ID, int cantidadPersonas, int statusReservacion) {
-        Usuario = usuario;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.ID = ID;
-        this.cantidadPersonas = cantidadPersonas;
-        this.statusReservacion = statusReservacion;
+
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getUsuario() {

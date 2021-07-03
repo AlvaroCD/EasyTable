@@ -9,7 +9,7 @@
         android:id="@+id/numeroDeLaMesa"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="@string/numero_mesas_strings"
+        android:text="@string/numero_mesa_strings"
         android:paddingTop="18dp"
         android:textSize="20sp"
         android:textColor="@color/black"

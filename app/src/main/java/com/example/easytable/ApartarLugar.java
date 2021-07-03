@@ -36,9 +36,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class ApartarLugar extends Activity {
 
@@ -48,6 +52,14 @@ public class ApartarLugar extends Activity {
     private Button mHora;
     private ImageButton mAceptar, mRetroceder;
     private EditText mPersonas;
+
+    private static final String KEY_CANT_PERSONAS = "cantidadPersonas";
+    private static final String KEY_FECHA = "fecha";
+    private static final String KEY_HORA = "hora";
+    private static final String KEY_ID_LOCAL = "idLocalReservado";
+    private static final String KEY_ID_USUARIO = "idUsuario";
+    private static final String KEY_STATUS_RESERVACION = "statusReservacion";
+    private static final String KEY_USUARIO = "usuario";
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
@@ -95,7 +107,7 @@ public class ApartarLugar extends Activity {
 
                 if (!persona.isEmpty() && !getHora.isEmpty() && !getMin.isEmpty()) {
                     new AlertDialog.Builder(ApartarLugar.this)
-                            .setTitle("Comfirma la informacion")
+                            .setTitle("Confirma la informacion")
                             .setMessage("Reservacion para " + persona + " personas a las " + getHora + ":" + getMin)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -120,6 +132,53 @@ public class ApartarLugar extends Activity {
                                             .setAutoCancel(true)
                                             .build();
                                     manager.notify(1,notification);
+
+
+                                    //Creacion de la reservacion en la coleccion de reservaciones
+                                    String idReserva = UUID.randomUUID().toString();
+                                    String idRestaurante = getIntent().getStringExtra("idRestaurante");
+                                    String idUsuario = getIntent().getStringExtra("idLogueado");
+                                    String usuario = getIntent().getStringExtra("usuario");
+                                    String horaString = ""+hora+":"+min+"";
+                                    @SuppressLint("SimpleDateFormat") String fecha = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                                    int personaParse = Integer.parseInt(persona);
+                                    Map <String, Object> reservacion = new HashMap<>();
+                                    reservacion.put(KEY_CANT_PERSONAS, personaParse);
+                                    reservacion.put(KEY_FECHA, fecha);
+                                    reservacion.put(KEY_HORA, horaString);
+                                    reservacion.put(KEY_ID_LOCAL, idRestaurante);
+                                    reservacion.put(KEY_ID_USUARIO, idUsuario);
+                                    reservacion.put(KEY_STATUS_RESERVACION, 0);
+                                    reservacion.put(KEY_USUARIO, usuario);
+                                    db.collection("reservaciones").document(idReserva).set(reservacion)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Map <String, Object> reservaActualizada = new HashMap<>();
+                                                    reservaActualizada.put("Reserva", true);
+                                                    db.collection("usuario").document(idUsuario).update(reservaActualizada)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Toast.makeText(ApartarLugar.this, "Good", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(ApartarLugar.this, "Error", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                    Toast.makeText(ApartarLugar.this, "Reservacion hecha", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(ApartarLugar.this, "Error al hacer la reservacion", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
 
                                 }
                             })

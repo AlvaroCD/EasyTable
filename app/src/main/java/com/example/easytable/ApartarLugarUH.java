@@ -52,9 +52,9 @@ public class ApartarLugarUH extends AppCompatActivity {
 
     private void recyclerViewReservaciones(String idDelLocal) {
         //Consulta para obtener los datos de la BD
-        //TODO: OBTENER EL ID DE TODOS LOS USUARIOS
-        Query query = db.collection("usuario").document("Dvr7J2m1dl9OAdrzULhl")
-                .collection("reservacion").whereEqualTo("statusReservacion", 0)
+
+        Query query = db.collection("reservaciones")
+                .whereEqualTo("statusReservacion", 0)
                 .whereEqualTo("idLocalReservado", idDelLocal);
 
 
@@ -100,11 +100,10 @@ public class ApartarLugarUH extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Map<String, Object> preparacion = new HashMap<>();
-                        preparacion.put("statusReservacion", 1);
+                        Map<String, Object> reservacion = new HashMap<>();
+                        reservacion.put("statusReservacion", 1);
 
-                        db.collection("usuario").document("Dvr7J2m1dl9OAdrzULhl")
-                                .collection("reservacion").document(id).update(preparacion)
+                        db.collection("reservaciones").document(id).update(reservacion)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
