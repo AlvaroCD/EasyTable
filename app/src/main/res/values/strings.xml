@@ -113,6 +113,7 @@
     <string name="estado_del_pago_strings">Estado del pago</string>
     <string name="click_detalles_strings">Click para ver detalles</string>
     <string name="forma_pagada_strings">Metodo de Pago:</string>
+    <string name="cancelar">Cancelar</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

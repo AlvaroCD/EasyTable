@@ -55,6 +55,15 @@
         android:layout_marginTop="60dp"
         android:layout_alignEnd="@+id/imagenLocal"
         android:text="@string/reservar_strings"/>
+    <Button
+        android:id="@+id/cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagenLocal"
+        android:layout_marginTop="60dp"
+        android:layout_alignEnd="@+id/imagenLocal"
+        android:text="@string/cancelar"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/calificacionLocal"
