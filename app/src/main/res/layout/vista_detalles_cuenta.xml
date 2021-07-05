@@ -27,6 +27,16 @@
         />
 
     <TextView
+        android:id="@+id/fechaDetallesCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fecha_strings"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"
+        />
+
+    <TextView
         android:id="@+id/montoPagadoDetallesCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

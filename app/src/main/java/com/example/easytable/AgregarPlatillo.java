@@ -31,6 +31,7 @@ public class AgregarPlatillo extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
+    //TODO: AGREGAR LOS CAMPOS QUE HACEN FALTA AL CREAR UN PLATILLO (CALIFICACION, IDPLATILLO, USUARIOSCAL)
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
     private static final String KEY_DESCRIPCION = "descripcion";
     private static final String KEY_DISPONIBILIDAD = "disponibilidad";

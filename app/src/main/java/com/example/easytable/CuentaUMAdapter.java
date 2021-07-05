@@ -58,7 +58,7 @@ public class CuentaUMAdapter extends FirestoreRecyclerAdapter<MeserosPojo, Cuent
 
                 String refMesa = value.get("mesa").toString();
                 holder.nombreUsuario.setText(value.get("idPrincipal").toString());
-                holder.total.setText(value.get("montoPagar").toString());
+                holder.total.setText("$"+value.get("montoPagar").toString()+" MXN");
 
                 Boolean pagado = value.getBoolean("pagado");
                 if (pagado) {
@@ -75,7 +75,7 @@ public class CuentaUMAdapter extends FirestoreRecyclerAdapter<MeserosPojo, Cuent
                 reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot values, @Nullable FirebaseFirestoreException error) {
-                        holder.mesa.setText(values.get("numeroMesa").toString());
+                        holder.mesa.setText("Mesa #"+values.get("numeroMesa").toString());
                     }
                 });
 

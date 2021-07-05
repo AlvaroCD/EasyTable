@@ -33,6 +33,13 @@
         android:layout_marginTop="35dp"
         />
 
+    <Button
+        android:id="@+id/recursosButtonCocinero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recursos_strings"
+        android:layout_marginTop="35dp"
+        />
 
 
     <Button

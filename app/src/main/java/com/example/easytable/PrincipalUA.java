@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class PrincipalUA extends AppCompatActivity {
 
-    private Button mAgregarPlatillo, mLocal, mRecursos, mMeserosTrabajando, mLogOut;
+    private Button mPlatillos, mLocal, mRecursos, mMeserosTrabajando, mLogOut;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -28,7 +28,7 @@ public class PrincipalUA extends AppCompatActivity {
         setContentView(R.layout.vista_principal_ua);
 
         //Relación con el XML
-        mAgregarPlatillo = findViewById(R.id.agregarPlatilloButton);
+        mPlatillos = findViewById(R.id.platilloButton);
         mLocal = findViewById(R.id.localButton);
         mRecursos = findViewById(R.id.recursosButton);
         mMeserosTrabajando = findViewById(R.id.meserosTrabajandoButton);
@@ -45,10 +45,11 @@ public class PrincipalUA extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String idRestaurante = value.get("IDRestReg").toString();
-                mAgregarPlatillo.setOnClickListener(new View.OnClickListener() {
+                mPlatillos.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(PrincipalUA.this, AgregarPlatillo.class);
+                        Intent i = new Intent(PrincipalUA.this, Platillos.class);
+                        i.putExtra("idRestaurante", idRestaurante);
                         startActivity(i);
                     }
                 });

@@ -7,46 +7,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".PrincipalUH">
+    tools:context=".Platillos">
 
     <Button
-        android:id="@+id/asignarMeseroButton"
+        android:id="@+id/agregarPlatilloButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/asignar_mesero_strings"
+        android:text="@string/agregar_platillo_strings"
         android:layout_marginTop="35dp"
         />
 
     <Button
-        android:id="@+id/apartarLugarButton"
+        android:id="@+id/eliminarPlatilloButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/apartar_lugares_strings"
+        android:text="@string/eliminar_platillo_strings"
         android:layout_marginTop="35dp"
         />
 
     <Button
-        android:id="@+id/meserosTrabajandoButtonUH"
+        android:id="@+id/listadoPlatillosButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/meseros_trabajando_strings"
+        android:text="@string/listado_de_los_platillos_strings"
         android:layout_marginTop="35dp"
         />
 
     <Button
-        android:id="@+id/cuentasUH"
+        android:id="@+id/editarPlatilloButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/cuentas_strings"
+        android:text="@string/editar_platillo_strings"
         android:layout_marginTop="35dp"
         />
 
-    <Button
-        android:id="@+id/LogOutButtonHost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cerrar_sesion_strings"
-        android:layout_marginTop="35dp"
-        />
 
 </LinearLayout>

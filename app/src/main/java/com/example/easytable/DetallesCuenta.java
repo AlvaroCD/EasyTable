@@ -17,7 +17,7 @@ public class DetallesCuenta extends AppCompatActivity {
     private RecyclerView mRecyclerViewDetallesCuenta;
     private DetallesCuentaAdapter mDetallesCuentaAdapter;
 
-    private TextView mMetodoPago, mMontoPagado;
+    private TextView mMetodoPago, mMontoPagado, mFecha;
 
     //Adicion de la instancia de Firebase para el uso de Cloud Firestore
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -33,11 +33,13 @@ public class DetallesCuenta extends AppCompatActivity {
 
         mMetodoPago = findViewById(R.id.metodoPagoDetallesCuenta);
         mMontoPagado = findViewById(R.id.montoPagadoDetallesCuenta);
+        mFecha = findViewById(R.id.fechaDetallesCuenta);
 
         Bundle extra = getIntent().getExtras();
         String idCuenta = extra.getString("idCuenta");
         boolean metodoPago = extra.getBoolean("metodoPago");
         long montoPagado = extra.getLong("montoPagado");
+        String fecha = extra.getString("fecha");
 
         //Coloca los nombres
         recyclerViewDetallesCuenta(idCuenta);
@@ -49,6 +51,7 @@ public class DetallesCuenta extends AppCompatActivity {
             mMetodoPago.setText("Método de Pago: Tarjeta/Paypal");
         }
         mMontoPagado.setText("Total: $" + montoPagado + " MXN");
+        mFecha.setText("Fecha: "+fecha);
 
     }
 

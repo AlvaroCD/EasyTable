@@ -113,6 +113,14 @@
     <string name="estado_del_pago_strings">Estado del pago</string>
     <string name="click_detalles_strings">Click para ver detalles</string>
     <string name="forma_pagada_strings">Metodo de Pago:</string>
+    <string name="cuentas_strings">Cuentas</string>
+    <string name="eliminar_platillo_strings">Eliminar Platillo</string>
+    <string name="editar_platillo_strings">Editar Platillo</string>
+    <string name="selecciona_el_platillo_que_quieres_editar_strings">Selecciona el platillo que quieres editar</string>
+    <string name="listado_de_los_platillos_strings">Listado de los platillos</string>
+    <string name="platillos_strings">Platillos</string>
+    <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo</string>
+    <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo que quieres eliminar</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>
@@ -127,6 +135,10 @@
         <item>Administrador</item>
         <item>Mesero</item>
         <item>Cajero</item>
+    </string-array>
+    <string-array name="disponibilidad">
+        <item>Disponible</item>
+        <item>No Disponible</item>
     </string-array>
 
 </resources>

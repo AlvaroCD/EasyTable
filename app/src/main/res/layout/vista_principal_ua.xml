@@ -10,10 +10,10 @@
     tools:context=".PrincipalUA">
 
     <Button
-        android:id="@+id/agregarPlatilloButton"
+        android:id="@+id/platilloButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/agregar_platillo_strings"
+        android:text="@string/platillos_strings"
         android:layout_marginTop="35dp"
         />
 

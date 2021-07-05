@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -17,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class PrincipalUH extends AppCompatActivity {
 
-    private Button mAsignarMesero, mApartarLugar, mLogOut;
+    private Button mAsignarMesero, mApartarLugar, mMeserosTrabajando, mCuentas, mLogOut;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -29,6 +30,8 @@ public class PrincipalUH extends AppCompatActivity {
 
         mAsignarMesero = findViewById(R.id.asignarMeseroButton);
         mApartarLugar = findViewById(R.id.apartarLugarButton);
+        mMeserosTrabajando = findViewById(R.id.meserosTrabajandoButtonUH);
+        mCuentas = findViewById(R.id.cuentasUH);
         mLogOut = findViewById(R.id.LogOutButtonHost);
 
         db = FirebaseFirestore.getInstance();
@@ -60,6 +63,23 @@ public class PrincipalUH extends AppCompatActivity {
                     }
                 });
 
+                mMeserosTrabajando.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUH.this, MeserosTrabajando.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
+
+                mCuentas.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUH.this, CuentasUH.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
             }
         });
 

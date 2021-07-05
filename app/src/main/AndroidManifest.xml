@@ -16,7 +16,13 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".DetallesCuenta"></activity>
+        <activity android:name=".ListadoEliminarPlatillo"></activity>
+        <activity android:name=".EditarPlatillo" />
+        <activity android:name=".ListadoPlatillos" />
+        <activity android:name=".ListadoEditarPlatillo" />
+        <activity android:name=".Platillos" />
+        <activity android:name=".CuentasUH" />
+        <activity android:name=".DetallesCuenta" />
         <activity android:name=".PrincipalUCJ" />
         <activity android:name=".DisponibilidadMesa" />
         <activity android:name=".Local" />

@@ -117,7 +117,7 @@ public class ApartarLugar extends Activity {
                                     int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
                                     NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
 
-                                    Intent i = new Intent(ApartarLugar.this, MainActivity.class);
+                                    Intent i = new Intent(ApartarLugar.this, PrincipalUC.class);
                                     PendingIntent pendingIntent = PendingIntent.getActivity(ApartarLugar.this, 0, i, 0);
 
                                     NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);

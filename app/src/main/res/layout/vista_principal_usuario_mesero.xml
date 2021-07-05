@@ -16,9 +16,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListadoCuentasUM"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:layout_below="@+id/iniciarCuenta"
         android:padding="8dp">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/LogOutButtonMesero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cerrar_sesion_strings"
+        android:layout_below="@id/recyclerViewListadoCuentasUM"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
