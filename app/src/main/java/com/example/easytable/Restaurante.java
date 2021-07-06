@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -103,9 +104,9 @@ public class Restaurante extends Activity {
                         .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                                 Query query = db.collection("reservacion")
                                         .whereEqualTo("idUsuario", idLogueado);
-
 
                                 db.collection("reservaciones").document(query.toString()).delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -115,7 +116,7 @@ public class Restaurante extends Activity {
                                                 Map<String, Object> editarReservacion = new HashMap<>();
 
                                                 editarReservacion.put("Adeudo", true);
-                                                editarReservacion.put("Reservar", false);
+                                                editarReservacion.put("Reserva", false);
 
                                                 db.collection("usuario").document(idLogueado).update(editarReservacion)
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -208,6 +209,9 @@ public class Restaurante extends Activity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
 //TODO: Aqui se debe de poder ingresar a paypal para pagar los $25
+                                                Intent i = new Intent(Restaurante.this, PagarAdeudo.class);
+                                                i.putExtra("idRestaurante", idRestaurante);
+                                                startActivity(i);
                                             }
                                         })
                                         .show();
@@ -226,7 +230,7 @@ public class Restaurante extends Activity {
     private void cancelar(String idRestaurante, String idUsuario) {
 
         //Consulta para obtener si hay reservaciones que aun se puedan cancelar
-        Query query = db.collection("reserviciones").whereEqualTo("idUsuario", idUsuario)
+        Query query = db.collection("reservaciones").whereEqualTo("idUsuario", idUsuario)
                 .whereEqualTo("statusReservacion", 1);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

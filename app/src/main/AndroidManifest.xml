@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".ListadoEliminarPlatillo"></activity>
+        <activity android:name=".PagarAdeudo"></activity>
+        <activity android:name=".ListadoEliminarPlatillo" />
         <activity android:name=".EditarPlatillo" />
         <activity android:name=".ListadoPlatillos" />
         <activity android:name=".ListadoEditarPlatillo" />

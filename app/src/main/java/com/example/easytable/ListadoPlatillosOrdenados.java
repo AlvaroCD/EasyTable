@@ -57,7 +57,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
 
 
         //Coloca los platillos
-        recyclerViewPlatillosOrdenados(idCuenta, idDelLocal);
+        recyclerViewPlatillosOrdenados(idCuenta, idDelLocal, idOrden);
 
         //Obtencion del estatus de la preparacion de la orden
         obtencionStatus(idOrden);
@@ -67,7 +67,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
         mAccionPreparacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference documentReference =  db.collection("orden").document(idOrden);
+                DocumentReference documentReference =  db.collection("cuenta").document(idOrden);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -179,7 +179,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
     }
 
 
-    private void recyclerViewPlatillosOrdenados(String idCuenta, String idDelLocal) {
+    private void recyclerViewPlatillosOrdenados(String idCuenta, String idDelLocal, String idOrden) {
         //Consulta para obtener los datos de la BD
         Query query = db.collection("cuenta").document(idCuenta)
                 .collection("platillos");

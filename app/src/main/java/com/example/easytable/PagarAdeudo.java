@@ -1,5 +1,6 @@
 package com.example.easytable;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,11 +32,13 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PagarCuenta extends AppCompatActivity {
+public class
+PagarAdeudo extends AppCompatActivity {
 
     public static final String PAYPAL_CLIENT_ID = "AUM8W9KU49DmhJENE37MV5vTKeIfwJpOIh2jTYH1KhXrLhuYkkEZiDhG7yJxLuL-f0GpL1OCz3za6ITP";
     private static final int PAYPAL_REQUEST_CODE = 7171;
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     //Esta configuracion es para utilizar cuenta sandbox para pruebas
     private static PayPalConfiguration configuration = new PayPalConfiguration()
@@ -42,6 +48,7 @@ public class PagarCuenta extends AppCompatActivity {
     private TextView mMontoPagar;
     private Button mPagar;
     String monto;
+
     String idRestaurante;
 
     @Override
@@ -53,29 +60,24 @@ public class PagarCuenta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vista_pagar_cuenta);
+        setContentView(R.layout.vista_pagar_adeudo);
+
 
         //Iniciar servicio paypal
-        Intent i = new Intent(PagarCuenta.this, PayPalService.class);
+        Intent i = new Intent(PagarAdeudo.this, PayPalService.class);
         i.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
         startService(i);
 
-        mMontoPagar = findViewById(R.id.montoPagarTxt);
-        mPagar = findViewById(R.id.pagarButton);
+        mMontoPagar = findViewById(R.id.montoPagarAdeudoTxt);
+        mPagar = findViewById(R.id.pagarAdeudoButton);
 
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-        String idCuenta = getIntent().getStringExtra("idCuenta");
         idRestaurante = getIntent().getStringExtra("idRestaurante");
 
-        DocumentReference doc = db.collection("cuenta").document(idCuenta);
-        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                String montoPagar = value.get("montoPagar").toString();
-                mMontoPagar.setText(montoPagar);
-            }
-        });
+
+        mMontoPagar.setText("$25 MXN");
 
 
         mPagar.setOnClickListener(new View.OnClickListener() {
@@ -84,20 +86,22 @@ public class PagarCuenta extends AppCompatActivity {
                 procesarPago();
             }
         });
-    }//
+
+    }
+
 
     private void procesarPago() {
         //Recibir el monto
-        monto = mMontoPagar.getText().toString();
-        //monto = "0.01";
+        monto = "25";
         PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(monto)), "MXN", "Pagado", PayPalPayment
-                    .PAYMENT_INTENT_SALE);
+                .PAYMENT_INTENT_SALE);
         //Enviar parametros
-        Intent i = new Intent(PagarCuenta.this, PaymentActivity.class);
+        Intent i = new Intent(PagarAdeudo.this, PaymentActivity.class);
         i.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
         i.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);
         startActivityForResult(i, PAYPAL_REQUEST_CODE);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -109,9 +113,25 @@ public class PagarCuenta extends AppCompatActivity {
                 if (confirmation != null){
                     try {
                         String paymentDetails = confirmation.toJSONObject().toString(4);
-                        startActivity(new Intent(PagarCuenta.this, PagoExitoso.class).putExtra("PaymentDetails", paymentDetails)
-                        .putExtra("montoPagado", monto)
-                        .putExtra("idRestaurante", idRestaurante));
+                        startActivity(new Intent(PagarAdeudo.this, PagoExitoso.class).putExtra("PaymentDetails", paymentDetails)
+                                .putExtra("montoPagado", monto)
+                                .putExtra("idRestaurante", idRestaurante));
+                        Map <String, Object> noAdeudo = new HashMap<>();
+                        noAdeudo.put("Adeudo", false);
+                        String idUsuario = mAuth.getUid();
+                        db.collection("usuario").document(idUsuario).update(noAdeudo)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(PagarAdeudo.this, "Adeudo Pagado", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(PagarAdeudo.this, "Error al pagar el adeudo", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -127,4 +147,6 @@ public class PagarCuenta extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }

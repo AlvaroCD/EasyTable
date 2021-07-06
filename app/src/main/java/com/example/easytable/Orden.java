@@ -84,7 +84,7 @@ public class Orden extends Activity {
                 Toast.makeText(Orden.this, "Boton Añadir", Toast.LENGTH_SHORT).show();
                 Map<String, Object> platillo = new HashMap<>();
                 platillo.put("nombrePlatillo", nombrePlatillo);
-                db.collection("orden").document(idOrden).collection("platillos").document(idPlatillo).set(platillo)
+                db.collection("cuenta").document(idOrden).collection("platillos").document(idPlatillo).set(platillo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
