@@ -112,6 +112,8 @@ public class PagarCuenta extends AppCompatActivity {
                         startActivity(new Intent(PagarCuenta.this, PagoExitoso.class).putExtra("PaymentDetails", paymentDetails)
                         .putExtra("montoPagado", monto)
                         .putExtra("idRestaurante", idRestaurante));
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

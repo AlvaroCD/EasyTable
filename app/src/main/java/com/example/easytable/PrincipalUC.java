@@ -36,7 +36,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     private RecyclerView mRecyclerView;
     private RestaurantesAdapter mAdapter;
     private ImageButton ImagenQR, mSearch;
-    private Button mLogOut;
+    private Button mReservacion, mLogOut;
 
 
     //Objetos para utilizar las dependencias
@@ -57,6 +57,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         ImagenQR = findViewById(R.id.codigoQR);
         mLogOut = findViewById(R.id.LogOutButton2);
         mSearch = findViewById(R.id.lupa);
+        mReservacion = findViewById(R.id.reservacionCliente);
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         mAuth = FirebaseAuth.getInstance();
@@ -84,8 +85,6 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             }
         });
 
-        //Boton para salir de la app
-        onClickSalir();
 
         //Boton de busqueda
         mSearch.setOnClickListener(new View.OnClickListener() {
@@ -95,14 +94,18 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             }
         });
 
-    }
+        mReservacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    private void onClickSalir() {
+            }
+        });
+
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(PrincipalUC.this, Ingresar.class));
+                finish();
             }
         });
     }

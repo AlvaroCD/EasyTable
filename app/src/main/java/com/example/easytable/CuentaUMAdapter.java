@@ -33,12 +33,6 @@ public class CuentaUMAdapter extends FirestoreRecyclerAdapter<MeserosPojo, Cuent
     private static CuentaUMAdapter.OnItemClickListener listener;
     private FirebaseFirestore db;
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
     public CuentaUMAdapter(@NonNull FirestoreRecyclerOptions<MeserosPojo> options) {
         super(options);
     }

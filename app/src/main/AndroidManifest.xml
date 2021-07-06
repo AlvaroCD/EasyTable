@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".PagarAdeudo"></activity>
+        <activity android:name=".ReservacionCliente" />
+        <activity android:name=".PagarAdeudo" />
         <activity android:name=".ListadoEliminarPlatillo" />
         <activity android:name=".EditarPlatillo" />
         <activity android:name=".ListadoPlatillos" />
@@ -30,7 +31,6 @@
         <activity android:name=".Ventas" />
         <activity android:name=".PagoEfectivo" />
         <activity android:name=".MetodoDePago" />
-        <activity android:name=".ApartarLugarUC" />
         <activity android:name=".ApartarLugarUH" />
         <activity android:name=".AsignarMesero" />
         <activity android:name=".PrincipalUH" />
@@ -71,6 +71,8 @@
         <activity android:name=".PrincipalUC" />
         <activity android:name=".PrincipalUDL" />
         <activity android:name=".PrincipalUM" />
+        <activity android:name=".MenuLocalMU" />
+        <activity android:name=".OrdenUM" />
         <activity android:name=".Queja" />
         <activity android:name=".RegistrarEmpleado" />
         <activity android:name=".RegistrarRestaurante1" />

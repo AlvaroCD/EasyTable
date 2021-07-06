@@ -20,15 +20,23 @@
 
         <TextView
             android:id="@+id/buscar"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:hint="@string/buscarRes_strings"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_toEndOf="@+id/lupa"
-            android:layout_toStartOf="@+id/codigoQR"
             android:layout_marginTop="10dp"
+            />
+
+        <Button
+            android:id="@+id/reservacionCliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/buscar"
+            android:layout_marginStart="35dp"
+            android:text="@string/reservacion_strings"
             />
 
         <ImageButton

@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.util.HashMap;
@@ -47,6 +50,8 @@ public class PrincipalUM extends Activity {
         //Coloca los restaurantes
         recyclerViewRestaurante();
 
+        onClickCuenta();
+
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,13 +70,19 @@ public class PrincipalUM extends Activity {
         mAdapter.setOnItemClickListener(new CuentaUMAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
-                MeserosPojo MeseroCuenta = documentSnapshot.toObject(MeserosPojo.class);
-                String Cuenta = documentSnapshot.get("Cuenta").toString();
-                String idRestaurante = documentSnapshot.get("IDRestReg").toString();
-                Intent i = new Intent(PrincipalUM.this, MenuLocalMU.class);
-                i.putExtra("idCuenta", Cuenta);
-                i.putExtra("idRestaurante", idRestaurante);
-                startActivity(i);
+                String idUsuario = mAuth.getUid();
+                DocumentReference doc = db.collection("usuario").document(idUsuario);
+                doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        String cuenta = value.getString("Cuenta");
+                        String idRestaurante = value.getString("IDRestReg");
+                        Intent i = new Intent(PrincipalUM.this, MenuLocalMU.class);
+                        i.putExtra("idCuenta", cuenta);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
             }
         });
     }

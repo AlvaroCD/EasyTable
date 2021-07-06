@@ -158,8 +158,6 @@ public class Restaurante extends Activity {
             @Override
             public void onClick(View v) {
 
-
-
                 DocumentReference doc = db.collection("usuario").document(idLogueado);
                 doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
@@ -208,7 +206,6 @@ public class Restaurante extends Activity {
                                         .setPositiveButton("Pagar", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-//TODO: Aqui se debe de poder ingresar a paypal para pagar los $25
                                                 Intent i = new Intent(Restaurante.this, PagarAdeudo.class);
                                                 i.putExtra("idRestaurante", idRestaurante);
                                                 startActivity(i);

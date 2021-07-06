@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ApartarLugarUC extends AppCompatActivity {
+public class ReservacionCliente extends AppCompatActivity {
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vista_apartar_lugar_uc);
+        setContentView(R.layout.vista_reservacion_cliente);
     }
 }
