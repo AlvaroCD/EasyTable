@@ -23,6 +23,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -31,18 +32,22 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Restaurante extends Activity {
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerView;
     private ComentarioAdapter mAdapter;
     private ImageView mImagenLocal, mCalificacionLocal;
-    private Button mReservar;
+    private Button mReservar, mCancelar;
     private TextView mRestaurante, mTipoRestaurante, mDireccionRestaurante;
 
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
 
 
     @Override
@@ -61,6 +66,7 @@ public class Restaurante extends Activity {
         mImagenLocal = findViewById(R.id.imagenLocal);
         mCalificacionLocal = findViewById(R.id.calificacionLocal);
         mReservar = findViewById(R.id.reservar);
+        mCancelar =findViewById(R.id.cancelar);
         mRestaurante = findViewById(R.id.nombreRestauranteVistaRestaurante);
         mTipoRestaurante = findViewById(R.id.tipoRestauranteVistaRestaurante);
         mDireccionRestaurante = findViewById(R.id.direcionRestauranteVistaRestaurante);
@@ -79,11 +85,79 @@ public class Restaurante extends Activity {
         //Coloca los comentarios
         recycleView(nombreRestaurante);
 
+
+
+        String idLogueado = mAuth.getUid();
+
+        cancelar(IdRestaurante, idLogueado);
+
+        botonReservar(IdRestaurante, nombreRestaurante, idLogueado);
+
+        mCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(Restaurante.this)
+                        .setTitle("Cancelacion")
+                        .setMessage("Estas seguro que deseas cancelar, tendras una multa de $25 MNX")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Query query = db.collection("reservacion")
+                                        .whereEqualTo("idUsuario", idLogueado);
+
+
+                                db.collection("reservaciones").document(query.toString()).delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                //Modificacion en datos del usuario para que vuelva a reservar
+                                                Map<String, Object> editarReservacion = new HashMap<>();
+
+                                                editarReservacion.put("Adeudo", true);
+                                                editarReservacion.put("Reservar", false);
+
+                                                db.collection("usuario").document(idLogueado).update(editarReservacion)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                finish();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                            }
+                                                        });
+
+                                                Toast.makeText(Restaurante.this, "Cancelacion realizada", Toast.LENGTH_LONG).show();
+                                                finish();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(Restaurante.this, "Error al eliminar empleado", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+            }
+        });
+    }
+
+    private void botonReservar(String idRestaurante, String nombreRestaurante, String idLogueado) {
         mReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String idLogueado = mAuth.getUid();
+
 
                 DocumentReference doc = db.collection("usuario").document(idLogueado);
                 doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -103,11 +177,12 @@ public class Restaurante extends Activity {
                                 query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
                                         //Si la consulta contiene un elemento o mas, es posible reservar
                                         if (queryDocumentSnapshots.size() >= 1) {
                                             Intent intent = new Intent(Restaurante.this, ApartarLugar.class);
                                             intent.putExtra("usuario",usuario);
-                                            intent.putExtra("idRestaurante", IdRestaurante);
+                                            intent.putExtra("idRestaurante", idRestaurante);
                                             intent.putExtra("idLogueado", idLogueado);
                                             startActivity(intent);
                                         }
@@ -129,10 +204,10 @@ public class Restaurante extends Activity {
                                 new AlertDialog.Builder(Restaurante.this)
                                         .setTitle("Cuota pendiente")
                                         .setMessage("Realiza el pago de tu adeudo")
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        .setPositiveButton("Pagar", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-
+//TODO: Aqui se debe de poder ingresar a paypal para pagar los $25
                                             }
                                         })
                                         .show();
@@ -144,6 +219,29 @@ public class Restaurante extends Activity {
                     }
                 });
 
+            }
+        });
+    }
+
+    private void cancelar(String idRestaurante, String idUsuario) {
+
+        //Consulta para obtener si hay reservaciones que aun se puedan cancelar
+        Query query = db.collection("reserviciones").whereEqualTo("idUsuario", idUsuario)
+                .whereEqualTo("statusReservacion", 1);
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                //Si la consulta contiene un elemento o mas, es posible reservar
+                if (queryDocumentSnapshots.size() >= 1) {
+                    mReservar.setVisibility(View.INVISIBLE);
+                    mCancelar.setVisibility(View.VISIBLE);
+                }
+                //De lo contrario aparecera un mensaje que indica que no disponibilidad
+                else {
+
+                    mReservar.setVisibility(View.VISIBLE);
+                    mCancelar.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
