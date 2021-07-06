@@ -49,6 +49,7 @@ public class Restaurante extends Activity {
     private FirebaseAuth mAuth;
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
