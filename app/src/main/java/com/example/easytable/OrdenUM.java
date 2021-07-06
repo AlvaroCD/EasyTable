@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,20 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-public class Orden extends Activity {
-    private TextView  mCostoToltal;
+public class OrdenUM extends Activity {
+
+    private TextView mCostoToltal;
     private Button mOrden, mPagar, mQueja, mAnadir;
     private RecyclerView mRecyclerViewOrden, mRecyclerViewlistadoPedidos;
     private PlatilloAdapter mAdapterOrden, mAdapterListadoPedidos ;
@@ -51,9 +44,7 @@ public class Orden extends Activity {
         nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
         idPlatillo = getIntent().getStringExtra("idPlatillo");
         precioPlatillo = getIntent().getStringExtra("precio");
-        idOrden = getIntent().getStringExtra("idOrden");
         idRestaurante = getIntent().getStringExtra("idRestaurante");
-        idMesa = getIntent().getStringExtra("idMesa");
         idCuenta = getIntent().getStringExtra("idCuenta");
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
@@ -81,14 +72,14 @@ public class Orden extends Activity {
         mAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Orden.this, "Boton Añadir", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrdenUM.this, "Boton Añadir", Toast.LENGTH_SHORT).show();
                 Map<String, Object> platillo = new HashMap<>();
                 platillo.put("nombrePlatillo", nombrePlatillo);
-                db.collection("cuenta").document(idOrden).collection("platillos").document(idPlatillo).set(platillo)
+                db.collection("cuenta").document(idCuenta).collection("platillos").document(idPlatillo).set(platillo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(Orden.this, "Se agrego el platillo y el precio", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrdenUM.this, "Se agrego el platillo y el precio", Toast.LENGTH_SHORT).show();
                                 cantidadSumar = Float.parseFloat(precioPlatillo);
                                 montoPagar = (montoPagar + cantidadSumar);
                                 Map<String, Object> monto = new HashMap<>();
@@ -98,13 +89,13 @@ public class Orden extends Activity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(Orden.this, "Good", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(OrdenUM.this, "Good", Toast.LENGTH_SHORT).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(Orden.this, "Bad", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(OrdenUM.this, "Bad", Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
@@ -112,16 +103,14 @@ public class Orden extends Activity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Orden.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrdenUM.this, "Hubo un error", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-                Intent intent = new Intent(Orden.this, MenuLocal.class);
+                Intent intent = new Intent(OrdenUM.this, MenuLocal.class);
                 intent.putExtra("idRestaurante",idRestaurante);
-                intent.putExtra("idMesa", idMesa);
                 intent.putExtra("statusMesa", false);
                 intent.putExtra("statusOrden", false);
-                intent.putExtra("idOrden", idOrden);
                 startActivity(intent);
                 finish();
             }
@@ -137,7 +126,7 @@ public class Orden extends Activity {
         mQueja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Orden.this, Queja.class);
+                Intent intent = new Intent(OrdenUM.this, Queja.class);
                 startActivity(intent);
             }
         });
@@ -145,7 +134,7 @@ public class Orden extends Activity {
         mPagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Orden.this, MetodoDePago.class);
+                Intent intent = new Intent(OrdenUM.this, MetodoDePago.class);
                 intent.putExtra("idCuenta", idCuenta);
                 intent.putExtra("idRestaurante", idRestaurante);
                 startActivity(intent);
