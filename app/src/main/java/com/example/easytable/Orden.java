@@ -51,9 +51,7 @@ public class Orden extends Activity {
         nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
         idPlatillo = getIntent().getStringExtra("idPlatillo");
         precioPlatillo = getIntent().getStringExtra("precio");
-        idOrden = getIntent().getStringExtra("idOrden");
         idRestaurante = getIntent().getStringExtra("idRestaurante");
-        idMesa = getIntent().getStringExtra("idMesa");
         idCuenta = getIntent().getStringExtra("idCuenta");
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
@@ -84,7 +82,7 @@ public class Orden extends Activity {
                 Toast.makeText(Orden.this, "Boton Añadir", Toast.LENGTH_SHORT).show();
                 Map<String, Object> platillo = new HashMap<>();
                 platillo.put("nombrePlatillo", nombrePlatillo);
-                db.collection("cuenta").document(idOrden).collection("platillos").document(idPlatillo).set(platillo)
+                db.collection("cuenta").document(idCuenta).collection("platillos").document(idPlatillo).set(platillo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -118,10 +116,7 @@ public class Orden extends Activity {
 
                 Intent intent = new Intent(Orden.this, MenuLocal.class);
                 intent.putExtra("idRestaurante",idRestaurante);
-                intent.putExtra("idMesa", idMesa);
-                intent.putExtra("statusMesa", false);
-                intent.putExtra("statusOrden", false);
-                intent.putExtra("idOrden", idOrden);
+                intent.putExtra("idCuenta", idCuenta);
                 startActivity(intent);
                 finish();
             }

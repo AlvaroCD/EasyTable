@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -59,6 +60,22 @@ public class PrincipalUM extends Activity {
         });
 
     }
+
+    private void onClickCuenta() {
+        mAdapter.setOnItemClickListener(new CuentaUMAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
+                MeserosPojo MeseroCuenta = documentSnapshot.toObject(MeserosPojo.class);
+                String Cuenta = documentSnapshot.get("Cuenta").toString();
+                String idRestaurante = documentSnapshot.get("IDRestReg").toString();
+                Intent i = new Intent(PrincipalUM.this, MenuLocalMU.class);
+                i.putExtra("idCuenta", Cuenta);
+                i.putExtra("idRestaurante", idRestaurante);
+                startActivity(i);
+            }
+        });
+    }
+
 
     private void recyclerViewRestaurante() {
         String idMesero = mAuth.getUid();
