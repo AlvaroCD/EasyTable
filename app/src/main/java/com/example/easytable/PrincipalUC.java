@@ -97,7 +97,9 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         mReservacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(PrincipalUC.this, ReservacionCliente.class);
 
+                startActivity(i);
             }
         });
 

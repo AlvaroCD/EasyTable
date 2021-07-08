@@ -63,6 +63,7 @@ public class ApartarLugar extends Activity {
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     //Elemento para poder crear notificaciones
     private NotificationCompat.Builder notificacion;
@@ -75,6 +76,7 @@ public class ApartarLugar extends Activity {
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         mHora = findViewById(R.id.horaButton);
         mPersonas = findViewById(R.id.cantidadPersonasApartarLugarUC);
@@ -135,7 +137,7 @@ public class ApartarLugar extends Activity {
 
 
                                     //Creacion de la reservacion en la coleccion de reservaciones
-                                    String idReserva = UUID.randomUUID().toString();
+                                    String idReserva = mAuth.getUid();
                                     String idRestaurante = getIntent().getStringExtra("idRestaurante");
                                     String idUsuario = getIntent().getStringExtra("idLogueado");
                                     String usuario = getIntent().getStringExtra("usuario");

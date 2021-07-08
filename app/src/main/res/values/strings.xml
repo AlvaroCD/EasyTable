@@ -122,6 +122,7 @@
     <string name="platillos_strings">Platillos</string>
     <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo</string>
     <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo que quieres eliminar</string>
+    <string name="estado_reservacion_strings">Estado de la reservación:</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

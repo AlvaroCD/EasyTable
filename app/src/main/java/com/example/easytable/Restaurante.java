@@ -105,10 +105,7 @@ public class Restaurante extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                Query query = db.collection("reservacion")
-                                        .whereEqualTo("idUsuario", idLogueado);
-
-                                db.collection("reservaciones").document(query.toString()).delete()
+                                db.collection("reservaciones").document(idLogueado).delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
