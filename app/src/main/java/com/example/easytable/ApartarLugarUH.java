@@ -47,7 +47,6 @@ public class ApartarLugarUH extends AppCompatActivity {
 
         //Funcion que determina que accion se realiza cuando se hace click en alguna orden
         onClickReservacion(idDelLocal);
-
     }
 
     private void recyclerViewReservaciones(String idDelLocal) {

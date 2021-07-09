@@ -51,8 +51,6 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             super.onCreate(savedInstanceState);
             setContentView(R.layout.vista_principal_usuario_cliente);
 
-            Toast.makeText(this, Global.getmIdUsuario(),Toast.LENGTH_LONG ).show();
-
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         ImagenQR = findViewById(R.id.codigoQR);
         mLogOut = findViewById(R.id.LogOutButton2);
