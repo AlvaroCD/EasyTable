@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
+        <activity android:name=".Contrasena"></activity>
         <activity android:name=".ReservacionCliente" />
         <activity android:name=".PagarAdeudo" />
         <activity android:name=".ListadoEliminarPlatillo" />
