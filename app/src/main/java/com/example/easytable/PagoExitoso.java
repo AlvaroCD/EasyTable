@@ -46,6 +46,7 @@ public class PagoExitoso extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(PagoExitoso.this, PrincipalUC.class));
                 finish();
+
             }
         });
     }

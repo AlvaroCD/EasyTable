@@ -155,6 +155,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
                 String idOrden = UUID.randomUUID().toString();
 
+
                 //Envio de informacion a la vista MenuLocal
                 Intent Restaurante = new Intent(PrincipalUC.this, MenuLocal.class);
 

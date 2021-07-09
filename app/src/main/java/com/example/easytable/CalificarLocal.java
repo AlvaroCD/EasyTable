@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 public class CalificarLocal extends Activity {
 
-
     Button mFinal, mSiguiente;
     TextView mText;
     EditText comida, local, comentario;

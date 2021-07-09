@@ -30,6 +30,7 @@
             android:layout_below="@+id/text"
             android:layout_marginTop="30dp"
             />
+
         <Button
             android:id="@+id/Calificar"
             android:layout_width="wrap_content"
