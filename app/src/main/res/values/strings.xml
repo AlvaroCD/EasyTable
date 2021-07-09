@@ -125,6 +125,10 @@
     <string name="estado_reservacion_strings">Estado de la reservación:</string>
     <string name="comentarios_especificaciones_strings">Comentarios/Especificaciones para el cocinero</string>
     <string name="costo_unitario_strings">Costo unitario</string>
+    <string name="nueva_contraseña_strings">A continuación ingresa una nueva contraseña para tu perfil</string>
+    <string name="nueva_contraseña_2_strings">Esta constraseña es la que usarás en adelante para iniciar sesion</string>
+    <string name="confirma_la_contrase_strings">Confirma la contraseña</string>
+    <string name="cambiar_contrase_strings">Cambiar contraseña</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

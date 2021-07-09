@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class PrincipalUH extends AppCompatActivity {
 
-    private Button mAsignarMesero, mApartarLugar, mMeserosTrabajando, mCuentas, mLogOut;
+    private Button mAsignarMesero, mApartarLugar, mMeserosTrabajando, mCuentas, mContraseña, mLogOut;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -32,6 +32,7 @@ public class PrincipalUH extends AppCompatActivity {
         mApartarLugar = findViewById(R.id.apartarLugarButton);
         mMeserosTrabajando = findViewById(R.id.meserosTrabajandoButtonUH);
         mCuentas = findViewById(R.id.cuentasUH);
+        mContraseña = findViewById(R.id.cambiarConButtonHost);
         mLogOut = findViewById(R.id.LogOutButtonHost);
 
         db = FirebaseFirestore.getInstance();
@@ -79,6 +80,13 @@ public class PrincipalUH extends AppCompatActivity {
                         i.putExtra("idRestaurante", idRestaurante);
                         startActivity(i);
                     }
+                });
+
+                mContraseña.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUH.this, Contrasena.class);
+                        startActivity(i);                    }
                 });
             }
         });

@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class PrincipalUCO extends AppCompatActivity {
 
-    private Button mOrdenes,mOrdenesPreparacion, mOrdenesTerminadas, mRecursos, mLogOut;
+    private Button mOrdenes,mOrdenesPreparacion, mOrdenesTerminadas, mRecursos, mCambiarContraseña, mLogOut;
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
 
@@ -30,6 +30,7 @@ public class PrincipalUCO extends AppCompatActivity {
         mOrdenesTerminadas = findViewById(R.id.ordenesTerminadasButton);
         mOrdenesPreparacion = findViewById(R.id.ordenesPreparacionButton);
         mRecursos = findViewById(R.id.recursosButtonCocinero);
+        mCambiarContraseña = findViewById(R.id.cambiarConButtonCocinero);
         mLogOut = findViewById(R.id.LogOutButtonCocinero);
 
         mAuth = FirebaseAuth.getInstance();
@@ -75,6 +76,14 @@ public class PrincipalUCO extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent i = new Intent(PrincipalUCO.this, Recursos.class);
                         i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
+
+                mCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUCO.this, Contrasena.class);
                         startActivity(i);
                     }
                 });
