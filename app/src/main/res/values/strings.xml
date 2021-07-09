@@ -18,6 +18,7 @@
     <string name="cp_strings">Código Postal: </string>
     <string name="comidarapida_strings">Comida Rapida</string>
     <string name="categoria_strings">Categorias: </string>
+
     <string name="registrarRestaurante2_strings">Selecciona la Categoría de tu Restaurante</string>
     <string name="buffets_strings">Buffet</string>
     <string name="tematico_strings">Temático</string>
