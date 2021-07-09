@@ -123,6 +123,8 @@
     <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo</string>
     <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo que quieres eliminar</string>
     <string name="estado_reservacion_strings">Estado de la reservación:</string>
+    <string name="comentarios_especificaciones_strings">Comentarios/Especificaciones para el cocinero</string>
+    <string name="costo_unitario_strings">Costo unitario</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

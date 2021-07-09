@@ -67,7 +67,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
         mAccionPreparacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference documentReference =  db.collection("cuenta").document(idOrden);
+                DocumentReference documentReference =  db.collection("orden").document(idOrden);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -110,7 +110,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
     private void mostrarDialogo1(String id) {
         new AlertDialog.Builder(this)
                 .setTitle("¿Iniciar la preparación?")
-                .setMessage("Se le avisará a la mesa seleccionada que se está preparando su orden")
+                .setMessage("Se comenzará con la preparacion de la orden de la mesa seleccionada")
                 .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
                     @Override
