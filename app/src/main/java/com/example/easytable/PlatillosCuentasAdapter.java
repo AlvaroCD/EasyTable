@@ -19,6 +19,7 @@ public class PlatillosCuentasAdapter extends FirestoreRecyclerAdapter <Platillos
         super(options);
     }
 
+
     @Override
     protected void onBindViewHolder(@NonNull PlatillosCuentasAdapter.ViewHolder holder, int position, @NonNull PlatillosCuentasPojo model) {
         holder.nombrePlatillo.setText(model.getNombrePlatillo());
