@@ -123,6 +123,15 @@
     <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo</string>
     <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo que quieres eliminar</string>
     <string name="estado_reservacion_strings">Estado de la reservación:</string>
+    <string name="calificar_local">Calificar local</string>
+    <string name="calificacion_del_local">Calificacion del local</string>
+    <string name="comentario_del_local">Comentario del local</string>
+    <string name="continuar">Continuar</string>
+    <string name="arroz_rojo_contact_verduras_chicharos_elote_y_zanahoria">Arroz rojo contact verduras (chicharos, elote y zanahoria)</string>
+    <string name="tortitas_de_papa">Tortitas de Papa</string>
+    <string name="arroz_rojo">Arroz Rojo</string>
+    <string name="carne_en_su_jugo">Carne en su jugo</string>
+    <string name="calificar">Calificar</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

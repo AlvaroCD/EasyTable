@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class PagoExitoso extends AppCompatActivity {
 
-    Button mRegresar;
+    Button mRegresar, mCalificar;
     FirebaseFirestore db;
 
     @Override
@@ -23,6 +23,7 @@ public class PagoExitoso extends AppCompatActivity {
         setContentView(R.layout.vista_pago_exitoso);
 
         mRegresar = findViewById(R.id.regresarInicioButton);
+        mCalificar = findViewById(R.id.calificar);
         db = FirebaseFirestore.getInstance();
 
         String montoPagado = getIntent().getStringExtra("montoPagado");
@@ -32,6 +33,13 @@ public class PagoExitoso extends AppCompatActivity {
         ventas.put("ventas", montoPagado);
 
         db.collection("restaurante").document(idRestaurante).update(ventas);
+
+        mCalificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PagoExitoso.this, CalificarLocal.class));
+            }
+        });
 
         mRegresar.setOnClickListener(new View.OnClickListener() {
             @Override

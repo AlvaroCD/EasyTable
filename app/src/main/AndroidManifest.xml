@@ -60,6 +60,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListadoEditarEmpleado" />
+        <activity android:name=".CalificarLocal" />
         <activity android:name=".ListadoEliminarEmpleado" />
         <activity android:name=".ListadoEmpleados" />
         <activity android:name=".MainActivity" />

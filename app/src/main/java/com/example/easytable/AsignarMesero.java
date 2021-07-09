@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +20,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AsignarMesero extends AppCompatActivity {
 
@@ -82,6 +87,75 @@ public class AsignarMesero extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //Insertar la accion de asignar un mesero
 
+                        @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+                        //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
+                        String idCuenta = date + "-" + Global.getmIdUsuario() + "-" + "2fga9b7a-age1-4g1g-a92h-8d0d8d21h545";
+
+                        String idOrden = UUID.randomUUID().toString();
+
+                        //Se crea una estructura de datos HashMap para poder guardar los datos de la orden
+                        Map<String, Object> orden = new HashMap<>();
+
+                        //Se ingresan los datos en la estructura HashMap
+                        orden.put("mesa", "2fga9b7a-age1-4g1g-a92h-8d0d8d21h545");
+                        orden.put("idDelLocal", "545c6ec7-a624-4b1b-add6-9bcdf0a0739a");
+                        orden.put("ordenTerminadaPedir", false);
+                        orden.put("statusPreparacion", 0);
+                        orden.put("idPincipal", Global.getmIdUsuario());
+                        orden.put("idCuenta", idCuenta);
+                        db.collection("orden").document(idOrden).set(orden)
+                                //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                })
+                                //Listener que indica si la creacion del usuario fue incorrecta
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AsignarMesero.this, "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+
+                        //Se crea una estructura de datos HashMap para poder guardar los datos de la cuenta
+                        Map<String, Object> cuenta = new HashMap<>();
+
+                        //Se ingresan los datos en la estructura HashMap
+                        cuenta.put("mesa", "2fga9b7a-age1-4g1g-a92h-8d0d8d21h545");
+                        cuenta.put("montoPagar", 0);
+                        cuenta.put("id", "10-07-2021-"+ Global.getmIdUsuario()+"-mesa");
+                        cuenta.put("idPrincipal", Global.getmIdUsuario());
+                        cuenta.put("pagado", false);
+                        cuenta.put("efectivo", false);
+                        cuenta.put("fecha", "10-07-2021");
+                        cuenta.put("idDelLocal", "545c6ec7-a624-4b1b-add6-9bcdf0a0739a");
+
+                        db.collection("cuenta").document(idCuenta).set(cuenta)
+                                //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                })
+                                //Listener que indica si la creacion del usuario fue incorrecta
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AsignarMesero.this, "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+                        colocacionCuenta(idCuenta);
+
+
+
+
+
                         //Al asignar un mesero la mesa pasa automaticamente a estar ocupada, por lo que se actualiza el campo
                         //de la disponibilidad de la mesa
                         Map<String, Object> disponibilidadActualizada = new HashMap<>();
@@ -109,6 +183,26 @@ public class AsignarMesero extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    private void colocacionCuenta(String idCuenta){
+
+        Map<String, Object> disponibilidadActualizada = new HashMap<>();
+        disponibilidadActualizada.put("Cuenta", idCuenta);
+        db.collection("usuario").document(Global.getmIdUsuario()).update(disponibilidadActualizada)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
 
