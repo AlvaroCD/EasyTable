@@ -89,8 +89,6 @@ public class Ingresar extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         String id = mAuth.getUid();
-                        Global.setmIdUsuario(id);
-
                         DocumentReference doc = db.collection("usuario").document(id);
                         doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override

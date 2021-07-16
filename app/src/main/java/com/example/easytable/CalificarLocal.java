@@ -28,6 +28,9 @@ public class CalificarLocal extends Activity {
      local = findViewById(R.id.calificacionLocalFinal);
      comentario = findViewById(R.id.comentarioLocal);
 
+
+
+
      mSiguiente.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {

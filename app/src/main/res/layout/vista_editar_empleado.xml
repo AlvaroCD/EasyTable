@@ -83,10 +83,9 @@
         android:id="@+id/tipoDeUsuarioEditarEmpleadoSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_gravity="center"
-        android:entries="@array/tipo_de_empleado_strings">
-    </Spinner>
+        android:layout_marginTop="15dp"
+        android:entries="@array/tipo_de_empleado_strings" />
 
     <Button
         android:id="@+id/modificarEditarEmpleadoButton"

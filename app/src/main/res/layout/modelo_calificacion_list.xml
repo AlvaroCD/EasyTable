@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/nombrePlatilloCalificacion"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/nombre_platillo_strings"
+        android:paddingTop="18dp"
+        android:paddingStart="5dp"
+        android:textSize="17sp"
+        />
+
+</LinearLayout>

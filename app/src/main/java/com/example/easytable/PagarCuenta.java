@@ -43,6 +43,7 @@ public class PagarCuenta extends AppCompatActivity {
     private Button mPagar;
     String monto;
     String idRestaurante;
+    String idCuenta;
 
     @Override
     protected void onDestroy() {
@@ -65,7 +66,7 @@ public class PagarCuenta extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        String idCuenta = getIntent().getStringExtra("idCuenta");
+        idCuenta = getIntent().getStringExtra("idCuenta");
         idRestaurante = getIntent().getStringExtra("idRestaurante");
 
         DocumentReference doc = db.collection("cuenta").document(idCuenta);
@@ -111,7 +112,8 @@ public class PagarCuenta extends AppCompatActivity {
                         String paymentDetails = confirmation.toJSONObject().toString(4);
                         startActivity(new Intent(PagarCuenta.this, PagoExitoso.class).putExtra("PaymentDetails", paymentDetails)
                         .putExtra("montoPagado", monto)
-                        .putExtra("idRestaurante", idRestaurante));
+                        .putExtra("idRestaurante", idRestaurante)
+                        .putExtra("idCuenta", idCuenta));
 
 
                     } catch (JSONException e) {

@@ -84,7 +84,7 @@ public class Restaurante extends Activity {
         colocacionInformacion(IdRestaurante);
 
         //Coloca los comentarios
-        recycleView(nombreRestaurante);
+        recycleView(IdRestaurante);
 
 
 
@@ -244,9 +244,9 @@ public class Restaurante extends Activity {
         });
     }
 
-    private void recycleView(String nombreRestaurante) {
+    private void recycleView(String idLocal) {
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("comentario").whereEqualTo("nombreDelLocalComentado", nombreRestaurante);
+        Query query = db.collection("comentario").whereEqualTo("idLocalComentado", idLocal);
 
 
         FirestoreRecyclerOptions<ComentarioPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions

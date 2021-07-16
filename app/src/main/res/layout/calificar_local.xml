@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/arroz_rojo"
+            android:text="Arroz Rojo"
             />
 
         <EditText
@@ -35,7 +35,7 @@
             android:id="@+id/Calificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/calificar"
+            android:text="Calificar"
             android:layout_below="@id/text1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
@@ -47,7 +47,7 @@
         android:id="@+id/text5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/calificacion_del_local"
+        android:text="Calificacion del Local"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/calificacionLocalFinal"
         android:layout_marginBottom="10dp"
@@ -66,7 +66,7 @@
         android:id="@+id/texto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/comentario_del_local"
+        android:text="Comentario"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/calificacionLocalFinal"
         android:layout_marginTop="10dp"
@@ -84,7 +84,7 @@
         android:id="@+id/Continuar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/continuar"
+        android:text="Continuar"
         android:layout_below="@id/comentarioLocal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"

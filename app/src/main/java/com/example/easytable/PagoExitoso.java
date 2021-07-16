@@ -28,6 +28,7 @@ public class PagoExitoso extends AppCompatActivity {
 
         String montoPagado = getIntent().getStringExtra("montoPagado");
         String idRestaurante = getIntent().getStringExtra("idRestaurante");
+        String idCuenta = getIntent().getStringExtra("idCuenta");
 
         Map <String, Object> ventas = new HashMap<>();
         ventas.put("ventas", montoPagado);
@@ -37,7 +38,10 @@ public class PagoExitoso extends AppCompatActivity {
         mCalificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PagoExitoso.this, CalificarLocal.class));
+                Intent i = new Intent(PagoExitoso.this, CalificarComentar.class);
+                i.putExtra("idCuenta", idCuenta);
+                i.putExtra("idRestaurante", idRestaurante);
+                startActivity(i);
             }
         });
 
