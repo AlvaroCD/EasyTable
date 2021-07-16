@@ -119,10 +119,10 @@
     <string name="eliminar_platillo_strings">Eliminar Platillo</string>
     <string name="editar_platillo_strings">Editar Platillo</string>
     <string name="selecciona_el_platillo_que_quieres_editar_strings">Selecciona el platillo que quieres editar</string>
-    <string name="listado_de_los_platillos_strings">Listado de los platillos</string>
+    <string name="listado_de_los_platillos_strings">Listado de los platillos y bebidas</string>
     <string name="platillos_strings">Platillos/Bebidas</string>
-    <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo</string>
-    <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo que quieres eliminar</string>
+    <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo/bebida</string>
+    <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo/bebida que quieres eliminar</string>
     <string name="estado_reservacion_strings">Estado de la reservación:</string>
     <string name="comentarios_especificaciones_strings">Comentarios/Especificaciones para el cocinero</string>
     <string name="costo_unitario_strings">Costo unitario</string>
