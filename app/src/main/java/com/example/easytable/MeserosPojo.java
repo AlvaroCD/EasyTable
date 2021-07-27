@@ -6,6 +6,15 @@ public class MeserosPojo {
     private String Apellidos;
     private String Cuenta;
 
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    private String ID;
     private String mesa;
 
     public MeserosPojo(){
@@ -16,10 +25,11 @@ public class MeserosPojo {
         this.mesa = mesa;
     }
 
-    public MeserosPojo(String Nombre, String Apellidos, String Cuenta){
+    public MeserosPojo(String Nombre, String Apellidos, String Cuenta, String id){
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
         this.Cuenta = Cuenta;
+        this.ID = id;
     }
 
     public String getNombre() {

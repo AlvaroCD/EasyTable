@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Restaurante extends Activity {
@@ -55,7 +58,20 @@ public class Restaurante extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_resturante);
+       /* db.collection("usuario").whereEqualTo("IDRestReg", "03c5dfa9-f018-4f84-9d68-d3636369d08a")
+                .orderBy("Puntuacion")
+                .limit(1)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                        List<DocumentSnapshot> lsk = queryDocumentSnapshots.getDocuments();
+                        Toast.makeText(Restaurante.this, (CharSequence) lsk.get(Integer.parseInt("Nombre")), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        //Toast.makeText(Restaurante.this, mesero.getId(), Toast.LENGTH_SHORT).show();*/
 
         //Obtencion del Id del local escaneado y de su nombre
         String IdRestaurante, nombreRestaurante;

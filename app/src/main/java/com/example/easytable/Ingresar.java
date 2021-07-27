@@ -146,7 +146,7 @@ public class Ingresar extends AppCompatActivity {
     }
 
     //Con este metodo y esta condicional se busca hacer que el usuario mantenga su sesion iniciada aún cuando la app ya se haya cerrado
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() != null) {
@@ -199,7 +199,7 @@ public class Ingresar extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     @Override
     protected void onStop() {

@@ -21,7 +21,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -41,6 +44,8 @@ public class RegistrarEmpleado extends AppCompatActivity {
     private static final String KEY_ID= "ID";
     private static final String KEY_REST_REG = "IDRestReg";
     private static final String KEY_ONLINE = "online";
+    private static final String KEY_PUNTUACION = "Puntuacion";
+    private static final String KEY_FECHA_PUNTUACION = "FechaPuntuacion";
 
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -116,7 +121,10 @@ public class RegistrarEmpleado extends AppCompatActivity {
                                 user.put(KEY_ID, id);
                                 user.put(KEY_REST_REG, idRestaurante);
                                 if (tipoUsuario.equals("Mesero")){
+                                    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                                     user.put(KEY_ONLINE, false);
+                                    user.put(KEY_PUNTUACION, 0);
+                                    user.put(KEY_FECHA_PUNTUACION, date);
                                 }
 
                                 //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
