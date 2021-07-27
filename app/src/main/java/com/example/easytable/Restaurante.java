@@ -86,8 +86,6 @@ public class Restaurante extends Activity {
         //Coloca los comentarios
         recycleView(IdRestaurante);
 
-        cancelacionAutomaticaReservacion();
-
 
         String idLogueado = mAuth.getUid();
 
@@ -149,16 +147,6 @@ public class Restaurante extends Activity {
                         .show();
             }
         });
-    }
-
-    private void cancelacionAutomaticaReservacion() {
-        db.collection("reservacion").document().get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        //TODO: REALIZAR LA CANCELACION DE LAS RESERVACIONES 10 MINUTOS DESPUES DE QUE SE PASO LA HORA
-                    }
-                });
     }
 
     private void botonReservar(String idRestaurante, String nombreRestaurante, String idLogueado) {
