@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -15,6 +16,27 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
+        <activity android:name=".PuntuarPlatillo"></activity>
+        <activity android:name=".CalificarComentar" />
+        <activity android:name=".Contrasena" />
+        <activity android:name=".ReservacionCliente" />
+        <activity android:name=".PagarAdeudo" />
+        <activity android:name=".ListadoEliminarPlatillo" />
+        <activity android:name=".EditarPlatillo" />
+        <activity android:name=".ListadoPlatillos" />
+        <activity android:name=".ListadoEditarPlatillo" />
+        <activity android:name=".Platillos" />
+        <activity android:name=".CuentasUH" />
+        <activity android:name=".DetallesCuenta" />
+        <activity android:name=".PrincipalUCJ" />
+        <activity android:name=".DisponibilidadMesa" />
+        <activity android:name=".Local" />
+        <activity android:name=".Ventas" />
+        <activity android:name=".PagoEfectivo" />
+        <activity android:name=".MetodoDePago" />
+        <activity android:name=".ApartarLugarUH" />
+        <activity android:name=".AsignarMesero" />
+        <activity android:name=".PrincipalUH" />
         <activity android:name=".MeserosTrabajando" />
         <activity android:name=".ListadoPlatillosOrdenados" />
         <activity android:name=".ListadoOrdenesTerminadas" />
@@ -29,9 +51,9 @@
         <activity android:name=".AgregarIngrediente" />
         <activity android:name=".Recursos" />
         <activity android:name=".AgregarPlatillo" />
-        <activity android:name=".PrincipalUA" />
-        <activity android:name=".PagoExitoso" />
-        <activity android:name=".PagarCuenta" />
+        <activity android:name=".ApartarLugar" />
+        <activity android:name=".BusquedaRestaurante" />
+        <activity android:name=".EditarEmpleado" />
         <activity android:name=".Ingresar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,24 +62,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ListadoEditarEmpleado" />
+        <activity android:name=".CalificarLocal" />
         <activity android:name=".ListadoEliminarEmpleado" />
         <activity android:name=".ListadoEmpleados" />
-        <activity android:name=".ListadoEditarEmpleado" />
-        <activity android:name=".EditarEmpleado" />
-        <activity android:name=".RegistrarEmpleado" />
-        <activity android:name=".PrincipalUDL" />
-        <activity android:name=".ResultadoBusquedaRestaurante" />
-        <activity android:name=".BusquedaRestaurante" />
-        <activity android:name=".PrincipalUC" />
-        <activity android:name=".Restaurante" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MenuLocal" />
         <activity android:name=".Orden" />
-        <activity android:name=".RegistrarRestaurante3" />
-        <activity android:name=".RegistrarRestaurante2" />
-        <activity android:name=".RegistrarRestaurante1" />
-        <activity android:name=".RegistrarUsuario" />
+        <activity android:name=".PagarCuenta" />
+        <activity android:name=".PagoExitoso" />
+        <activity android:name=".PrincipalUA" />
+        <activity android:name=".PrincipalUC" />
+        <activity android:name=".PrincipalUDL" />
+        <activity android:name=".PrincipalUM" />
+        <activity android:name=".MenuLocalMU" />
+        <activity android:name=".OrdenUM" />
         <activity android:name=".Queja" />
+        <activity android:name=".RegistrarEmpleado" />
+        <activity android:name=".RegistrarRestaurante1" />
+        <activity android:name=".RegistrarRestaurante2" />
+        <activity android:name=".RegistrarRestaurante3" />
+        <activity android:name=".RegistrarUsuario" />
+        <activity android:name=".Restaurante" />
+        <activity android:name=".ResultadoBusquedaRestaurante" />
+
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
+        <service
+            android:name=".service.MyFirebaseMessagingClient"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

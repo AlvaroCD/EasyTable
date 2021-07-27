@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/numeroDeLaMesa"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/numero_mesa_strings"
+        android:paddingTop="18dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/disponibilidadMesa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disponibilidad_strings"
+        android:layout_below="@id/numeroDeLaMesa"
+        android:layout_alignStart="@id/numeroDeLaMesa"
+        android:textSize="15sp"
+        />
+
+
+</RelativeLayout>

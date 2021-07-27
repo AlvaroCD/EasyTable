@@ -31,9 +31,8 @@ import java.util.Map;
 public class ListadoOrdenes extends AppCompatActivity {
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
-    private RecyclerView mRecyclerViewOrdenes, mRecyclerViewPlatillosOrdenados;
+    private RecyclerView mRecyclerViewOrdenes;
     private ListadoOrdenesAdapter mOrdenesAdapter;
-    //private ListadoPlatillosOrdenadosAdapter mPlatillosOrdenadosAdapter;
 
     //Adicion de la instancia de Firebase para el uso de Cloud Firestore
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -49,8 +48,6 @@ public class ListadoOrdenes extends AppCompatActivity {
 
         Bundle extra = getIntent().getExtras();
         String idDelLocal = extra.getString("idRestaurante");
-
-        //TODO: REPLANTEAR COMO ES QUE SE VAN A MOSTRAR LOS PLATILLOS ORDENADOS EN EL LISTADO
 
 
 

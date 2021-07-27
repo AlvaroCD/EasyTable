@@ -37,6 +37,16 @@
         android:layout_marginEnd="20dp"
         android:textSize="14sp"/>
 
+    <TextView
+        android:id="@+id/direcionRestauranteVistaRestaurante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tipoRestauranteVistaRestaurante"
+        android:layout_alignStart="@id/imagenLocal"
+        android:layout_toStartOf="@id/reservar"
+        android:layout_marginEnd="20dp"
+        />
+
     <Button
         android:id="@+id/reservar"
         android:layout_width="wrap_content"
@@ -45,6 +55,15 @@
         android:layout_marginTop="60dp"
         android:layout_alignEnd="@+id/imagenLocal"
         android:text="@string/reservar_strings"/>
+    <Button
+        android:id="@+id/cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagenLocal"
+        android:layout_marginTop="60dp"
+        android:layout_alignEnd="@+id/imagenLocal"
+        android:text="@string/cancelar"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/calificacionLocal"

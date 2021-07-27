@@ -89,8 +89,6 @@ public class Ingresar extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         String id = mAuth.getUid();
-                        Global.setmIdUsuario(id);
-
                         DocumentReference doc = db.collection("usuario").document(id);
                         doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
@@ -104,7 +102,7 @@ public class Ingresar extends AppCompatActivity {
                                         startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
                                         break;
                                     case "Host":
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        startActivity(new Intent(Ingresar.this, PrincipalUH.class));
                                         break;
                                     case "Cocinero":
                                         startActivity(new Intent(Ingresar.this, PrincipalUCO.class));
@@ -118,10 +116,19 @@ public class Ingresar extends AppCompatActivity {
                                             online.put("online", true);
                                             db.collection("usuario").document(id).update(online);
                                         }
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        startActivity(new Intent(Ingresar.this, PrincipalUM.class));
                                         break;
                                     case "Cajero":
-                                        startActivity(new Intent(Ingresar.this, MainActivity.class));
+                                        db.collection("usuario").document(id).get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        String idRestaurante = documentSnapshot.getString("IDRestReg");
+                                                        Intent i = new Intent(Ingresar.this, PrincipalUCJ.class);
+                                                        i.putExtra("idLocal", idRestaurante);
+                                                        startActivity(i);
+                                                    }
+                                                });
                                         break;
                                 }
                                 finish();
@@ -139,7 +146,7 @@ public class Ingresar extends AppCompatActivity {
     }
 
     //Con este metodo y esta condicional se busca hacer que el usuario mantenga su sesion iniciada aún cuando la app ya se haya cerrado
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() != null) {
@@ -158,7 +165,7 @@ public class Ingresar extends AppCompatActivity {
                             startActivity(new Intent(Ingresar.this, PrincipalUDL.class));
                             break;
                         case "Host":
-                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            startActivity(new Intent(Ingresar.this, PrincipalUH.class));
                             break;
                         case "Cocinero":
                             startActivity(new Intent(Ingresar.this, PrincipalUCO.class));
@@ -172,10 +179,19 @@ public class Ingresar extends AppCompatActivity {
                                 online.put("online", true);
                                 db.collection("usuario").document(id).update(online);
                             }
-                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            startActivity(new Intent(Ingresar.this, PrincipalUM.class));
                             break;
                         case "Cajero":
-                            startActivity(new Intent(Ingresar.this, MainActivity.class));
+                            db.collection("usuario").document(id).get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            String idRestaurante = documentSnapshot.getString("IDRestReg");
+                                            Intent i = new Intent(Ingresar.this, PrincipalUCJ.class);
+                                            i.putExtra("idLocal", idRestaurante);
+                                            startActivity(i);
+                                        }
+                                    });
                             break;
                     }
                     finish();
@@ -183,7 +199,7 @@ public class Ingresar extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     @Override
     protected void onStop() {

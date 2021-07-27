@@ -18,6 +18,7 @@
     <string name="cp_strings">Código Postal: </string>
     <string name="comidarapida_strings">Comida Rapida</string>
     <string name="categoria_strings">Categorias: </string>
+
     <string name="registrarRestaurante2_strings">Selecciona la Categoría de tu Restaurante</string>
     <string name="buffets_strings">Buffet</string>
     <string name="tematico_strings">Temático</string>
@@ -73,8 +74,8 @@
     <string name="listado_recursos_strings">Listado de Recursos</string>
     <string name="meseros_trabajando_strings">Meseros Trabajando</string>
     <string name="ingresa_datos_strings">Ingresa los siguientes datos:</string>
-    <string name="nombre_platillo_strings">Nombre del platillo:</string>
-    <string name="registrar_platillo_strings">Registrar Platillo</string>
+    <string name="nombre_platillo_strings">Nombre del platillo/bebida:</string>
+    <string name="registrar_platillo_strings">Registrar Platillo/Bebida</string>
     <string name="agregar_ingrediente_strings">Agregar nuevo Ingrediente</string>
     <string name="eliminar_ingrediente_strings">Eliminar Ingrediente</string>
     <string name="recursos_strings">Recursos</string>
@@ -92,6 +93,53 @@
     <string name="ordenes_preparacion_strings">Ordenes en Preparacion</string>
     <string name="cantidad_strings">Cantidad</string>
     <string name="meseros_trabajando_2_strings">Los meseros que estan trabajando en este momento son:</string>
+    <string name="asignar_mesero_strings">Asignar Mesero</string>
+    <string name="apartar_lugares_strings">Apartar Lugares</string>
+    <string name="selecciona_strings">(Selecciona uno)</string>
+    <string name="mesas_disponibles_strings">Mesas disponibles</string>
+    <string name="solicitudes_strings">Solicitudes de reservación</string>
+    <string name="nombre_reservar_strings">Nombre del usuario a reservar</string>
+    <string name="fecha_strings">Fecha:</string>
+    <string name="hora_strings">Hora:</string>
+    <string name="cant_personas_strings">Cant. Personas:</string>
+    <string name="reservacion_strings">Reservacion</string>
+    <string name="metodo_pago_strings">Selecciona tu método de pago:</string>
+    <string name="pago_en_efectivo_strings">Pago en efectivo</string>
+    <string name="paga_la_cantidad_de">Paga la cantidad de</string>
+    <string name="entendido_strings">Entendido</string>
+    <string name="ventas_strings">Ventas</string>
+    <string name="ventas_totales_del_local_strings">Ventas totales del local</string>
+    <string name="ocupada_strings">Ocupada</string>
+    <string name="libre_strings">Libre</string>
+    <string name="estado_del_pago_strings">Estado del pago</string>
+    <string name="click_detalles_strings">Click para ver detalles</string>
+    <string name="forma_pagada_strings">Metodo de Pago:</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="cuentas_strings">Cuentas</string>
+    <string name="eliminar_platillo_strings">Eliminar Platillo</string>
+    <string name="editar_platillo_strings">Editar Platillo</string>
+    <string name="selecciona_el_platillo_que_quieres_editar_strings">Selecciona el platillo que quieres editar</string>
+    <string name="listado_de_los_platillos_strings">Listado de los platillos y bebidas</string>
+    <string name="platillos_strings">Platillos/Bebidas</string>
+    <string name="nuevos_datos_platillo_strings">Ingresa los nuevos datos del platillo/bebida</string>
+    <string name="selecciona_el_platillo_que_quieres_eliminar_strings">Selecciona el platillo/bebida que quieres eliminar</string>
+    <string name="estado_reservacion_strings">Estado de la reservación:</string>
+    <string name="comentarios_especificaciones_strings">Comentarios/Especificaciones para el cocinero</string>
+    <string name="costo_unitario_strings">Costo unitario</string>
+    <string name="nueva_contraseña_strings">A continuación ingresa una nueva contraseña para tu perfil</string>
+    <string name="nueva_contraseña_2_strings">Esta contraseña es la que usaras  en adelante para iniciar sesion</string>
+    <string name="nueva_contrase_strings">Nueva Contraseña</string>
+    <string name="confirma_la_contrase_strings">Confirma la contraseña</string>
+    <string name="cambiar_contrase_strings">Cambiar Contraseña</string>
+    <string name="que_tal_estuvo_tu_strings">Que tal estuvo tu…?</string>
+    <string name="puntua_y_comenta_tu_platillo_strings">Puntua y comenta tu platillo</string>
+    <string name="ingresa_un_comentario_para_el_restaurante_strings">Ingresa un comentario para el restaurante</string>
+    <string name="enviar_calificacion_strings">Enviar calificacion</string>
+    <string name="listo_strings">Listo</string>
+    <string-array name="metodos_pago_strings">
+        <item>Efectivo</item>
+        <item>Tarjeta/Paypal</item>
+    </string-array>
     <string-array name="tipo_de_cliente_strings">
         <item>Cliente</item>
         <item>Dueño del Local</item>
@@ -102,6 +150,17 @@
         <item>Administrador</item>
         <item>Mesero</item>
         <item>Cajero</item>
+    </string-array>
+    <string-array name="disponibilidad">
+        <item>Disponible</item>
+        <item>No Disponible</item>
+    </string-array>
+    <string-array name="puntuacion_strings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>

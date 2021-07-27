@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Platillos">
+
+    <Button
+        android:id="@+id/agregarPlatilloButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/agregar_platillo_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/eliminarPlatilloButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/eliminar_platillo_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/listadoPlatillosButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/listado_de_los_platillos_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
+        android:id="@+id/editarPlatilloButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/editar_platillo_strings"
+        android:layout_marginTop="35dp"
+        />
+
+
+</LinearLayout>

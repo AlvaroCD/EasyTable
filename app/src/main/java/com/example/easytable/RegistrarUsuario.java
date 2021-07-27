@@ -39,6 +39,8 @@ public class RegistrarUsuario extends AppCompatActivity {
     private static final String KEY_PASSWORD = "Contraseña";
     private static final String KEY_USERTYPE = "tipoDeUsuario";
     private static final String KEY_ID = "ID";
+    private static final String KEY_ADEUDO = "Adeudo";
+    private static final String KEY_RESERVA = "Reserva";
 
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -121,6 +123,9 @@ public class RegistrarUsuario extends AppCompatActivity {
                                 user.put(KEY_PASSWORD, password);
                                 user.put(KEY_USERTYPE, tipoUsuario);
                                 user.put(KEY_ID, id);
+                                user.put(KEY_ADEUDO, false);
+                                user.put(KEY_RESERVA, false);
+
 
                                 //Aqui se indica con que nombre se creará la coleccion y el ID de cada usuario en la BD
                                 db.collection("usuario").document(id).set(user)

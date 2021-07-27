@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -57,7 +59,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
 
 
         //Coloca los platillos
-        recyclerViewPlatillosOrdenados(idCuenta, idDelLocal);
+        recyclerViewPlatillosOrdenados(idCuenta, idDelLocal, idOrden);
 
         //Obtencion del estatus de la preparacion de la orden
         obtencionStatus(idOrden);
@@ -110,7 +112,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
     private void mostrarDialogo1(String id) {
         new AlertDialog.Builder(this)
                 .setTitle("¿Iniciar la preparación?")
-                .setMessage("Se le avisará a la mesa seleccionada que se está preparando su orden")
+                .setMessage("Se comenzará con la preparacion de la orden de la mesa seleccionada")
                 .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -168,6 +170,12 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
                             }
                         });
                     }
+
+
+
+
+
+
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
@@ -179,7 +187,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
     }
 
 
-    private void recyclerViewPlatillosOrdenados(String idCuenta, String idDelLocal) {
+    private void recyclerViewPlatillosOrdenados(String idCuenta, String idDelLocal, String idOrden) {
         //Consulta para obtener los datos de la BD
         Query query = db.collection("cuenta").document(idCuenta)
                 .collection("platillos");

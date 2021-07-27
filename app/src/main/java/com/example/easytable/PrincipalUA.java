@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,17 +19,18 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class PrincipalUA extends AppCompatActivity {
 
-    private Button mAgregarPlatillo, mLocal, mRecursos, mMeserosTrabajando, mLogOut;
+    private Button mPlatillos, mLocal, mRecursos, mMeserosTrabajando, mLogOut;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);           //Se utiliza para quitar el nombre de la aplicacion de la pantalla inicial en el celular
         setContentView(R.layout.vista_principal_ua);
 
         //Relación con el XML
-        mAgregarPlatillo = findViewById(R.id.agregarPlatilloButton);
+        mPlatillos = findViewById(R.id.platilloButton);
         mLocal = findViewById(R.id.localButton);
         mRecursos = findViewById(R.id.recursosButton);
         mMeserosTrabajando = findViewById(R.id.meserosTrabajandoButton);
@@ -45,10 +47,11 @@ public class PrincipalUA extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String idRestaurante = value.get("IDRestReg").toString();
-                mAgregarPlatillo.setOnClickListener(new View.OnClickListener() {
+                mPlatillos.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(PrincipalUA.this, AgregarPlatillo.class);
+                        Intent i = new Intent(PrincipalUA.this, Platillos.class);
+                        i.putExtra("idRestaurante", idRestaurante);
                         startActivity(i);
                     }
                 });
@@ -57,6 +60,9 @@ public class PrincipalUA extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(PrincipalUA.this, "Local", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(PrincipalUA.this, Local.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
                     }
                 });
 

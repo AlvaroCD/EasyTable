@@ -3,7 +3,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    tools:context=".Orden">
+
+    <ImageButton
+        android:id="@+id/menos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/menos"
+        android:background="#0000"
+        android:layout_alignStart="@+id/recyclerViewListadoPedidos"
+        android:layout_above="@id/recyclerViewListadoPedidos"
+        android:layout_marginStart="50dp"
+        />
+
+    <EditText
+        android:id="@+id/cantidadAlimentos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/menos"
+        android:layout_above="@+id/recyclerViewListadoPedidos"
+        android:layout_marginStart="100dp"
+        android:backgroundTint="@color/white"
+        />
+
+    <ImageButton
+        android:id="@+id/mas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mas"
+        android:background="#0000"
+        android:layout_alignStart="@+id/recyclerViewListadoPedidos"
+        android:layout_above="@id/recyclerViewListadoPedidos"
+        android:layout_marginStart="250dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListadoPedidos"
@@ -15,6 +49,58 @@
         android:layout_alignStart="@+id/recyclerViewListadoOrden"
         android:layout_alignEnd="@+id/añadir">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <View
+        android:id="@+id/barraSuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_alignStart="@+id/especificaciones"
+        android:layout_alignEnd="@+id/especificaciones"
+        android:layout_below="@+id/recyclerViewListadoPedidos"
+        />
+
+    <View
+        android:id="@+id/barraInferior"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_alignStart="@+id/especificaciones"
+        android:layout_alignEnd="@+id/especificaciones"
+        android:layout_below="@+id/especificaciones"
+        />
+
+
+    <View
+        android:layout_alignParentEnd="false"
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@+id/barraSuperior"
+        android:layout_above="@+id/barraInferior"
+        android:layout_alignStart="@+id/especificaciones"
+        />
+
+    <View
+        android:layout_alignParentEnd="false"
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@+id/barraSuperior"
+        android:layout_above="@+id/barraInferior"
+        android:layout_toEndOf="@+id/especificaciones"
+        />
+
+    <EditText
+        android:id="@+id/especificaciones"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:hint="@string/comentarios_especificaciones_strings"
+        android:textSize="14sp"
+        android:layout_alignStart="@+id/recyclerViewListadoPedidos"
+        android:layout_below="@+id/recyclerViewListadoPedidos"
+        android:backgroundTint="@color/white"
+        />
 
     <Button
         android:id="@+id/ordenar"
@@ -32,19 +118,68 @@
         android:text="@string/cuenta"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_above="@id/recyclerViewListadoOrden"
+        android:layout_below="@+id/especificaciones"
         android:layout_marginBottom="10dp"
-        android:layout_alignStart="@+id/costoTotal"/>
+        android:layout_alignStart="@+id/montoAPagar"
+        android:layout_marginTop="20sp"
+        />
+
+    <TextView
+        android:id="@+id/cantidadPlatillosCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/cantidad_strings"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_above="@+id/recyclerViewListadoOrden"
+        android:layout_alignStart="@+id/recyclerViewListadoOrden"
+        />
+
+    <TextView
+        android:id="@+id/nombrePlatilloCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/platillos_strings"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_alignBaseline="@id/cantidadPlatillosCuenta"
+        android:layout_toEndOf="@id/cantidadPlatillosCuenta"
+        android:layout_marginStart="25dp"
+        android:paddingTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/costoPlatilloCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/cantidadPlatillosCuenta"
+        android:text="@string/costo_unitario_strings"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/nombrePlatilloCuenta"
+        android:layout_marginStart="25dp"
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/cantidadPlatillosCuenta"
+        android:layout_alignStart="@id/recyclerViewListadoOrden"
+        android:layout_alignEnd="@id/recyclerViewListadoOrden"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListadoOrden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/costoTotal"
+        android:layout_above="@+id/montoAPagar"
         android:layout_toStartOf="@+id/pagar"
         android:layout_marginEnd="20dp"
         android:layout_alignTop="@id/añadir"
-        android:layout_alignStart="@+id/costoTotal">
+        android:layout_alignStart="@+id/montoAPagar">
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
@@ -70,17 +205,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pagar"
-        android:layout_above="@id/costoTotal"
+        android:layout_above="@id/montoAPagar"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="25dp"
         android:layout_marginTop="22dp"/>
 
 <TextView
-    android:id="@+id/costoTotal"
+    android:id="@+id/montoAPagar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="20sp"
-    android:text="@string/comenterio_aleatorio"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    android:text="@string/monto_strings"
     android:layout_alignParentBottom="true"
     android:layout_marginBottom="50dp"
     android:layout_marginStart="20dp"

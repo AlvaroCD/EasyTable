@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    tools:context=".ReservacionCliente">
+    <TextView
+        android:id="@+id/nombreUsuarioReservacionCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="@string/nombre_reservar_strings"
+        android:layout_marginStart="5dp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/nombreUsuarioReservacionCliente"
+        android:layout_below="@id/barraMedia"
+        android:text="@string/fecha_strings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/fechaContenedorReservacionCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/fecha"
+        android:layout_below="@id/barraMedia"
+        android:layout_marginStart="5dp"
+        android:text="@string/fecha_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/fecha"
+        android:layout_below="@id/fecha"
+        android:text="@string/hora_strings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/horaContenedorReservacionCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/hora"
+        android:layout_below="@id/fechaContenedorReservacionCliente"
+        android:layout_marginStart="5dp"
+        android:text="@string/hora_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/cantidadPersonas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/fecha"
+        android:layout_below="@id/hora"
+        android:text="@string/cant_personas_strings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/cantidadPersonasContenedorReservacionCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horaContenedorReservacionCliente"
+        android:layout_toEndOf="@id/cantidadPersonas"
+        android:layout_marginStart="5dp"
+        android:text="@string/cant_personas_strings"
+        android:textStyle="bold"
+        android:textSize="16sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/statusReservacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estado_reservacion_strings"
+        android:layout_below="@id/cantidadPersonas"
+        android:layout_alignStart="@id/cantidadPersonas"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/statusReservacionContenedorReservacionCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estado_reservacion_strings"
+        android:layout_below="@id/cantidadPersonas"
+        android:layout_toEndOf="@id/statusReservacion"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        />
+
+    <View
+        android:id="@+id/barraMedia"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/nombreUsuarioReservacionCliente"
+        />
+
+    <View
+        android:id="@+id/barraInferior"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/teal_700"
+        android:layout_below="@+id/statusReservacion"
+        />
+
+    <View
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_above="@+id/barraInferior"
+        />
+
+    <View
+        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:background="@color/teal_700"
+        android:layout_above="@+id/barraInferior"/>
+
+</RelativeLayout>

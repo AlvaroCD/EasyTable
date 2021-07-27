@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import com.google.android.gms.measurement.AppMeasurement;
@@ -19,13 +20,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class PrincipalUDL extends AppCompatActivity {
 
 
-    private Button mAgregarEmpleados, mEditarEmpleados, mListarEmpleados, mEliminarEmpleados, mListarCodigos, mLogOut;
+    private Button mAgregarEmpleados, mEditarEmpleados, mListarEmpleados, mEliminarEmpleados, mListarCodigos, mVentas, mLogOut;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);           //Se utiliza para quitar el nombre de la aplicacion de la pantalla inicial en el celular
         setContentView(R.layout.vista_principal_usuario_duenolocal);
 
         //Instanciación de Firebase Authentication
@@ -38,6 +40,7 @@ public class PrincipalUDL extends AppCompatActivity {
         mListarEmpleados = findViewById(R.id.listarEmpleadosButton);
         mEliminarEmpleados = findViewById(R.id.eliminarEmpleadosButton);
         mListarCodigos = findViewById(R.id.listarCodigosQR);
+        mVentas = findViewById(R.id.ventas);
         mLogOut = findViewById(R.id.LogOutButton3);
 
         String idUsuarioLogueado = mAuth.getUid();
@@ -87,6 +90,15 @@ public class PrincipalUDL extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(PrincipalUDL.this, ListadoCodigosQR.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
+
+                mVentas.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUDL.this, Ventas.class);
                         i.putExtra("idRestaurante", idRestaurante);
                         startActivity(i);
                     }

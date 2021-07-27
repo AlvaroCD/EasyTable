@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Contrasena">
+
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/nueva_contraseña_strings"
+        android:textSize="18sp"
+        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="@string/nueva_contraseña_2_strings"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/nueva_contrase_strings"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        />
+
+    <EditText
+        android:id="@+id/nuevaContraseña"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/confirma_la_contrase_strings"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        />
+
+    <EditText
+        android:id="@+id/confirmaContraseña"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        />
+
+    <Button
+        android:id="@+id/cambiarConButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:text="@string/cambiar_contrase_strings"
+        />
+
+
+
+</LinearLayout>

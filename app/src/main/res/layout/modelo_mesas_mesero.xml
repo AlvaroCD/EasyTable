@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/teal_700" />
+
+        <TextView
+            android:id="@+id/mesa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/numero_mesa_strings"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+
+        <TextView
+            android:id="@+id/pago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/mesa"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="@string/estado_del_pago_strings"
+            android:textStyle="bold"
+            android:textSize="16sp">
+        </TextView>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/teal_700"
+            android:layout_below="@+id/mesa" />
+
+        <TextView
+            android:id="@+id/nombreUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_strings"
+            android:layout_below="@+id/mesa"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:id="@+id/Total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monto_strings"
+            android:layout_below="@+id/nombreUsuario"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <View
+            android:id="@+id/barraInferior2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/teal_700"
+            android:layout_below="@+id/Total" />
+
+
+        <View
+            android:layout_height="wrap_content"
+            android:layout_width="2dp"
+            android:background="@color/teal_700"
+            android:layout_above="@+id/barraInferior2"
+            />
+
+
+        <View
+            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
+            android:layout_width="2dp"
+            android:background="@color/teal_700"
+            android:layout_above="@+id/barraInferior2"/>
+
+</RelativeLayout>

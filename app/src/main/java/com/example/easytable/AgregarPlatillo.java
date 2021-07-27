@@ -31,12 +31,16 @@ public class AgregarPlatillo extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
+
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
     private static final String KEY_DESCRIPCION = "descripcion";
     private static final String KEY_DISPONIBILIDAD = "disponibilidad";
     private static final String KEY_IDLOCAL = "idDelLocal";
     private static final String KEY_NOMBREPLATILLO = "nombrePlatillo";
     private static final String KEY_COSTO = "precio";
+    private static final String KEY_CALIFICACION = "calificacion";
+    private static final String KEY_IDPLATILLO = "idPlatillo";
+    private static final String KEY_USUARIOS_CAL = "usuariosCalificacion";
 
 
     @Override
@@ -59,7 +63,7 @@ public class AgregarPlatillo extends AppCompatActivity {
                 String costo = mCostoPlatillo.getText().toString();
                 int costoPlatillo = Integer.parseInt(costo);
                 String descripcionPlatillo = mDescripcionPlatillo.getText().toString();
-                //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
+                //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los platillos se repitan
                 String id = UUID.randomUUID().toString();
                 String idUsuarioLogueado = mAuth.getUid();
 
@@ -77,6 +81,10 @@ public class AgregarPlatillo extends AppCompatActivity {
                             //Siempre que se agregue un nuevo platillo se tomará como que esta disponible
                             platillo.put(KEY_DISPONIBILIDAD, true);
                             platillo.put(KEY_IDLOCAL, idLocal);
+                            platillo.put(KEY_IDPLATILLO, id);
+                            //Todos los platillos recien creados tendran una calificacion inicial de 3 estrellas
+                            platillo.put(KEY_CALIFICACION, 3);
+                            platillo.put(KEY_USUARIOS_CAL, 1);
 
 
 

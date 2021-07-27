@@ -25,11 +25,12 @@
         android:textSize="30sp"
         />
 
+
     <Button
-        android:id="@+id/regresarInicioButton"
+        android:id="@+id/calificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/inicio_strings"
+        android:text="Calificar local"
         android:layout_marginTop="50sp"
         />
 
