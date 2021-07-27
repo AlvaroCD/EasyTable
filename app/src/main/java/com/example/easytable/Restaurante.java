@@ -38,6 +38,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Restaurante extends Activity {
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -102,8 +104,6 @@ public class Restaurante extends Activity {
         //Coloca los comentarios
         recycleView(IdRestaurante);
 
-        cancelacionAutomaticaReservacion();
-
 
         String idLogueado = mAuth.getUid();
 
@@ -165,16 +165,6 @@ public class Restaurante extends Activity {
                         .show();
             }
         });
-    }
-
-    private void cancelacionAutomaticaReservacion() {
-        db.collection("reservacion").document().get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        //TODO: REALIZAR LA CANCELACION DE LAS RESERVACIONES 10 MINUTOS DESPUES DE QUE SE PASO LA HORA
-                    }
-                });
     }
 
     private void botonReservar(String idRestaurante, String nombreRestaurante, String idLogueado) {
@@ -247,6 +237,7 @@ public class Restaurante extends Activity {
             }
         });
     }
+
 
     private void cancelar(String idRestaurante, String idUsuario) {
 

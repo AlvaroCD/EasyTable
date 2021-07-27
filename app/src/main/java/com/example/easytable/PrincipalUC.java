@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,6 +28,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -71,6 +79,8 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         //Funcion que determina que accion se realiza cuando se hace click en algun restaurante
         onClickRestaurante();
 
+        String idUsuario = mAuth.getUid();
+        cancelacionAutomatica(idUsuario);
 
         //Boton de codigoQR
         ImagenQR.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +118,42 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 finish();
             }
         });
+    }
+
+    private void cancelacionAutomatica(String idUsuario) {
+        Calendar obtencionDeHora = Calendar.getInstance();
+        String minutos;
+        if (obtencionDeHora.get(Calendar.MINUTE)<9){
+            minutos = "0"+obtencionDeHora.get(Calendar.MINUTE);
+        }
+        else {
+            minutos = ""+obtencionDeHora.get(Calendar.MINUTE);
+        }
+        String horaActual = obtencionDeHora.get(Calendar.HOUR_OF_DAY)+":"+minutos;
+        Toast.makeText(this, horaActual, Toast.LENGTH_SHORT).show();
+        db.collection("reservaciones").document(idUsuario).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String horaReservacion = documentSnapshot.getString("hora");
+                        if (horaActual.equals(horaReservacion)){
+                            Timer timer = new Timer();
+                            TimerTask timerTask = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    db.collection("reservaciones").document(idUsuario).delete();
+                                    Map<String, Object> consecuenciasDeCancelacion = new HashMap<>();
+                                    consecuenciasDeCancelacion.put("Adeudo", true);
+                                    consecuenciasDeCancelacion.put("Reserva", false);
+                                    db.collection("usuario").document(idUsuario).update(consecuenciasDeCancelacion);
+                                }
+                            };
+                            //Temporizador de 10 minutos
+                            timer.schedule(timerTask, 600000);
+                        }
+                    }
+                });
+
     }
 
     private void recyclerViewRestaurante() {

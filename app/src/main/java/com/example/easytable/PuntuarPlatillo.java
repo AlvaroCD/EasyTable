@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +51,7 @@ public class PuntuarPlatillo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String idPlatillo = getIntent().getStringExtra("idPlatillo");
+                String idCuenta = getIntent().getStringExtra("idCuenta");
                 String puntuacion = mPuntuacion.getSelectedItem().toString();
                 long puntuacionParse = Long.parseLong(puntuacion);
 
@@ -70,7 +72,21 @@ public class PuntuarPlatillo extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(PuntuarPlatillo.this, nombrePlatillo+" calificado exitosamente", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                                db.collection("cuenta").document(idCuenta).collection("platillos")
+                                                        .document(idPlatillo).delete()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Toast.makeText(PuntuarPlatillo.this, "Listo", Toast.LENGTH_SHORT).show();
+                                                                finish();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(PuntuarPlatillo.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

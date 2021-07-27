@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -14,26 +15,42 @@ import java.util.Map;
 
 public class PagoExitoso extends AppCompatActivity {
 
-    Button mRegresar, mCalificar;
-    FirebaseFirestore db;
+    private Button mRegresar, mCalificar;
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_pago_exitoso);
 
-        mRegresar = findViewById(R.id.regresarInicioButton);
+        //mRegresar = findViewById(R.id.regresarInicioButton);
         mCalificar = findViewById(R.id.calificar);
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
+        String idUsuario = mAuth.getUid();
         String montoPagado = getIntent().getStringExtra("montoPagado");
         String idRestaurante = getIntent().getStringExtra("idRestaurante");
         String idCuenta = getIntent().getStringExtra("idCuenta");
 
-        Map <String, Object> ventas = new HashMap<>();
+        Map<String, Object> ventas = new HashMap<>();
         ventas.put("ventas", montoPagado);
-
         db.collection("restaurante").document(idRestaurante).update(ventas);
+
+        Map<String, Object> updateCuenta = new HashMap<>();
+        updateCuenta.put("pagado", true);
+        updateCuenta.put("montoPagar", 0);
+        db.collection("cuenta").document(idCuenta).update(updateCuenta);
+
+        //Eliminacion de la reservacion
+        db.collection("reservaciones").document(idUsuario).delete();
+
+        //Liberacion del campo Reservacin para que pueda volver a reservar
+        Map<String, Object> usuarioUpdate = new HashMap<>();
+        usuarioUpdate.put("Reserva", false);
+        db.collection("usuario").document(idUsuario).update(usuarioUpdate);
+
 
         mCalificar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,16 +59,17 @@ public class PagoExitoso extends AppCompatActivity {
                 i.putExtra("idCuenta", idCuenta);
                 i.putExtra("idRestaurante", idRestaurante);
                 startActivity(i);
-            }
-        });
-
-        mRegresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PagoExitoso.this, PrincipalUC.class));
                 finish();
-
             }
         });
+
+//        mRegresar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(PagoExitoso.this, PrincipalUC.class));
+//                finish();
+//
+//            }
+//        });
     }
 }

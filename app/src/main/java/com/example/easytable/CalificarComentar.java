@@ -160,6 +160,8 @@ public class CalificarComentar extends AppCompatActivity {
                 } else {
                     Toast.makeText(CalificarComentar.this, "No hubo comentario", Toast.LENGTH_SHORT).show();
                 }
+                startActivity(new Intent(CalificarComentar.this, PrincipalUC.class));
+                finish();
             }
         });
 
@@ -175,6 +177,7 @@ public class CalificarComentar extends AppCompatActivity {
                 Intent i = new Intent(CalificarComentar.this, PuntuarPlatillo.class);
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("idPlatillo", idPlatillo);
+                i.putExtra("idCuenta", idCuenta);
                 startActivity(i);
             }
         });

@@ -93,9 +93,16 @@ public class ApartarLugar extends Activity {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        mHora.setText(""+hourOfDay+":"+minute);
-                        getHora = ""+hourOfDay;
-                        getMin = ""+minute;
+                        if (minute<9){
+                            mHora.setText(""+hourOfDay+":0"+minute);
+                            getHora = ""+hourOfDay;
+                            getMin = "0"+minute;
+                        }
+                        else {
+                            mHora.setText(""+hourOfDay+":"+minute);
+                            getHora = ""+hourOfDay;
+                            getMin = ""+minute;
+                        }
                     }
                 }, hora, min, true);
                 timePickerDialog.show();
@@ -141,7 +148,7 @@ public class ApartarLugar extends Activity {
                                     String idRestaurante = getIntent().getStringExtra("idRestaurante");
                                     String idUsuario = getIntent().getStringExtra("idLogueado");
                                     String usuario = getIntent().getStringExtra("usuario");
-                                    String horaString = ""+hora+":"+min+"";
+                                    String horaString = ""+getHora+":"+getMin+"";
                                     @SuppressLint("SimpleDateFormat") String fecha = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
                                     int personaParse = Integer.parseInt(persona);
                                     Map <String, Object> reservacion = new HashMap<>();
