@@ -33,7 +33,7 @@ public class CuentaUMAdapter extends FirestoreRecyclerAdapter<MeserosPojo, Cuent
     private static CuentaUMAdapter.OnItemClickListener listener;
     private FirebaseFirestore db;
 
-    public CuentaUMAdapter(@NonNull FirestoreRecyclerOptions<MeserosPojo> options) {
+    public  CuentaUMAdapter(@NonNull FirestoreRecyclerOptions<MeserosPojo> options) {
         super(options);
     }
 

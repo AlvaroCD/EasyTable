@@ -4,29 +4,35 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.Source;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
 
 public class PrincipalUC extends Activity implements ZXingScannerView.ResultHandler{
 
@@ -41,6 +47,8 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
     private ZXingScannerView mScannerView;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+
+
 
 
     //Vinculacion de la actividad con el layout
@@ -129,6 +137,37 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 i.putExtra("idRestaurante",id);
                 i.putExtra("nombreRestaurante", nombreRestaurante);
                 startActivity(i);
+
+
+
+            }
+        });
+        final DocumentReference doc = db.collection("orden").document("4bbd719d-f9c8-42a7-8cb8-96a0061dd464");
+        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                List<String> platillos = (List<String>) value.get("matrizPlatillos");
+
+                platillos.add("Chilaquil");
+
+                Toast.makeText(PrincipalUC.this, (CharSequence) platillos.get(3), Toast.LENGTH_SHORT).show();
+
+                Map<String, Object> platillosAgregados = new HashMap<>();
+                platillosAgregados.put("matrizPlatillos", platillos);
+
+
+//                db.collection("orden").document("4bbd719d-f9c8-42a7-8cb8-96a0061dd464")
+//                        .set(platillosAgregados)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                            }
+//                        });
             }
         });
     }
@@ -146,7 +185,8 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String idDelLocal = value.get("idDelLocal").toString();
                 String nombreRestaurante = value.get("nombreDelLocal").toString();
-                String idMesa = value.getId().toString();
+                String idMesa = "9a66xgz2JYxwrKpSqJfn";
+                //String idMesa = value.getId().toString();
                 boolean status = value.getBoolean("statusMesa");
 
                 //Envio de informacion a la vista MenuLocal

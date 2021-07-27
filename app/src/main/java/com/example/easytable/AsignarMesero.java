@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -78,19 +79,29 @@ public class AsignarMesero extends AppCompatActivity {
 
 
     private void mostrarDialogo(String id) {
-        new AlertDialog.Builder(this)
-                .setTitle("¿Seguro?")
-                .setMessage("Se asignará un mesero a la mesa seleccionada")
-                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        Bundle extra = getIntent().getExtras();
+        String idRestaurante = extra.getString("idRestaurante");
+        AlertDialog.Builder ventana = new AlertDialog.Builder(this);
+                ventana.setTitle("Ingresa el nombre del cliente");
 
+                final EditText ET_NOMBRE = new EditText(this);
+                ventana.setView(ET_NOMBRE);
+
+                ventana.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Insertar la accion de asignar un mesero
 
+                        String nombre = ET_NOMBRE.getText().toString().trim();
+                        if (nombre.length() == 0) {
+                            nombre = "host";
+                        }
+
+
+                        //Insertar la accion de asignar un mesero
                         @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
                         //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
-                        String idCuenta = date + "-" + Global.getmIdUsuario() + "-" + "2fga9b7a-age1-4g1g-a92h-8d0d8d21h545";
+                        String idCuenta = date + "-" + nombre + "-" + id;
 
                         String idOrden = UUID.randomUUID().toString();
 
@@ -98,8 +109,8 @@ public class AsignarMesero extends AppCompatActivity {
                         Map<String, Object> orden = new HashMap<>();
 
                         //Se ingresan los datos en la estructura HashMap
-                        orden.put("mesa", "2fga9b7a-age1-4g1g-a92h-8d0d8d21h545");
-                        orden.put("idDelLocal", "545c6ec7-a624-4b1b-add6-9bcdf0a0739a");
+                        orden.put("mesa", id);
+                        orden.put("idDelLocal", idRestaurante);
                         orden.put("ordenTerminadaPedir", false);
                         orden.put("statusPreparacion", 0);
                         orden.put("idPincipal", Global.getmIdUsuario());
@@ -125,14 +136,14 @@ public class AsignarMesero extends AppCompatActivity {
                         Map<String, Object> cuenta = new HashMap<>();
 
                         //Se ingresan los datos en la estructura HashMap
-                        cuenta.put("mesa", "2fga9b7a-age1-4g1g-a92h-8d0d8d21h545");
+                        cuenta.put("mesa", id);
                         cuenta.put("montoPagar", 0);
-                        cuenta.put("id", "10-07-2021-"+ Global.getmIdUsuario()+"-mesa");
-                        cuenta.put("idPrincipal", Global.getmIdUsuario());
+                        cuenta.put("id", "10-07-2021-"+ nombre+"-mesa");
+                        cuenta.put("idPrincipal", nombre);
                         cuenta.put("pagado", false);
                         cuenta.put("efectivo", false);
                         cuenta.put("fecha", "10-07-2021");
-                        cuenta.put("idDelLocal", "545c6ec7-a624-4b1b-add6-9bcdf0a0739a");
+                        cuenta.put("idDelLocal", idRestaurante);
 
                         db.collection("cuenta").document(idCuenta).set(cuenta)
                                 //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
@@ -190,7 +201,7 @@ public class AsignarMesero extends AppCompatActivity {
 
         Map<String, Object> disponibilidadActualizada = new HashMap<>();
         disponibilidadActualizada.put("Cuenta", idCuenta);
-        db.collection("usuario").document(Global.getmIdUsuario()).update(disponibilidadActualizada)
+        db.collection("usuario").document("SYk8clanzOSPOpE2AMNNDfF6q4i1").update(disponibilidadActualizada)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
