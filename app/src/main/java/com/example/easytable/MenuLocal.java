@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -33,7 +33,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -48,7 +47,7 @@ public class MenuLocal extends Activity {
 
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
-
+    private FirebaseAuth mAuth;
 
 
     //Creacion de las KEYS necesarias para ingresar los datos dentro del la estructura HashMap
@@ -67,32 +66,31 @@ public class MenuLocal extends Activity {
     private static final String KEY_STATUSORDEN = "ordenTerminadaPedir";
     private static final String KEY_STATUSPREPARACION = "statusPreparacion";
 
-    ArrayList<String> platillos = new ArrayList<String>();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_menu);
 
-        String idOrden = null;
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //Obtención de los datos de la vista PrincipalUC
         String nombreRestaurante = getIntent().getStringExtra("nombreDelLocal");
         String idDelLocal = getIntent().getStringExtra("idRestaurante");
         String idMesa = getIntent().getStringExtra("idMesa");
+        String idOrden = getIntent().getStringExtra("idOrden");
         boolean statusMesa = getIntent().getBooleanExtra("estado", true);
 
         //Obtención de los datos de la vista Orden
         boolean statusOrden = getIntent().getBooleanExtra("statusOrden", false);
-        idOrden = getIntent().getStringExtra("idOrden");
 
         @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
         //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
-        String idCuenta = date + "-" + Global.getmIdUsuario() + "-" + idMesa;
+        String idUsuario = mAuth.getUid();
+        String idCuenta = date + "-" + idUsuario + "-" + idMesa;
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mNombreLocal = findViewById(R.id.nombreLocal);
@@ -104,11 +102,8 @@ public class MenuLocal extends Activity {
         mNombreLocal.setText(nombreRestaurante);
 
         recycleView(idDelLocal);
-        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
-        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date, idDelLocal);
-        Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
 
-        if (idOrden == null) idOrden = UUID.randomUUID().toString();
+        CreacionCuenta(statusMesa, statusOrden ,idMesa, idCuenta, idOrden ,date, idDelLocal, idUsuario);
 
 
         //Funcion que determina que accion se realiza cuando se hace click en algun platillo
@@ -130,7 +125,8 @@ public class MenuLocal extends Activity {
         Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
     }
 
-    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta, String idOrden ,String date, String idDelLocal) {
+    private void CreacionCuenta(boolean status, boolean ordenTerminada ,String idMesa, String idCuenta,
+                                String idOrden ,String date, String idDelLocal, String idUsuario) {
 
         //creacion de cuenta si la mesa esta vacia
         if (status){
@@ -143,7 +139,7 @@ public class MenuLocal extends Activity {
             orden.put(KEY_ID_LOCAL, idDelLocal);
             orden.put(KEY_STATUSORDEN, false);
             orden.put(KEY_STATUSPREPARACION, 0);
-            orden.put(KEY_IDUSUARIO, Global.getmIdUsuario());
+            orden.put(KEY_IDUSUARIO, idUsuario);
             orden.put(KEY_ID_CUENTA, idCuenta);
             Toast.makeText(this, idMesa, Toast.LENGTH_SHORT).show();
             Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
@@ -171,7 +167,7 @@ public class MenuLocal extends Activity {
             cuenta.put(KEY_MESA, idMesa);
             cuenta.put(KEY_MONTOPAGAR, 0);
             cuenta.put(KEY_ID, idCuenta);
-            cuenta.put(KEY_IDUSUARIO, Global.getmIdUsuario());
+            cuenta.put(KEY_IDUSUARIO, idUsuario);
             cuenta.put(KEY_METODOPAGO, false);
             cuenta.put(KEY_STATUSCUENTA, false);
             cuenta.put(KEY_FECHA, date);
@@ -200,15 +196,6 @@ public class MenuLocal extends Activity {
         else{
             //si la mesa no esta vacia y aun no mandan la comanda
             if (!ordenTerminada){
-                final DocumentReference doc = db.collection("orden").document(idOrden);
-                doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        //platillos = (ArrayList<String>) value.;
-                        List<Map<String, Object>> users = (List<Map<String, Object>>) value.get("matrizPlatillos");
-                        Toast.makeText(MenuLocal.this, platillos.get(0), Toast.LENGTH_SHORT).show();
-                    }
-                });
                 //Toast.makeText(this,"ya hay un usuario", Toast.LENGTH_LONG).show();
 
             }
@@ -227,24 +214,13 @@ public class MenuLocal extends Activity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
 
-                String id = documentSnapshot.getId();
                 String nombrePlatillo = documentSnapshot.get("nombrePlatillo").toString();
                 String precio = documentSnapshot.get("precio").toString();
                 String idPlatillo = documentSnapshot.getId();
-
-
-                /*CollectionReference ordenRef = db.collection("orden");
-                ordenRef.document(idOrden)
-                        .update("matrizPlatillos", FieldValue.arrayUnion(id));
-*/
-
-
-                final DocumentReference ordenRef = db.collection("orden").document(idOrden);
-                ordenRef.update("matrizPlatillos", FieldValue.arrayUnion("ahh"));
+                boolean disponibilidadPlatillo = documentSnapshot.getBoolean("disponibilidad");
 
                 Intent i = new Intent(MenuLocal.this, Orden.class);
 
-                i.putExtra("idPlatillo",id);
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("precio", precio);
                 i.putExtra("idPlatillo", idPlatillo);
@@ -252,6 +228,7 @@ public class MenuLocal extends Activity {
                 i.putExtra("idRestaurante",idDelLocal);
                 i.putExtra("idMesa", idMesa);
                 i.putExtra("idCuenta", idCuenta);
+                i.putExtra("disponibilidadPlatillo", disponibilidadPlatillo);
 
                 startActivity(i);
             }

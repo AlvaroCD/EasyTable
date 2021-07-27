@@ -142,7 +142,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 
             }
         });
-        final DocumentReference doc = db.collection("orden").document("4bbd719d-f9c8-42a7-8cb8-96a0061dd464");
+        /*final DocumentReference doc = db.collection("orden").document("4bbd719d-f9c8-42a7-8cb8-96a0061dd464");
         doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -155,7 +155,7 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
                 Map<String, Object> platillosAgregados = new HashMap<>();
                 platillosAgregados.put("matrizPlatillos", platillos);
 
-
+*/
 //                db.collection("orden").document("4bbd719d-f9c8-42a7-8cb8-96a0061dd464")
 //                        .set(platillosAgregados)
 //                        .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -168,8 +168,8 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
 //                            public void onFailure(@NonNull Exception e) {
 //                            }
 //                        });
-            }
-        });
+       /*     }
+        });*/
     }
 
 

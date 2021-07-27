@@ -100,20 +100,22 @@ public class MenuLocalMU extends Activity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
 
-                String id = documentSnapshot.getId();
                 String nombrePlatillo = documentSnapshot.get("nombrePlatillo").toString();
                 String precio = documentSnapshot.get("precio").toString();
                 String idPlatillo = documentSnapshot.getId();
+                boolean disponibilidadPlatillo = documentSnapshot.getBoolean("disponibilidad");
 
-                Intent i = new Intent(MenuLocalMU.this, Orden.class);
+
+                Intent i = new Intent(MenuLocalMU.this, OrdenMU.class);
 
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("precio", precio);
                 i.putExtra("idPlatillo", idPlatillo);
-//                i.putExtra("idOrden", idOrden);
                 i.putExtra("idRestaurante",idDelLocal);
-  //              i.putExtra("idMesa", idMesa);
                 i.putExtra("idCuenta", idCuenta);
+                i.putExtra("disponibilidadPlatillo", disponibilidadPlatillo);
+//              i.putExtra("idOrden", idOrden);
+//              i.putExtra("idMesa", idMesa);
 
                 startActivity(i);
             }
