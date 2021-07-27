@@ -35,6 +35,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Restaurante extends Activity {
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
@@ -219,6 +221,7 @@ public class Restaurante extends Activity {
             }
         });
     }
+
 
     private void cancelar(String idRestaurante, String idUsuario) {
 
