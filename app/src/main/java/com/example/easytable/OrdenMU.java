@@ -16,9 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.util.HashMap;
@@ -43,14 +49,13 @@ public class OrdenMU extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_orden);
 
-        String nombrePlatillo,  idRestaurante, idMesa, idCuenta, idPlatillo, precioPlatillo;
+        String nombrePlatillo,  idRestaurante, idCuenta, idPlatillo, precioPlatillo;
         boolean disponibilidadPlatillo;
 
         nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
         idPlatillo = getIntent().getStringExtra("idPlatillo");
         precioPlatillo = getIntent().getStringExtra("precio");
         idRestaurante = getIntent().getStringExtra("idRestaurante");
-        //idMesa = getIntent().getStringExtra("idMesa");
         idCuenta = getIntent().getStringExtra("idCuenta");
         disponibilidadPlatillo = getIntent().getBooleanExtra("disponibilidadPlatillo", true);
 
@@ -77,8 +82,18 @@ public class OrdenMU extends Activity {
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
+        DocumentReference docRef = db.collection("cuenta").document(idCuenta);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String montoActual = value.get("montoPagar").toString();
+                mCostoToltal.setText(montoActual);
 
-        mCostoToltal.setText("Total: $"+montoPagar+ " MXN");
+            }
+        });
+
+
+
         mCantidadAlimentos.setText(""+cantidadAlimentos);
 
         recycleViewOrden(nombrePlatillo);
@@ -115,8 +130,13 @@ public class OrdenMU extends Activity {
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(OrdenMU.this, "Se agrego el platillo y el precio", Toast.LENGTH_SHORT).show();
                                     cantidadSumar = (Long.parseLong(precioPlatillo)*cantidadAlimentosParse);
+                                    String pago = mCostoToltal.getText().toString();
+                                    montoPagar = Long.parseLong(pago);
                                     montoPagar = (montoPagar + cantidadSumar);
-                                    Map<String, Object> monto = new HashMap<>();
+                                    /*Toast.makeText(OrdenMU.this, "Se agrego el platillo y el precio", Toast.LENGTH_SHORT).show();
+                                    cantidadSumar = (Long.parseLong(precioPlatillo)*cantidadAlimentosParse);
+                                    montoPagar = (montoPagar + cantidadSumar);
+                                    */Map<String, Object> monto = new HashMap<>();
                                     monto.put("montoPagar", (montoPagar));
 
                                     db.collection("cuenta").document(idCuenta).update(monto)
@@ -141,13 +161,61 @@ public class OrdenMU extends Activity {
                                 }
                             });
 
-                    Intent intent = new Intent(OrdenMU.this, MenuLocal.class);
+                    Intent intent = new Intent(OrdenMU.this, MenuLocalMU.class);
                     intent.putExtra("idRestaurante",idRestaurante);
                     intent.putExtra("statusMesa", false);
                     intent.putExtra("statusOrden", false);
                     startActivity(intent);
                     finish();
                 }
+                /*{
+                    DocumentReference docRef = db.collection("cuenta").document(idCuenta).
+                            collection("platillos").document(idPlatillo);
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    DocumentReference doc = db.collection("cuenta").document(idCuenta).
+                                            collection("platillos").document(idPlatillo);
+
+                                    doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                            String cantidadAlimentos = mCantidadAlimentos.getText().toString();
+                                            long cantidadAlimentosParse = Long.parseLong(cantidadAlimentos);
+                                            String cantidadString = value.get("cantidad").toString();
+                                            long cantidad = Long.parseLong(cantidadString);
+                                            cantidad = cantidadAlimentosParse + cantidad;
+                                            String especificaciones = mEspecificaciones.getText().toString();
+
+                                            //colocacionDeDatosCuenta(cantidad, especificaciones,nombrePlatillo, precioPlatillo, idCuenta, idPlatillo);
+
+                                        }
+                                    });
+
+                                } else {
+                                    String cantidadAlimentos = mCantidadAlimentos.getText().toString();
+                                    long cantidadAlimentosParse = Long.parseLong(cantidadAlimentos);
+                                    String especificaciones = mEspecificaciones.getText().toString();
+
+                                    //colocacionDeDatosCuenta(cantidadAlimentosParse, especificaciones,nombrePlatillo, precioPlatillo, idCuenta, idPlatillo);
+
+                                }
+                            } else {
+
+                            }
+                        }
+                    });
+
+
+                    Intent intent = new Intent(OrdenMU.this, MenuLocalMU.class);
+                    intent.putExtra("idRestaurante",idRestaurante);
+                    intent.putExtra("idCuenta", idCuenta);
+                    startActivity(intent);
+                    finish();
+                }*/
             });
 
             mOrden.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +271,57 @@ public class OrdenMU extends Activity {
             });
         }
 
+    }
+
+    private void colocacionDeDatosCuenta(long cantidadAlimentosParse, String especificaciones,
+                                         String nombrePlatillo, String precioPlatillo, String idCuenta, String idPlatillo) {
+
+
+        Map<String, Object> platillo = new HashMap<>();
+        platillo.put("nombrePlatillo", nombrePlatillo);
+        platillo.put("cantidad", cantidadAlimentosParse);
+        if (!especificaciones.equals("")){
+            platillo.put("especificaciones", especificaciones);
+        } else {
+            platillo.put("especificaciones", "Sin especificaciones");
+        }
+        platillo.put("costo", precioPlatillo);
+
+        //String idColection  =
+        db.collection("cuenta").document(idCuenta).collection("platillos")
+                .document(idPlatillo).set(platillo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(OrdenMU.this, "Se agrego el platillo y el precio", Toast.LENGTH_SHORT).show();
+                        cantidadSumar = (Long.parseLong(precioPlatillo)*cantidadAlimentosParse);
+                        String pago = mCostoToltal.getText().toString();
+                        montoPagar = Long.parseLong(pago);
+                        montoPagar = (montoPagar + cantidadSumar);
+                        Map<String, Object> monto = new HashMap<>();
+                        monto.put("montoPagar", (montoPagar));
+
+                        db.collection("cuenta").document(idCuenta).update(monto)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(OrdenMU.this, "Good", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(OrdenMU.this, "Bad", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(OrdenMU.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void recycleViewCuenta(String idCuenta) {

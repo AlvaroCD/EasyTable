@@ -120,7 +120,7 @@
         android:textStyle="bold"
         android:layout_below="@+id/especificaciones"
         android:layout_marginBottom="10dp"
-        android:layout_alignStart="@+id/montoAPagar"
+        android:layout_alignStart="@+id/textito"
         android:layout_marginTop="20sp"
         />
 
@@ -175,11 +175,11 @@
         android:id="@+id/recyclerViewListadoOrden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/montoAPagar"
+        android:layout_above="@+id/textito"
         android:layout_toStartOf="@+id/pagar"
         android:layout_marginEnd="20dp"
         android:layout_alignTop="@id/añadir"
-        android:layout_alignStart="@+id/montoAPagar">
+        android:layout_alignStart="@+id/textito">
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
@@ -210,6 +210,18 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="22dp"/>
 
+    <TextView
+        android:id="@+id/textito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Total: $"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"/>
 <TextView
     android:id="@+id/montoAPagar"
     android:layout_width="wrap_content"
@@ -220,7 +232,20 @@
     android:text="@string/monto_strings"
     android:layout_alignParentBottom="true"
     android:layout_marginBottom="50dp"
-    android:layout_marginStart="20dp"
+    android:layout_marginStart="100dp"
     android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="MNX"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_toRightOf="@+id/montoAPagar"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"/>
+
 
 </RelativeLayout>

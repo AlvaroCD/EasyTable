@@ -47,11 +47,11 @@ public class MenuLocalMU extends Activity {
         db = FirebaseFirestore.getInstance();
 
         //Obtención de los datos de la vista PrincipalUC
-        String idCuenta = getIntent().getStringExtra("Cuenta");
+        String idCuenta = getIntent().getStringExtra("idCuenta");
         String idDelLocal = getIntent().getStringExtra("idRestaurante");
 
-        String idMesa = getIntent().getStringExtra("idMesa");
-        String idOrden = getIntent().getStringExtra("idOrden");
+       // String idMesa = getIntent().getStringExtra("idMesa");
+       // String idOrden = getIntent().getStringExtra("idOrden");
 
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
@@ -106,7 +106,7 @@ public class MenuLocalMU extends Activity {
                 boolean disponibilidadPlatillo = documentSnapshot.getBoolean("disponibilidad");
 
 
-                Intent i = new Intent(MenuLocalMU.this, Orden.class);
+                Intent i = new Intent(MenuLocalMU.this, OrdenMU.class);
 
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("precio", precio);
