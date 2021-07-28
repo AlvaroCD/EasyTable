@@ -115,6 +115,10 @@ public class AsignarMesero extends AppCompatActivity {
                         orden.put("statusPreparacion", 0);
                         orden.put("idPincipal", Global.getmIdUsuario());
                         orden.put("idCuenta", idCuenta);
+
+
+
+
                         db.collection("orden").document(idOrden).set(orden)
                                 //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -138,12 +142,17 @@ public class AsignarMesero extends AppCompatActivity {
                         //Se ingresan los datos en la estructura HashMap
                         cuenta.put("mesa", id);
                         cuenta.put("montoPagar", 0);
-                        cuenta.put("id", "10-07-2021-"+ nombre+"-mesa");
+                        cuenta.put("id", "10-07-2021-"+ nombre + id);
                         cuenta.put("idPrincipal", nombre);
                         cuenta.put("pagado", false);
                         cuenta.put("efectivo", false);
                         cuenta.put("fecha", "10-07-2021");
                         cuenta.put("idDelLocal", idRestaurante);
+
+                        /*Map<String, Object> platillos = new HashMap<>();
+                        cuenta.put("platillos", platillos);
+*/
+
 
                         db.collection("cuenta").document(idCuenta).set(cuenta)
                                 //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)

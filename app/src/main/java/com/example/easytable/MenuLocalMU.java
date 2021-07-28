@@ -106,7 +106,7 @@ public class MenuLocalMU extends Activity {
                 boolean disponibilidadPlatillo = documentSnapshot.getBoolean("disponibilidad");
 
 
-                Intent i = new Intent(MenuLocalMU.this, OrdenMU.class);
+                Intent i = new Intent(MenuLocalMU.this, Orden.class);
 
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("precio", precio);

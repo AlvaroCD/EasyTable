@@ -40,8 +40,6 @@ public class Local extends AppCompatActivity {
         //Funcion que determina que accion se realiza cuando se hace click en alguna orden
         onClick(idDelLocal);
 
-
-
     }
 
     private void onClick(String idDelLocal) {

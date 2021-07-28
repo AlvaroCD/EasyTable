@@ -1,6 +1,5 @@
 package com.example.easytable;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,11 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.util.HashMap;
@@ -52,10 +47,10 @@ public class OrdenMU extends Activity {
         boolean disponibilidadPlatillo;
 
         nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
-        precioPlatillo = getIntent().getStringExtra("precio");
         idPlatillo = getIntent().getStringExtra("idPlatillo");
+        precioPlatillo = getIntent().getStringExtra("precio");
         idRestaurante = getIntent().getStringExtra("idRestaurante");
-       // idMesa = getIntent().getStringExtra("idMesa");
+        //idMesa = getIntent().getStringExtra("idMesa");
         idCuenta = getIntent().getStringExtra("idCuenta");
         disponibilidadPlatillo = getIntent().getBooleanExtra("disponibilidadPlatillo", true);
 
@@ -81,16 +76,6 @@ public class OrdenMU extends Activity {
 
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
-
-
-        DocumentReference docRef = db.collection("cuenta").document(idCuenta);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                montoPagar = (long) value.get("montoPagar");
-            }
-        });
 
 
         mCostoToltal.setText("Total: $"+montoPagar+ " MXN");
@@ -156,13 +141,10 @@ public class OrdenMU extends Activity {
                                 }
                             });
 
-                    Intent intent = new Intent(OrdenMU.this, MenuLocalMU.class);
+                    Intent intent = new Intent(OrdenMU.this, MenuLocal.class);
                     intent.putExtra("idRestaurante",idRestaurante);
-                    intent.putExtra("idCuenta", idCuenta);
-
-                    //intent.putExtra("idMesa", idMesa);
-                   // intent.putExtra("statusMesa", false);
-                    //intent.putExtra("statusOrden", false);
+                    intent.putExtra("statusMesa", false);
+                    intent.putExtra("statusOrden", false);
                     startActivity(intent);
                     finish();
                 }

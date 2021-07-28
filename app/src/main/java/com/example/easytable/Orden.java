@@ -222,14 +222,17 @@ public class Orden extends Activity {
     private void recycleViewCuenta(String idCuenta) {
         //Consulta para obtener los datos de la BD
         Query query = db.collection("cuenta").document(idCuenta).collection("platillos");
-        FirestoreRecyclerOptions<PlatillosCuentasPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
-                .Builder<PlatillosCuentasPojo>()
-                .setQuery(query, PlatillosCuentasPojo.class).build();
+        if (query != null) {
+            FirestoreRecyclerOptions<PlatillosCuentasPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
+                    .Builder<PlatillosCuentasPojo>()
+                    .setQuery(query, PlatillosCuentasPojo.class).build();
 
-        mAdapterPlatillos = new PlatillosCuentasAdapter(firestoreRecyclerOptions);
-        mAdapterPlatillos.notifyDataSetChanged();
-        mRecyclerViewOrden.setAdapter(mAdapterPlatillos);
+            mAdapterPlatillos = new PlatillosCuentasAdapter(firestoreRecyclerOptions);
+            mAdapterPlatillos.notifyDataSetChanged();
+            mRecyclerViewOrden.setAdapter(mAdapterPlatillos);
+        }
     }
+
 
     private void recycleViewOrden(String nombrePlatillo) {
 
