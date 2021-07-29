@@ -25,6 +25,7 @@ public class ListadoPlatillosOrdenadosAdapter extends FirestoreRecyclerAdapter<L
         String cantidadParse = String.valueOf(model.getCantidad());
         holder.cantidad.setText(cantidadParse);
         holder.nombrePlatillo.setText(model.getNombrePlatillo());
+        holder.especificaciones.setText(model.getEspecificaciones());
     }
 
 
@@ -40,11 +41,12 @@ public class ListadoPlatillosOrdenadosAdapter extends FirestoreRecyclerAdapter<L
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView cantidad, nombrePlatillo;
+        TextView cantidad, nombrePlatillo, especificaciones;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cantidad = itemView.findViewById(R.id.cantidadPlatillosTxt);
             nombrePlatillo = itemView.findViewById(R.id.nombrePlatilloListadoOrden);
+            especificaciones = itemView.findViewById(R.id.indicacionesPlatillo);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

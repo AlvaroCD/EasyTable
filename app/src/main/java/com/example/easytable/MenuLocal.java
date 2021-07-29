@@ -173,6 +173,7 @@ public class MenuLocal extends Activity {
             cuenta.put(KEY_STATUSCUENTA, false);
             cuenta.put(KEY_FECHA, date);
             cuenta.put(KEY_ID_LOCAL, idDelLocal);
+            cuenta.put(KEY_STATUSPREPARACION, 0);
 
             db.collection("cuenta").document(idCuenta).set(cuenta)
                     //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)

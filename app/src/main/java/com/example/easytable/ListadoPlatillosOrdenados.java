@@ -46,7 +46,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
         setContentView(R.layout.vista_listado_platillos_ordenados);
 
         Bundle extra = getIntent().getExtras();
-        String idOrden = extra.getString("idOrden");
+        //String idOrden = extra.getString("idOrden");
         String idCuenta = extra.getString("idCuenta");
         String idDelLocal = extra.getString("idResturante");
 
@@ -59,28 +59,28 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
 
 
         //Coloca los platillos
-        recyclerViewPlatillosOrdenados(idCuenta, idDelLocal, idOrden);
+        recyclerViewPlatillosOrdenados(idCuenta, idDelLocal);
 
         //Obtencion del estatus de la preparacion de la orden
-        obtencionStatus(idOrden);
+        obtencionStatus(idCuenta);
 
 
 
         mAccionPreparacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference documentReference =  db.collection("orden").document(idOrden);
+                DocumentReference documentReference =  db.collection("cuenta").document(idCuenta);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         long statusPreparacion = (long) value.get("statusPreparacion");
                         if (statusPreparacion == 0){
                             //mAccionPreparacion.setText("Iniciar Preparación");
-                            mostrarDialogo1(idOrden);
+                            mostrarDialogo1(idCuenta);
                         }
                         else if (statusPreparacion == 1){
                             //mAccionPreparacion.setText("Terminar Preparación");
-                            mostrarDialogo2(idOrden);
+                            mostrarDialogo2(idCuenta);
                         }
                     }
                 });
@@ -88,8 +88,8 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
         });
     }
 
-    private void obtencionStatus(String idOrden) {
-        DocumentReference documentReference =  db.collection("orden").document(idOrden);
+    private void obtencionStatus(String idCuenta) {
+        DocumentReference documentReference =  db.collection("cuenta").document(idCuenta);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -102,6 +102,9 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
                 }
                 if (statusPreparacion == 2){
                     startActivity(new Intent(ListadoPlatillosOrdenados.this, PrincipalUCO.class));
+                    finish();
+                }
+                if (statusPreparacion == 3){
                     finish();
                 }
             }
@@ -120,7 +123,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
                         Map<String, Object> preparacion = new HashMap<>();
                         preparacion.put("statusPreparacion", 1);
 
-                        db.collection("orden").document(id).update(preparacion)
+                        db.collection("cuenta").document(id).update(preparacion)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -156,7 +159,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
                         Map<String, Object> preparacion = new HashMap<>();
                         preparacion.put("statusPreparacion", 2);
 
-                        db.collection("orden").document(id).update(preparacion)
+                        db.collection("cuenta").document(id).update(preparacion)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -187,7 +190,7 @@ public class ListadoPlatillosOrdenados extends AppCompatActivity {
     }
 
 
-    private void recyclerViewPlatillosOrdenados(String idCuenta, String idDelLocal, String idOrden) {
+    private void recyclerViewPlatillosOrdenados(String idCuenta, String idDelLocal) {
         //Consulta para obtener los datos de la BD
         Query query = db.collection("cuenta").document(idCuenta)
                 .collection("platillos");

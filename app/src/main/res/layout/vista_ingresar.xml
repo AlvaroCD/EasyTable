@@ -56,6 +56,15 @@
         android:layout_below="@+id/ingresarLoginButton"
         />
 
+    <Button
+        android:id="@+id/terminosCondicionesButton"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/t_rminos_y_condiciones_button_strings"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/registrarseLoginButton"
+        />
 
 
 </RelativeLayout>

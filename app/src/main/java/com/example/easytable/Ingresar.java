@@ -37,7 +37,7 @@ public class Ingresar extends AppCompatActivity {
     private static final String TAG = "Login";
 
     private EditText mCorreo, mPassword;
-    private Button mLoginButton, mRegisterButton;
+    private Button mLoginButton, mRegisterButton, mTerminosCondicionesButton;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -52,6 +52,7 @@ public class Ingresar extends AppCompatActivity {
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
         mLoginButton = (Button) findViewById(R.id.ingresarLoginButton);
         mRegisterButton = (Button) findViewById(R.id.registrarseLoginButton);
+        mTerminosCondicionesButton = findViewById(R.id.terminosCondicionesButton);
         mCorreo = (EditText) findViewById(R.id.correoUsuarioLoginTxt);
         mPassword = (EditText) findViewById(R.id.contraseñaLoginTxt);
 
@@ -78,6 +79,14 @@ public class Ingresar extends AppCompatActivity {
                 startActivity(new Intent(Ingresar.this, RegistrarUsuario.class));
             }
         });
+
+        mTerminosCondicionesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ingresar.this, TerminosCondiciones.class));
+            }
+        });
+
     }
 
     private void loginUser() {

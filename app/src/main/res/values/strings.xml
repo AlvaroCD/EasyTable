@@ -136,6 +136,15 @@
     <string name="ingresa_un_comentario_para_el_restaurante_strings">Ingresa un comentario para el restaurante</string>
     <string name="enviar_calificacion_strings">Enviar calificacion</string>
     <string name="listo_strings">Listo</string>
+    <string name="indicaciones_para_el_platillo_strings">Indicaciones para el platillo</string>
+    <string name="terminos_y_condiciones_aviso_strings">Términos y Condiciones Easy Table</string>
+    <string name="tye_1_strings">La presente Política de Privacidad establece los términos en que Easy Table usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su aplicación.</string>
+    <string name="tye_2_strings">Nuestra aplicación no recogerá información personal ingresada por usted, como por ejemplo: Nombre, información de contacto o su dirección de correo electrónico.</string>
+    <string name="tye_3_strings">Los desarrolladores de la aplicacion no venderán, cederán ni distribuirán la información personal que haya ingresado dentro de la aplicación sin su consentimiento, salvo que sea requerido por un juez con una orden judicial.</string>
+    <string name="tye_4_strings">Easy Table se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.</string>
+    <string name="tye_5_strings">Al momento de registrarse con un usuario y una contraseña en nuestra aplicación se da por entendido que ha leído los presentes términos y está de acuerdo con ellos.</string>
+    <string name="atentamente_easy_table_strings">Atentamente: Easy Table</string>
+    <string name="t_rminos_y_condiciones_button_strings">Términos y Condiciones</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

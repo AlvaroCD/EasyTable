@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".PuntuarPlatillo"></activity>
+        <activity android:name=".TerminosCondiciones"></activity>
+        <activity android:name=".PuntuarPlatillo" />
         <activity android:name=".CalificarComentar" />
         <activity android:name=".Contrasena" />
         <activity android:name=".ReservacionCliente" />
@@ -37,8 +38,8 @@
         <activity android:name=".ApartarLugarUH" />
         <activity android:name=".AsignarMesero" />
         <activity android:name=".PrincipalUH" />
-        <activity android:name=".MenuLocalMU"/>
-        <activity android:name=".OrdenMU"/>
+        <activity android:name=".MenuLocalMU" />
+        <activity android:name=".OrdenMU" />
         <activity android:name=".MeserosTrabajando" />
         <activity android:name=".ListadoPlatillosOrdenados" />
         <activity android:name=".ListadoOrdenesTerminadas" />
