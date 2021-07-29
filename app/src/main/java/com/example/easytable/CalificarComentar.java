@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -30,6 +31,7 @@ public class CalificarComentar extends AppCompatActivity {
     private EditText mComentario;
     private Button mEnviar;
     private Spinner mCalificacionRestaurante;
+    private FirebaseAuth mAuth;
 
     //Creacion de los objetos que se relacionaran con las ID's de los elementos graficos del xml
     private RecyclerView mRecyclerViewCalificar;
@@ -46,6 +48,9 @@ public class CalificarComentar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_calificar_comentar);
+
+        mAuth = FirebaseAuth.getInstance();
+        String idUsuario = mAuth.getUid();
 
         mComentario = findViewById(R.id.comentarioRestaurante);
         mEnviar = findViewById(R.id.enviarComentarioCalificacionesButton);
@@ -160,7 +165,23 @@ public class CalificarComentar extends AppCompatActivity {
                 } else {
                     Toast.makeText(CalificarComentar.this, "No hubo comentario", Toast.LENGTH_SHORT).show();
                 }
-                startActivity(new Intent(CalificarComentar.this, PrincipalUC.class));
+
+                db.collection("usuario").document(idUsuario).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String tipoUsuario = documentSnapshot.getString("tipoDeUsuario");
+                                Intent intent;
+                                if (tipoUsuario.equals("Cliente")){
+                                    intent = new Intent(CalificarComentar.this, PrincipalUC.class);
+                                }
+                                else {
+                                    intent = new Intent(CalificarComentar.this, PrincipalUM.class);
+                                }
+                                startActivity(intent);
+                            }
+                        });
+
                 finish();
             }
         });

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class ListadoOrdenesTerminadas extends AppCompatActivity {
 
     private void recyclerViewOrdenes(String idDelLocal) {
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 2)
+        Query query = db.collection("cuenta").whereEqualTo("statusPreparacion", 2)
                 .whereEqualTo("idDelLocal", idDelLocal);
 
         FirestoreRecyclerOptions<ListadoOrdenesPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoOrdenesPojo>()
@@ -80,11 +81,14 @@ public class ListadoOrdenesTerminadas extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        db.collection("orden").document(id).delete()
+                        Map <String, Object> ordenEntregada = new HashMap<>();
+                        ordenEntregada.put("statusPreparacion", 3);
+                        db.collection("cuenta").document(id).update(ordenEntregada)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ListadoOrdenesTerminadas.this, "Orden entregada", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(ListadoOrdenesTerminadas.this, PrincipalUCO.class));
                                         finish();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

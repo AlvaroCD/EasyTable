@@ -50,8 +50,8 @@ public class MenuLocalMU extends Activity {
         String idCuenta = getIntent().getStringExtra("idCuenta");
         String idDelLocal = getIntent().getStringExtra("idRestaurante");
 
-       // String idMesa = getIntent().getStringExtra("idMesa");
-       // String idOrden = getIntent().getStringExtra("idOrden");
+        String idMesa = getIntent().getStringExtra("idMesa");
+        String idOrden = getIntent().getStringExtra("idOrden");
 
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
@@ -78,7 +78,7 @@ public class MenuLocalMU extends Activity {
         recycleView(idDelLocal);
 
         //Funcion que determina que accion se realiza cuando se hace click en algun platillo
-        onClickPlatillo(idDelLocal, idCuenta);
+        onClickPlatillo(idDelLocal, idCuenta, idOrden, idMesa);
     }
     private void recycleView(String idDelLocal) {
 
@@ -94,7 +94,7 @@ public class MenuLocalMU extends Activity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void onClickPlatillo(String idDelLocal, String idCuenta) {
+    private void onClickPlatillo(String idDelLocal, String idCuenta, String idOrden, String idMesa) {
 
         mAdapter.setOnItemClickListener(new PlatilloAdapter.OnItemClickListener() {
             @Override
@@ -106,7 +106,7 @@ public class MenuLocalMU extends Activity {
                 boolean disponibilidadPlatillo = documentSnapshot.getBoolean("disponibilidad");
 
 
-                Intent i = new Intent(MenuLocalMU.this, OrdenMU.class);
+                Intent i = new Intent(MenuLocalMU.this, Orden.class);
 
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("precio", precio);
@@ -114,13 +114,14 @@ public class MenuLocalMU extends Activity {
                 i.putExtra("idRestaurante",idDelLocal);
                 i.putExtra("idCuenta", idCuenta);
                 i.putExtra("disponibilidadPlatillo", disponibilidadPlatillo);
-//              i.putExtra("idOrden", idOrden);
-//              i.putExtra("idMesa", idMesa);
+                i.putExtra("idOrden", idOrden);
+                i.putExtra("idMesa", idMesa);
 
                 startActivity(i);
             }
         });
     }
+
 
     //Metodo para que cuando el usuario esté dentro de la aplicacion, la aplicación esté actualizando los datos de la misma (datos de los Platillos)
     @Override

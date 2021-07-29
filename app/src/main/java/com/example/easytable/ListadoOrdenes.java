@@ -61,7 +61,7 @@ public class ListadoOrdenes extends AppCompatActivity {
 
     private void recyclerViewOrdenes(String idDelLocal) {
         //Consulta para obtener los datos de la BD
-        Query query = db.collection("orden").whereEqualTo("statusPreparacion", 0).whereEqualTo("idDelLocal", idDelLocal);
+        Query query = db.collection("cuenta").whereEqualTo("statusPreparacion", 0).whereEqualTo("idDelLocal", idDelLocal);
 
         FirestoreRecyclerOptions<ListadoOrdenesPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<ListadoOrdenesPojo>()
                 .setQuery(query, ListadoOrdenesPojo.class).build();
@@ -75,14 +75,13 @@ public class ListadoOrdenes extends AppCompatActivity {
         mOrdenesAdapter.setOnItemClickListener(new ListadoOrdenesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int posicion) {
-                String ID = documentSnapshot.getId();
-                DocumentReference documentReference = db.collection("orden").document(ID);
+                String idCuenta = documentSnapshot.getId();
+                DocumentReference documentReference = db.collection("cuenta").document(idCuenta);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        String idCuenta = value.get("idCuenta").toString();
                         Intent i = new Intent(ListadoOrdenes.this, ListadoPlatillosOrdenados.class);
-                        i.putExtra("idOrden", ID);
+                        //i.putExtra("idOrden", ID);
                         i.putExtra("idCuenta", idCuenta);
                         i.putExtra("idRestaurante", idDelLocal);
                         Toast.makeText(ListadoOrdenes.this, idDelLocal, Toast.LENGTH_SHORT).show();

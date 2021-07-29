@@ -117,7 +117,7 @@ public class AsignarMesero extends AppCompatActivity {
                         orden.put("idDelLocal", idRestaurante);
                         orden.put("ordenTerminadaPedir", false);
                         orden.put("statusPreparacion", 0);
-                        orden.put("idPincipal", Global.getmIdUsuario());
+                        orden.put("idPrincipal", Global.getmIdUsuario());
                         orden.put("idCuenta", idCuenta);
 
 
