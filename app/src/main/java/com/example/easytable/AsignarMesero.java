@@ -15,11 +15,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -142,7 +146,7 @@ public class AsignarMesero extends AppCompatActivity {
                         //Se ingresan los datos en la estructura HashMap
                         cuenta.put("mesa", id);
                         cuenta.put("montoPagar", 0);
-                        cuenta.put("id", "10-07-2021-"+ nombre + id);
+                        cuenta.put("id", "" + date + nombre + id);
                         cuenta.put("idPrincipal", nombre);
                         cuenta.put("pagado", false);
                         cuenta.put("efectivo", false);
@@ -185,7 +189,7 @@ public class AsignarMesero extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
                             }
                         })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -194,7 +198,7 @@ public class AsignarMesero extends AppCompatActivity {
                                         Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                        Toast.makeText(AsignarMesero.this, "Mesero asignado", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AsignarMesero.this, "Mesero asignado", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -208,21 +212,49 @@ public class AsignarMesero extends AppCompatActivity {
 
     private void colocacionCuenta(String idCuenta){
 
-        Map<String, Object> disponibilidadActualizada = new HashMap<>();
-        disponibilidadActualizada.put("Cuenta", idCuenta);
-        db.collection("usuario").document("SYk8clanzOSPOpE2AMNNDfF6q4i1").update(disponibilidadActualizada)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+        Query query = db.collection("usuario")
+                .whereEqualTo("tipoDeUsuario", "Mesero")
+                .whereEqualTo("online", true)
+                .whereEqualTo("Puntuacion", 0)
+          //      .orderBy("Puntuacion", Query.Direction.ASCENDING)
+                .limit(1);
+        //Toast.makeText(AsignarMesero.this, "Nombre", Toast.LENGTH_SHORT).show();
+        //query.get();
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                        Toast.makeText(AsignarMesero.this, documentSnapshot.getId(), Toast.LENGTH_LONG).show();
+                        Map<String, Object> disponibilidadActualizada = new HashMap<>();
+                        disponibilidadActualizada.put("cuenta", idCuenta);
+                        db.collection("usuario").document(documentSnapshot.getId()).update(disponibilidadActualizada)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                   }
+                }
+                else {
+                    Toast.makeText(AsignarMesero.this, "Nombre", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
+
+
 
     }
 
