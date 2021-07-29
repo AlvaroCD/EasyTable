@@ -234,18 +234,7 @@
     android:layout_marginBottom="50dp"
     android:layout_marginStart="100dp"
     android:layout_marginTop="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="MNX"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:layout_toRightOf="@+id/montoAPagar"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"/>
+
 
 
 </RelativeLayout>

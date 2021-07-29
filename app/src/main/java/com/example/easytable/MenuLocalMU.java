@@ -50,8 +50,8 @@ public class MenuLocalMU extends Activity {
         String idCuenta = getIntent().getStringExtra("idCuenta");
         String idDelLocal = getIntent().getStringExtra("idRestaurante");
 
-       // String idMesa = getIntent().getStringExtra("idMesa");
-       // String idOrden = getIntent().getStringExtra("idOrden");
+        String idMesa = getIntent().getStringExtra("idMesa");
+        String idOrden = getIntent().getStringExtra("idOrden");
 
 
         //Relacion e inicialización de las variables con los identificadores (id's) de la parte grafica (xml)
@@ -106,7 +106,7 @@ public class MenuLocalMU extends Activity {
                 boolean disponibilidadPlatillo = documentSnapshot.getBoolean("disponibilidad");
 
 
-                Intent i = new Intent(MenuLocalMU.this, OrdenMU.class);
+                Intent i = new Intent(MenuLocalMU.this, Orden.class);
 
                 i.putExtra("nombrePlatillo", nombrePlatillo);
                 i.putExtra("precio", precio);

@@ -97,7 +97,7 @@ public class Orden extends Activity {
         db = FirebaseFirestore.getInstance();
 
 
-        mCostoToltal.setText("Total: $"+montoPagar+ " MXN");
+        mCostoToltal.setText(montoPagar+ " MXN");
         mCantidadAlimentos.setText(""+cantidadAlimentos);
 
         recycleViewOrden(nombrePlatillo);
@@ -243,7 +243,7 @@ public class Orden extends Activity {
     private void recycleViewCuenta(String idCuenta) {
         //Consulta para obtener los datos de la BD
         Query query = db.collection("cuenta").document(idCuenta).collection("platillos");
-
+        if (query != null) {
             FirestoreRecyclerOptions<PlatillosCuentasPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
                     .Builder<PlatillosCuentasPojo>()
                     .setQuery(query, PlatillosCuentasPojo.class).build();
@@ -251,7 +251,7 @@ public class Orden extends Activity {
             mAdapterPlatillos = new PlatillosCuentasAdapter(firestoreRecyclerOptions);
             mAdapterPlatillos.notifyDataSetChanged();
             mRecyclerViewOrden.setAdapter(mAdapterPlatillos);
-
+        }
     }
 
 

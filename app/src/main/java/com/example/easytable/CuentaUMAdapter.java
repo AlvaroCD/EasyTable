@@ -40,7 +40,7 @@ public class CuentaUMAdapter extends FirestoreRecyclerAdapter<MeserosPojo, Cuent
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull MeserosPojo model) {
         String cuenta = model.getCuenta();
-        holder.nombreUsuario.setText("hola");
+        holder.nombreUsuario.setText("Nombre del Comensal");
         //Instanciación de Firebase Authentication y de Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
