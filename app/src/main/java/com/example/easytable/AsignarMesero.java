@@ -1,6 +1,7 @@
 package com.example.easytable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,8 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,7 +40,7 @@ public class AsignarMesero extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private MesaAdapter mMesaAdapter;
-
+    private static long puntaje, puntajefinal;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -230,6 +234,7 @@ public class AsignarMesero extends AppCompatActivity {
                         Toast.makeText(AsignarMesero.this, documentSnapshot.getId(), Toast.LENGTH_LONG).show();
                         Map<String, Object> disponibilidadActualizada = new HashMap<>();
                         disponibilidadActualizada.put("cuenta", idCuenta);
+                        disponibilidadActualizada.put("Puntuacion", 3);
                         db.collection("usuario").document(documentSnapshot.getId()).update(disponibilidadActualizada)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -243,6 +248,33 @@ public class AsignarMesero extends AppCompatActivity {
                                         Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
+                        ///Colocacion de 3 puntos
+                      /*  final DocumentReference doc = db.collection("usuario").document(documentSnapshot.getId());
+                        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                 //puntaje = 0;
+                                 //puntajefinal = puntaje + 3;
+                                Map<String, Object> cambioPuntaje = new HashMap<>();
+                                cambioPuntaje.put("Puntuacion", 3);
+                                db.collection("usuario").document(documentSnapshot.getId()).update(disponibilidadActualizada)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(AsignarMesero.this, "Good", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(AsignarMesero.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        });*/
+
+
                    }
                 }
                 else {
