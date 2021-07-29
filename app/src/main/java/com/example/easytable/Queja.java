@@ -18,10 +18,22 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class Queja extends AppCompatActivity {
 
     private EditText mDescripcionQueja;
     private ImageButton mEnviarQueja;
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //Elemento para poder crear notificaciones
     private NotificationCompat.Builder notificacion;
@@ -39,6 +51,10 @@ public class Queja extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)       //Esta linea sirve para poder indicar el nivel de API de android necesaria para mostrar notificaciones
             @Override
             public void onClick(View v) {
+
+                String idMesa = getIntent().getStringExtra("idMesa");
+                String idRestaurante = getIntent().getStringExtra("idRestaurante");
+
                 String id ="channel_1";//id of channel
                 String numeroMesa = "3";//Description information of channel
                 String problema = mDescripcionQueja.getText().toString();
@@ -65,6 +81,28 @@ public class Queja extends AppCompatActivity {
                         .setAutoCancel(true)
                         .build();
                 manager.notify(1,notification);
+
+                String idUsuario = mAuth.getUid();
+                db.collection("usuario").document(idUsuario).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                            }
+                        });
+                String idQueja = UUID.randomUUID().toString();
+                Map<String, Object> queja = new HashMap<>();
+                queja.put("quejaCliente", problema);
+                queja.put("mesa", idMesa);
+                queja.put("idDelLocal", idRestaurante);
+                db.collection("quejas").document(idQueja).set(queja)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Queja.this, "Queja enviada al administrador", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
 
                 Toast.makeText(Queja.this, "Presionado", Toast.LENGTH_SHORT).show();
             }

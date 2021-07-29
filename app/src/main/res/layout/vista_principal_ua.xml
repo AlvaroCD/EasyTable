@@ -42,6 +42,14 @@
         />
 
     <Button
+        android:id="@+id/quejasRecibidasButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quejas_de_los_clientes_strings"
+        android:layout_marginTop="35dp"
+        />
+
+    <Button
         android:id="@+id/LogOutButtonAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

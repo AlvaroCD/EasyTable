@@ -197,6 +197,8 @@ public class Orden extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Orden.this, Queja.class);
+                    intent.putExtra("idMesa", idMesa);
+                    intent.putExtra("idRestaurante", idRestaurante);
                     startActivity(intent);
                 }
             });

@@ -28,7 +28,7 @@ public class PrincipalUM extends Activity {
 
     private RecyclerView mRecyclerView;
     private CuentaUMAdapter mAdapter;
-    private Button mLogOut;
+    private Button mOrdenesTerminadas, mLogOut;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -45,6 +45,7 @@ public class PrincipalUM extends Activity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoCuentasUM);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(PrincipalUM.this));
 
+        mOrdenesTerminadas = findViewById(R.id.ordenesTerminadasMeseroButton);
         mLogOut = findViewById(R.id.LogOutButtonMesero);
 
         //Coloca los restaurantes
@@ -52,15 +53,33 @@ public class PrincipalUM extends Activity {
 
         onClickCuenta();
 
-        mLogOut.setOnClickListener(new View.OnClickListener() {
+        String idUsuarioLogueado = mAuth.getUid();
+        DocumentReference doc = db.collection("usuario").document(idUsuarioLogueado);
+        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                String id = mAuth.getUid();
-                Map<String, Object> online = new HashMap<>();
-                online.put("online", false);
-                db.collection("usuario").document(id).update(online);
-                mAuth.signOut();
-                finish();
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String idRestaurante = value.get("IDRestReg").toString();
+
+                mOrdenesTerminadas.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUM.this, ListadoOrdenesTerminadas.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
+                    }
+                });
+
+                mLogOut.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String id = mAuth.getUid();
+                        Map<String, Object> online = new HashMap<>();
+                        online.put("online", false);
+                        db.collection("usuario").document(id).update(online);
+                        mAuth.signOut();
+                        finish();
+                    }
+                });
             }
         });
 

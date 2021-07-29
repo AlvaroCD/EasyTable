@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class PrincipalUA extends AppCompatActivity {
 
-    private Button mPlatillos, mLocal, mRecursos, mMeserosTrabajando, mLogOut;
+    private Button mPlatillos, mLocal, mRecursos, mMeserosTrabajando, mQuejasRecibidas, mLogOut;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -34,6 +34,7 @@ public class PrincipalUA extends AppCompatActivity {
         mLocal = findViewById(R.id.localButton);
         mRecursos = findViewById(R.id.recursosButton);
         mMeserosTrabajando = findViewById(R.id.meserosTrabajandoButton);
+        mQuejasRecibidas = findViewById(R.id.quejasRecibidasButton);
         mLogOut = findViewById(R.id.LogOutButtonAdmin);
 
         //Firebase
@@ -83,6 +84,15 @@ public class PrincipalUA extends AppCompatActivity {
                         i.putExtra("idRestaurante", idRestaurante);
                         startActivity(i);
                         Toast.makeText(PrincipalUA.this, "Meseros Trabajando", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                mQuejasRecibidas.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(PrincipalUA.this, ListadoQuejas.class);
+                        i.putExtra("idRestaurante", idRestaurante);
+                        startActivity(i);
                     }
                 });
             }
