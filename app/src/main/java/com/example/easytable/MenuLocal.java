@@ -55,7 +55,6 @@ public class MenuLocal extends Activity {
     private static final String KEY_MONTOPAGAR = "montoPagar";
     private static final String KEY_ID = "id";
     private static final String KEY_IDUSUARIO = "idPrincipal";
-    private static final String KEY_MATRIZUSUARIOS = "matrizUsuarios";
     private static final String KEY_STATUSCUENTA = "pagado";
     private static final String KEY_METODOPAGO = "efectivo";
     private static final String KEY_FECHA = "fecha";
@@ -141,22 +140,24 @@ public class MenuLocal extends Activity {
             orden.put(KEY_STATUSPREPARACION, 0);
             orden.put(KEY_IDUSUARIO, idUsuario);
             orden.put(KEY_ID_CUENTA, idCuenta);
-            Toast.makeText(this, idMesa, Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
-            db.collection("orden").document(idOrden).set(orden)
-                    //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                        }
-                    })
-                    //Listener que indica si la creacion del usuario fue incorrecta
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MenuLocal.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+//            Toast.makeText(this, idMesa, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, idDelLocal, Toast.LENGTH_SHORT).show();
+
+
+//            db.collection("orden").document(idOrden).set(orden)
+//                    //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
+//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                        }
+//                    })
+//                    //Listener que indica si la creacion del usuario fue incorrecta
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(MenuLocal.this, "Error", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
 
 
 
@@ -172,7 +173,6 @@ public class MenuLocal extends Activity {
             cuenta.put(KEY_STATUSCUENTA, false);
             cuenta.put(KEY_FECHA, date);
             cuenta.put(KEY_ID_LOCAL, idDelLocal);
-            cuenta.put(KEY_MATRIZUSUARIOS, Collections.emptyList());
 
             db.collection("cuenta").document(idCuenta).set(cuenta)
                     //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
@@ -189,8 +189,8 @@ public class MenuLocal extends Activity {
                         }
                     });
 
-            final DocumentReference statusMesaCambio = db.collection("mesa").document(idMesa);
-            statusMesaCambio.update("statusMesa", false);
+//            final DocumentReference statusMesaCambio = db.collection("mesa").document(idMesa);
+//            statusMesaCambio.update("statusMesa", false);
         }
 
         else{

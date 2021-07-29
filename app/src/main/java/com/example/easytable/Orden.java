@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -46,6 +47,8 @@ public class Orden extends Activity {
 
     private static long cantidadSumar, montoPagar, cantidadAlimentos=1;
 
+    private FirebaseAuth mAuth;
+
     //Objetos para utilizar las dependencias
     private FirebaseFirestore db;
 
@@ -56,6 +59,10 @@ public class Orden extends Activity {
 
         String nombrePlatillo, idOrden, idRestaurante, idMesa, idCuenta, idPlatillo, precioPlatillo;
         boolean disponibilidadPlatillo;
+
+        mAuth = FirebaseAuth.getInstance();
+
+        String idUsuario = mAuth.getUid();
 
         nombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
         idPlatillo = getIntent().getStringExtra("idPlatillo");
@@ -153,13 +160,27 @@ public class Orden extends Activity {
                                 }
                             });
 
-                    Intent intent = new Intent(Orden.this, MenuLocal.class);
-                    intent.putExtra("idRestaurante",idRestaurante);
-                    intent.putExtra("idMesa", idMesa);
-                    intent.putExtra("statusMesa", false);
-                    intent.putExtra("statusOrden", false);
-                    intent.putExtra("idOrden", idOrden);
-                    startActivity(intent);
+                    db.collection("usuario").document(idUsuario).get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    String tipoUsuario = documentSnapshot.getString("tipoDeUsuario");
+                                    Intent intent;
+                                    if (tipoUsuario.equals("Cliente")){
+                                        intent = new Intent(Orden.this, MenuLocal.class);
+                                    }
+                                    else {
+                                        intent = new Intent(Orden.this, MenuLocalMU.class);
+                                    }
+                                    intent.putExtra("idRestaurante",idRestaurante);
+                                    intent.putExtra("idMesa", idMesa);
+                                    intent.putExtra("statusMesa", false);
+                                    intent.putExtra("statusOrden", false);
+                                    intent.putExtra("idOrden", idOrden);
+                                    intent.putExtra("idCuenta", idCuenta);
+                                    startActivity(intent);
+                                }
+                            });
                     finish();
                 }
             });
