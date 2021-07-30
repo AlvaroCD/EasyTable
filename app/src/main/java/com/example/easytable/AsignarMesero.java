@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -42,6 +43,7 @@ public class AsignarMesero extends AppCompatActivity {
     private MesaAdapter mMesaAdapter;
     private static long puntaje, puntajefinal;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,39 +113,6 @@ public class AsignarMesero extends AppCompatActivity {
                         //Aqui se crea un Id con la propiedad random para prevenir que los identificadores de los usuarios se repitan
                         String idCuenta = date + "-" + nombre + "-" + id;
 
-                        String idOrden = UUID.randomUUID().toString();
-
-                        //Se crea una estructura de datos HashMap para poder guardar los datos de la orden
-                        Map<String, Object> orden = new HashMap<>();
-
-                        //Se ingresan los datos en la estructura HashMap
-                        orden.put("mesa", id);
-                        orden.put("idDelLocal", idRestaurante);
-                        orden.put("ordenTerminadaPedir", false);
-                        orden.put("statusPreparacion", 0);
-                        orden.put("idPrincipal", Global.getmIdUsuario());
-                        orden.put("idCuenta", idCuenta);
-
-
-
-
-                        db.collection("orden").document(idOrden).set(orden)
-                                //Listener que indica si la creacion del usuario fue correcta (es similar a un try-catch)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                    }
-                                })
-                                //Listener que indica si la creacion del usuario fue incorrecta
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(AsignarMesero.this, "Error", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-
-
                         //Se crea una estructura de datos HashMap para poder guardar los datos de la cuenta
                         Map<String, Object> cuenta = new HashMap<>();
 
@@ -154,12 +123,9 @@ public class AsignarMesero extends AppCompatActivity {
                         cuenta.put("idPrincipal", nombre);
                         cuenta.put("pagado", false);
                         cuenta.put("efectivo", false);
-                        cuenta.put("fecha", "10-07-2021");
+                        cuenta.put("fecha", date);
                         cuenta.put("idDelLocal", idRestaurante);
-
-                        /*Map<String, Object> platillos = new HashMap<>();
-                        cuenta.put("platillos", platillos);
-*/
+                        cuenta.put("statusPreparacion", 0);
 
 
                         db.collection("cuenta").document(idCuenta).set(cuenta)
@@ -215,7 +181,6 @@ public class AsignarMesero extends AppCompatActivity {
     }
 
     private void colocacionCuenta(String idCuenta){
-
 
         Query query = db.collection("usuario")
                 .whereEqualTo("tipoDeUsuario", "Mesero")
