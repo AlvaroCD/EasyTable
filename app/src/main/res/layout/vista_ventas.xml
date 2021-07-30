@@ -28,7 +28,7 @@
         android:layout_marginTop="50dp"
         android:text="MXN"
         android:layout_gravity="center"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textColor="@color/black"
         />
 

@@ -43,32 +43,15 @@ public class Ventas extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         String idRestaurante = extra.getString("idRestaurante");
 
-        Query doc = db.collection("cuenta").whereEqualTo("idDelLocal", idRestaurante);
-        doc.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        DocumentReference doc = db.collection("restaurante").document(idRestaurante);
+        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-                        DocumentReference docRef = db.collection("cuenta").document(document.getId());
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists())
-                                        Toast.makeText(Ventas.this, document.getId()+ "    :->           "
-                                                +document.get("montoPagar").toString(), Toast.LENGTH_SHORT).show();
-                                    else {
-                                    }
-
-                                } else {
-                                }
-                            }
-                        });
-                    }
-                }
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String ventas = value.getString("ventas");
+                mTotalVentas.setText("$"+ventas+"   MXN");
             }
         });
+
+
     }
 }

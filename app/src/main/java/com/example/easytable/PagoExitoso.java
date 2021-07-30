@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -18,6 +20,8 @@ public class PagoExitoso extends AppCompatActivity {
     private Button mRegresar, mCalificar;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
+    private static long sumadorVentas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +38,21 @@ public class PagoExitoso extends AppCompatActivity {
         String idRestaurante = getIntent().getStringExtra("idRestaurante");
         String idCuenta = getIntent().getStringExtra("idCuenta");
 
-        Map<String, Object> ventas = new HashMap<>();
-        ventas.put("ventas", montoPagado);
-        db.collection("restaurante").document(idRestaurante).update(ventas);
+
+        db.collection("restaurante").document(idRestaurante).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String sumadorVentasString = documentSnapshot.getString("ventas");
+                        sumadorVentas = Long.parseLong(sumadorVentasString);
+                        long montoPagadoParse = Long.parseLong(montoPagado);
+                        sumadorVentas = montoPagadoParse+sumadorVentas;
+                        sumadorVentasString = String.valueOf(sumadorVentas);
+                        Map<String, Object> ventas = new HashMap<>();
+                        ventas.put("ventas", sumadorVentasString);
+                        db.collection("restaurante").document(idRestaurante).update(ventas);
+                    }
+                });
 
         Map<String, Object> updateCuenta = new HashMap<>();
         updateCuenta.put("pagado", true);
