@@ -213,6 +213,10 @@ public class OrdenMU extends Activity {
                     Intent intent = new Intent(OrdenMU.this, MenuLocalMU.class);
                     intent.putExtra("idRestaurante",idRestaurante);
                     intent.putExtra("idCuenta", idCuenta);
+
+                    //intent.putExtra("idMesa", idMesa);
+                   // intent.putExtra("statusMesa", false);
+                    //intent.putExtra("statusOrden", false);
                     startActivity(intent);
                     finish();
                 }*/

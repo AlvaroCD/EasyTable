@@ -163,7 +163,6 @@ public class PrincipalUM extends Activity {
        // Toast.makeText(PrincipalUM.this, idMesero, Toast.LENGTH_LONG).show();
         //Consulta para obtener los datos de la BD
         Query query = db.collection("usuario").whereEqualTo("ID", idMesero);
-
         FirestoreRecyclerOptions<MeserosPojo> firestoreRecyclerOptions = new FirestoreRecyclerOptions
                 .Builder<MeserosPojo>()
                 .setQuery(query, MeserosPojo.class).build();
