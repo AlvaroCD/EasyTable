@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".PagoEfectivo">
+    tools:context=".CobrarCuentaEfectivo">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,36 +19,24 @@
         android:layout_marginTop="25dp"
         />
 
-     <TextView
-         android:id="@+id/avisoPagar"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="@string/paga_la_cantidad_de"
-         android:textSize="25sp"
-         android:textColor="@color/black"
-         android:layout_gravity="center"
-         android:layout_marginTop="50dp"
-         />
-
     <TextView
-        android:id="@+id/avisoPagar2"
-        android:layout_width="250dp"
+        android:id="@+id/avisoCobrar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/aviso_pago_realizado_strings"
-        android:textSize="18sp"
+        android:text="@string/cobra_la_cantidad_de_strings"
+        android:textSize="25sp"
         android:textColor="@color/black"
         android:layout_gravity="center"
-        android:textAlignment="center"
         android:layout_marginTop="50dp"
         />
 
     <Button
-        android:id="@+id/entendidoButton"
+        android:id="@+id/cobroButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/pago_realizado_strings"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="55dp"
         />
 
 </LinearLayout>
