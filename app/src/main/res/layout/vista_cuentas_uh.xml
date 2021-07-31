@@ -7,13 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:gravity="center"
     tools:context=".CuentasUH">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewRecibirCuentasUH"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <Button
+        android:id="@+id/cuentasPagadasUH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cuentas_pagadas_strings"
+        />
+
+    <Button
+        android:id="@+id/cuentasSinPagarUH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cuentas_sin_pagar_strings"
+        android:layout_marginTop="30dp"
         />
 
 
