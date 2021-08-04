@@ -134,6 +134,7 @@ public class RegistrarEmpleado extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                Toast.makeText(RegistrarEmpleado.this, "Empleado añadido con exito", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
                                         })

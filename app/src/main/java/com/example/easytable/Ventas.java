@@ -50,6 +50,18 @@ public class Ventas extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         String idRestaurante = extra.getString("idRestaurante");
         recyclerViewRestaurante(idRestaurante);
+
+        DocumentReference doc = db.collection("restaurante").document(idRestaurante);
+        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String ventas = value.getString("ventas");
+                mTotalVentas.setText("$"+ventas+"   MXN");
+            }
+        });
+
+
+
        /* Query doc = db.collection("cuenta").whereEqualTo("idDelLocal", idRestaurante);
         doc.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
