@@ -110,8 +110,7 @@ public class ApartarLugar extends Activity {
         });
 
         mAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            @Override public void onClick(View v) {
                 String persona = mPersonas.getText().toString();
 
                 if (!persona.isEmpty() && !getHora.isEmpty() && !getMin.isEmpty()) {
