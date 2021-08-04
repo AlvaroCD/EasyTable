@@ -69,9 +69,9 @@ public class PrincipalUC extends Activity implements ZXingScannerView.ResultHand
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        //Instanciacion del Recycler View
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoRestaurantes);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            //Instanciacion del Recycler View
+            mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewListadoRestaurantes);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Coloca los restaurantes
         recyclerViewRestaurante();
