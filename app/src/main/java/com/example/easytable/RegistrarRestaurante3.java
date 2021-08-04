@@ -114,6 +114,7 @@ public class RegistrarRestaurante3 extends AppCompatActivity {
                     restaurante.put(KEY_DESCRIPCION, descripcion);
                     restaurante.put(KEY_CALIFICACION, 5);
                     restaurante.put(KEY_USUARIOSCALIFICACION, 1);
+                    restaurante.put("ventas", "0");
 
                     //Aqui se indica con que nombre se creará la coleccion y el ID de cada restaurante en la BD
                     //(se usa el ID generado anteriormente para agregar la informacion al mismo restaurante)
