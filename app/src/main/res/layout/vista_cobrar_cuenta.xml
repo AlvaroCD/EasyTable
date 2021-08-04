@@ -7,40 +7,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Ventas">
-
+    tools:context=".CobrarCuentaEfectivo">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/ventas_totales_del_local_strings"
+        android:text="@string/pago_en_efectivo_strings"
         android:textColor="@color/black"
-        android:textSize="25sp"
-        android:layout_marginTop="30dp"
+        android:textSize="35sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
         />
 
-
     <TextView
-        android:id="@+id/totalVentas"
+        android:id="@+id/avisoCobrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/cobra_la_cantidad_de_strings"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="MXN"
-        android:layout_gravity="center"
-        android:textSize="25sp"
-        android:textColor="@color/black"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewListadoVentasx"
+    <Button
+        android:id="@+id/cobroButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/codigoQR"
-        android:layout_marginTop="100dp"
-        android:layout_above="@+id/LogOutButton2"
-        android:layout_marginBottom="5dp">
-    </androidx.recyclerview.widget.RecyclerView>
-
+        android:layout_gravity="center"
+        android:text="@string/pago_realizado_strings"
+        android:layout_marginTop="55dp"
+        />
 
 </LinearLayout>

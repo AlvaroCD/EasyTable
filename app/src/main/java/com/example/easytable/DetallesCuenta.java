@@ -31,6 +31,7 @@ public class DetallesCuenta extends AppCompatActivity {
         mRecyclerViewDetallesCuenta = findViewById(R.id.recyclerViewDetallesCuenta);
         mRecyclerViewDetallesCuenta.setLayoutManager(new LinearLayoutManager(this));
 
+        //mMetodoPago tambien se usara como contenedor para poner "Sin pago" cuando no se haya pagado la cuenta
         mMetodoPago = findViewById(R.id.metodoPagoDetallesCuenta);
         mMontoPagado = findViewById(R.id.montoPagadoDetallesCuenta);
         mFecha = findViewById(R.id.fechaDetallesCuenta);
@@ -38,21 +39,26 @@ public class DetallesCuenta extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         String idCuenta = extra.getString("idCuenta");
         boolean metodoPago = extra.getBoolean("metodoPago");
+        boolean pagado = extra.getBoolean("pagado");
         long montoPagado = extra.getLong("montoPagado");
         String fecha = extra.getString("fecha");
 
         //Coloca los nombres
         recyclerViewDetallesCuenta(idCuenta);
 
-        if (metodoPago){
-            mMetodoPago.setText("Método de Pago: Efectivo");
+        if (pagado){
+            if (metodoPago){
+                mMetodoPago.setText("Método de Pago: Efectivo");
+            }
+            else {
+                mMetodoPago.setText("Método de Pago: Tarjeta/Paypal");
+            }
         }
         else {
-            mMetodoPago.setText("Método de Pago: Tarjeta/Paypal");
+            mMetodoPago.setText("Método de Pago: Aún no se ha pagado");
         }
         mMontoPagado.setText("Total: $" + montoPagado + " MXN");
         mFecha.setText("Fecha: "+fecha);
-
     }
 
     private void recyclerViewDetallesCuenta(String idCuenta) {

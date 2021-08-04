@@ -16,7 +16,12 @@
         android:roundIcon="@mipmap/logo_easytable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTable">
-        <activity android:name=".ListadoQuejas"></activity>
+        <activity android:name=".MenuCuentasPyNP" />
+        <activity android:name=".ListadoCuentasSinPagar" />
+        <activity android:name=".ListadoCuentasPE" />
+        <activity android:name=".ListadoCuentasPD" />
+        <activity android:name=".CobrarCuentaEfectivo" />
+        <activity android:name=".ListadoQuejas" />
         <activity android:name=".TerminosCondiciones" />
         <activity android:name=".PuntuarPlatillo" />
         <activity android:name=".CalificarComentar" />

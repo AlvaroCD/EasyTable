@@ -146,6 +146,13 @@
     <string name="atentamente_easy_table_strings">Atentamente: Easy Table</string>
     <string name="t_rminos_y_condiciones_button_strings">Términos y Condiciones</string>
     <string name="quejas_de_los_clientes_strings">Quejas de los clientes</string>
+    <string name="cobra_la_cantidad_de_strings">Cobra la cantidad de</string>
+    <string name="pago_realizado_strings">Pago Realizado</string>
+    <string name="aviso_pago_realizado_strings">Una vez hecho el pago al mesero, porfavor presiona el botón "PAGO REALIZADO"</string>
+    <string name="cuentas_pagadas_strings">Cuentas pagadas</string>
+    <string name="cuentas_sin_pagar_strings">Cuentas Sin Pagar</string>
+    <string name="tarjeta_paypal_strings">Tarjeta/Paypal</string>
+    <string name="efectivo_strings">Efectivo</string>
     <string-array name="metodos_pago_strings">
         <item>Efectivo</item>
         <item>Tarjeta/Paypal</item>

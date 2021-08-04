@@ -6,24 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:gravity="center"
-    tools:context=".CuentasUH">
-
+    android:padding="16dp"
+    tools:context=".MenuCuentasPyNP">
 
     <Button
-        android:id="@+id/cuentasPagadasUH"
-        android:layout_width="wrap_content"
+        android:id="@+id/cuentasPagadasEfectivo"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:text="@string/cuentas_pagadas_strings"
+        android:text="@string/efectivo_strings"
         />
 
     <Button
-        android:id="@+id/cuentasSinPagarUH"
-        android:layout_width="wrap_content"
+        android:id="@+id/cuentasPagadasPaypal"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:text="@string/cuentas_sin_pagar_strings"
-        android:layout_marginTop="30dp"
+        android:text="@string/tarjeta_paypal_strings"
+        android:layout_marginTop="50dp"
         />
 
 

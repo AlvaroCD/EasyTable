@@ -188,6 +188,22 @@ public class Orden extends Activity {
             mOrden.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Map<String, Object> actualizarStatusMesa = new HashMap<>();
+                    actualizarStatusMesa.put("statusMesa", true);
+
+                    db.collection("mesa").document(idMesa).update(actualizarStatusMesa)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(Orden.this, "La mesa se ha ocupado", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(Orden.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                     Toast.makeText(Orden.this, "Platillos Ordenados", Toast.LENGTH_SHORT).show();
                     finish();
                 }
