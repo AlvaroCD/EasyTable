@@ -78,6 +78,7 @@ public class VentasAdapter extends FirestoreRecyclerAdapter<VentasPojo, VentasAd
             numMesa = itemView.findViewById(R.id.numeroMesaUtilizada);
             monto = itemView.findViewById(R.id.CantidadPagada);
 
+
         }
     }
 }
